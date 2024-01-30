@@ -1,0 +1,77 @@
+
+//btn basic
+@mixin btnBasic() {
+  cursor: pointer;
+  // display: block;
+  align-items: center;
+  justify-content: center;
+  border:none;
+}
+
+@mixin btnBasiccc() {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border:none;
+}
+
+//btn bgc
+@mixin btnColor($bgc, $border: false) {
+  @if $border {
+    border: 1px solid $bgc;
+    background-color: transparent;
+    color: $bgc;
+    &:hover {
+      background-color: $bgc;
+      color: $white-1;
+    }
+  } @else {
+    background-color: $bgc;
+    color: $white-1;
+    &:hover {
+      background-color: darken($bgc, 10);
+    }
+  }
+}
+
+// RWD
+//原則上是由小寫到大，但有寫反的可以用這個補救。
+@mixin M(){
+  @media all and (min-width: $M) {
+    //Mobile 480px;
+    @content;
+  }
+}
+
+@mixin T() {
+  @media all and (min-width: $T) {
+    //Tablet 768px;
+    @content;
+  }
+}
+
+@mixin PC() {
+  @media all and (min-width: $PC) {
+    //PC 1024px
+    @content;
+  }
+}
+
+
+//格線系統
+@mixin grid($col, $b: null) {
+  @if $b == null {
+    @for $i from 1 through $col {
+      .col-#{$i} {
+        width: calc(100% / $col) * $i;
+      }
+    }
+  } @else {
+    @for $i from 1 through $col {
+      .col-#{$b}-#{$i} {
+        width: calc(100% / $col) * $i;
+      }
+    }
+  }
+}
