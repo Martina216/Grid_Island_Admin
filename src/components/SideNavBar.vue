@@ -1,11 +1,11 @@
 <template>
   <div class="sideNavBar">
-    <div class="col-2 px-0 bg-info fixed-top min-vh-100">
+    <div class="col-2 px-0 bg-blue fixed-top min-vh-100">
       <div class="d-flex flex-column px-3 pt-2">
         <RouterLink to="/" class="d-flex pb-3 text-white text-decoration-none">
-          <img src="@/assets/images/sideNavbar/admitLogo.svg" alt="" />
+          <img class="logo" src="@/assets/images/sideNavbar/admitLogo.svg" alt="grid_island_logo" />
         </RouterLink>
-        <ul class="nav nav-pills flex-column" id="menu">
+        <ul class="gap nav nav-pills flex-column" id="menu">
           <li class="nav-item">
             <RouterLink to="/member" class="nav-link align-middle px-0">
               <span class="ms-1 text-dark fs-5">會員管理</span>

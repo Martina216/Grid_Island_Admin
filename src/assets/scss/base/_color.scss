@@ -1,15 +1,21 @@
+$SuccColor: #9EEB63;
+$Warning: #F34E4E;
+
+
 // blue
-$blue-1: #a1d4e5;
-$blue-2: #537ce6;
-$blue-3: #4e5d71;
-$blue-4: #282e36;
+$blue-1: #DEF7FF;
+$blue-2: #D6EEF6;
+$blue-3: #A1D4E5;
+$blue-4: #7BB9FA;
+$blue-5: #537CE6;
 
 // green
-$green-1: #d6ef8a;
-$green-2: #1caa90;
+$green-1: #EAFFAC;
+$green-2: #D6EF8A;
+
 
 // red
-$red: #fd7676;
+$red-1: #fd7676;
 
 // orange
 $orange-1: #ffb866;
@@ -22,37 +28,18 @@ $yellow: #fbeca9;
 $purple: #c58cfd;
 
 // gray
-$gray-1: #dde6e9;
-$gray-2: #aaaaaa;
+$gray-1: #FDFDFD;
+$gray-2: #F8F8F8;
+$gray-3: #DDDDDD;
+$gray-4: #A6A6A6;
+$gray-5: #5F5F5F;
 
 // white
 $white-1: #ffffff;
 $white-2: #f9f9f9;
 
 // black
-$black: #000000;
+$black-1: #242529;
 
 //transparent
 $transp: #fff0;
-
-//background-color各頁背景顏色========================
-$bgc-1: $white-1;
-$bgc-2: $blue-1;
-$bgc-3: $blue-2;
-$bgc-4: $green-1;
-$bgc-5: $green-2;
-$bgc-6: $orange-1;
-$bgc-7: $purple;
-$bgc-8: $gray-1;
-
-//card-color卡片顏色========================
-$cardc-1: $white-1;
-$cardc-2: $gray-1;
-$cardc-3: $blue-4;
-
-//button-color按鈕背景色========================
-$btn-pri-bgc: $blue-4;
-$btn-fail-bgc: $gray-2;
-$btn-sec-bgc: $orange-2;
-$btn-cart-bgc: $orange-2;
-$btn-search-bgc: $blue-3;

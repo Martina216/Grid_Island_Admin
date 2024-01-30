@@ -1,5 +1,17 @@
+//boostrap
+// @import "boostrap/scss/functions";
+// @import "base/varible";
+// @import "boostrap/scss/bootstrap.scss";
+
+//變數
+@import "base/reset";
+@import "base/var";
+@import "base/color";
+@import "base/font";
+
 //components
 @import "components/SideNavBar.scss";
+@import "components/NavBar.scss";
 
 //page
 @import "page/home.scss";

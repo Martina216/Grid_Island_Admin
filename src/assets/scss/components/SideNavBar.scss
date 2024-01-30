@@ -1,6 +1,10 @@
 .sideNavBar {
-  img {
-    width: 150px;
+  .logo {
+    padding: 20px 0 0 5px;
+    width: 180px;
+    img {
+      width: 100%;
+    }
   }
   .nav-link {
     display: flex;
@@ -8,7 +12,14 @@
     align-items: center;
     i {
       font-size: 20px;
-      color: #000;
+      color: $black-1;
     }
+  }
+  .bg-blue {
+    background-color: $blue-3;
+  }
+  .gap {
+    gap: 10px;
+    margin-top: 10px;
   }
 }
