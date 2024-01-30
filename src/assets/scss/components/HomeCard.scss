@@ -1,0 +1,19 @@
+.homeCard {
+  background-color: $yellow;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  padding: $XL-spacing;
+  border-radius: $Mob-card-radius;
+  row-gap: $S-spacing;
+  i {
+    font-size: 90px;
+    color: $gray-4;
+  }
+  h3 {
+    color: $gray-5;
+    font-size: $PC-h3;
+  }
+}

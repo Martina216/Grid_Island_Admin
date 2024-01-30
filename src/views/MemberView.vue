@@ -1,5 +1,13 @@
 <template>
-  <div class="member">
+  <main class="member">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+          <router-link to="/">首頁</router-link>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">會員管理</li>
+      </ol>
+    </nav>
     <h3>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
       consequuntur accusantium nulla ut numquam inventore id hic quidem, quaerat
@@ -13,5 +21,5 @@
       dolorum voluptas explicabo voluptatum illo reprehenderit quod aliquam.
       Mollitia a reiciendis ullam nobis amet. Velit, suscipit.
     </h3>
-  </div>
+  </main>
 </template>

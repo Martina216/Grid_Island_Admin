@@ -1,14 +1,64 @@
-<script></script>
-
 <template>
   <main class="home">
-    <h3>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur, odio!
-      Sapiente sit iste cum rem voluptatum laboriosam animi aut illo delectus.
-      Nemo sit facere ipsum voluptatum nesciunt tempore eius explicabo
-      temporibus animi atque nihil facilis consectetur soluta labore ex neque
-      nam, accusantium ut itaque mollitia? Aspernatur ullam alias velit
-      suscipit.
-    </h3>
+    <div class="homeCardList">
+      <HomeCard
+        v-for="item in homeData"
+        :cardName="item.pageName"
+        :cardCount="item.pageCount"
+        :cardIcon="item.pageIcon"
+        :cardLink="item.pageLink"
+      />
+    </div>
   </main>
 </template>
+<script>
+import HomeCard from "../components/HomeCard.vue";
+export default {
+  data() {
+    return {
+      homeData: [
+        {
+          pageIcon: "fa-solid fa-clipboard-list",
+          pageCount: 110,
+          pageName: "未出貨訂單",
+          pageLink: "/order",
+        },
+        {
+          pageIcon: "fa-solid fa-cart-shopping",
+          pageCount: 126,
+          pageName: "商品數量",
+          pageLink: "/product",
+        },
+        {
+          pageIcon: "fa-regular fa-rectangle-list",
+          pageCount: 54,
+          pageName: "預約訂單",
+          pageLink: "/book",
+        },
+        {
+          pageIcon: "fa-regular fa-newspaper",
+          pageCount: 14,
+          pageName: "最新消息",
+          pageLink: "/news",
+        },
+        {
+          pageIcon: "fa-regular fa-comment-dots",
+          pageCount: 7,
+          pageName: "留言板檢舉",
+          pageLink: "/report",
+        },
+        {
+          pageIcon: "fa-solid fa-users",
+          pageCount: 265,
+          pageName: "會員",
+          pageLink: "/member",
+        },
+      ],
+    };
+  },
+  components: {
+    HomeCard,
+  },
+  mounted() {},
+};
+</script>
