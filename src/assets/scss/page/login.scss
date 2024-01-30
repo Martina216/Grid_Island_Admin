@@ -1,0 +1,53 @@
+.login {
+  padding: 100px 0  0 300px;
+  height: 100vh;
+  background-image: url("@/assets/images/login/bk_login.png");
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 256px;
+    margin: 60px auto 20px;
+
+    img {
+      vertical-align: middle;
+      width: 100%;
+    }
+
+  }
+
+  .pc-h3 {
+    font-weight: 700;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+  }
+
+  .wrrap {
+    background-color: rgba($color: $gray-3, $alpha: 0.5);
+    margin:auto;
+    width: 500px;
+    border-radius: 20px;
+    padding: 20px 0 40px;
+  }
+  form {
+    margin: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  input {
+    margin: 10px 0;
+    width: 320px;
+  }
+  .user {
+    margin-top: 40px;
+  }
+  button {
+    margin-top: 30px;
+    width: 100px;
+  }
+}
