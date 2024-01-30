@@ -1,0 +1,14 @@
+.sideNavBar {
+  img {
+    width: 150px;
+  }
+  .nav-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    i {
+      font-size: 20px;
+      color: #000;
+    }
+  }
+}
