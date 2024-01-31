@@ -2,7 +2,10 @@
   <div class="sideNavBar">
     <div class="col-2 px-0 bg-blue fixed-top min-vh-100">
       <div class="d-flex flex-column px-3 pt-2">
-        <RouterLink to="/" class="d-flex pb-3 text-white text-decoration-none">
+        <RouterLink
+          to="/home"
+          class="d-flex pb-3 text-white text-decoration-none"
+        >
           <img
             class="logo"
             src="@/assets/images/sideNavbar/admitLogo.svg"
