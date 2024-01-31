@@ -19,3 +19,13 @@
 @import "page/login.scss";
 @import "page/member.scss";
 @import "page/product.scss";
+
+/* 隱藏滾動條（Chrome、Safari）*/
+::-webkit-scrollbar {
+    display: none; 
+}
+ /* 隱藏滾動條（Firefox） */
+body {
+    overflow: -moz-scrollbars-none;
+}
+
