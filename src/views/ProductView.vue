@@ -1,12 +1,106 @@
 <template>
-  <div class="product">
-    <h3>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque molestias
-      tempora laborum corrupti iure nisi beatae, distinctio exercitationem
-      inventore deleniti assumenda sunt perspiciatis rerum fuga. Eum cum harum,
-      voluptatibus aspernatur nobis voluptates repudiandae voluptatem nostrum
-      qui vel ea quam, quibusdam rerum voluptas cumque at repellendus quidem
-      illum id beatae consequatur. Product
-    </h3>
-  </div>
+  <main class="product">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page">
+          <router-link to="/home">首頁</router-link>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">商品管理</li>
+      </ol>
+    </nav>
+    <div class="titleGroup pb-5">
+      <h1>商品管理</h1>
+      <div class="stateFilter">
+        <span>全部(50)</span>
+        <span>已上架(35)</span>
+        <span>未上架(5)</span>
+        <span>促銷中(10)</span>
+      </div>
+      <div class="searchGroup">
+        <select id="searchFilter" class="rounded border border-1 border-dark">
+          <option value="memId">商品編號</option>
+          <option value="memName">商品名稱</option>
+        </select>
+        <input
+          type="text"
+          id="searchBar"
+          placeholder="請輸入查詢資料"
+          class="rounded border border-1 border-dark"
+        />
+      </div>
+    </div>
+    <div class="addProductBtn">
+      <button type="button" class="btn btn-info">
+        <i class="fa-solid fa-plus"></i>新增商品
+      </button>
+    </div>
+    <div class="prodTable">
+      <table class="table table-hover">
+        <thead>
+          <tr class="border-bottom text-center">
+            <th scope="col">商品編號</th>
+            <th scope="col">商品圖片</th>
+            <th scope="col">商品名稱</th>
+            <th scope="col">商品價錢</th>
+            <th scope="col">商品狀態</th>
+            <th scope="col">編輯商品</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="item in prodData"
+            class="border-bottom text-center align-middle"
+          >
+            <th class="pb-3 pt-3">{{ item.prodId }}</th>
+            <td><img src="https://fakeimg.pl/60x60/200" class="rounded" /></td>
+            <td>{{ item.prodName }}</td>
+            <td>{{ item.prodPrice }}</td>
+            <td>switch</td>
+            <td>
+              <button type="button" class="btn btn-info">
+                <i class="fa-solid fa-pen-to-square"></i>編輯
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      prodData: [
+        {
+          prodId: 1,
+          prodName: "蟲蟲沙",
+          prodPrice: "300",
+        },
+        {
+          prodId: 2,
+          prodName: "阿瓦蟲",
+          prodPrice: "400",
+        },
+        {
+          prodId: 3,
+          prodName: "貓與城之內豪華精裝版",
+          prodPrice: "500",
+        },
+        {
+          prodId: 4,
+          prodName: "貓與地下城",
+          prodPrice: "600",
+        },
+        {
+          prodId: 5,
+          prodName: "蟲蟲總動員",
+          prodPrice: "700",
+        },
+      ],
+    };
+  },
+  components: {},
+  mounted() {},
+};
+</script>

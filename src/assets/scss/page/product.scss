@@ -1,5 +1,6 @@
-.member {
+.product {
   padding: 30px 30px 30px 250px;
+  position: relative;
   nav {
     a {
       color: $black-1;
@@ -10,13 +11,19 @@
     }
   }
   .titleGroup {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: $S-spacing;
-    margin-bottom: $L-spacing;
     h1 {
       font-size: $PC-h3;
-      padding-left: $S-spacing;
+    }
+    .stateFilter {
+      position: absolute;
+      top: 5px;
+      left: 120px;
+      display: flex;
+      gap: $M-spacing;
     }
     .searchGroup {
       padding-left: $S-spacing;
@@ -34,6 +41,17 @@
         background-repeat: no-repeat;
         padding-left: 30px;
       }
+    }
+  }
+  .addProductBtn {
+    position: absolute;
+    right: 50px;
+    top: 100px;
+  }
+  table {
+    td,
+    th {
+      vertical-align: middle;
     }
   }
 }
