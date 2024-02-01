@@ -105,12 +105,12 @@ const router = createRouter({
       component: () => import("../views/TeamView.vue"),
     },
     {
-      path: "/premission",
-      name: "premission",
+      path: "/permission",
+      name: "permission",
       meta: {
         title:"權限管理",
       },
-      component: () => import("../views/PremissionView.vue"),
+      component: () => import("../views/PermissionView.vue"),
     },
   ],
 });

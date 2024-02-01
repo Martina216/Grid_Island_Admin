@@ -1,5 +1,5 @@
 <template>
-  <div class="premission">
+  <div class="permission">
     <h3>
       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque molestias
       tempora laborum corrupti iure nisi beatae, distinctio exercitationem
