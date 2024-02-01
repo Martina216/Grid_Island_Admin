@@ -12,6 +12,9 @@ import "./assets/scss/style.scss";
 
 const app = createApp(App);
 
+// 設定全域的網站名稱
+app.config.globalProperties.$siteName = 'GridIsland後台';
+
 app.use(createPinia());
 app.use(router);
 
