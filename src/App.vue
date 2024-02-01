@@ -1,7 +1,15 @@
-<template>
+<!-- <template>
   <SideNavBar />
   <NavBar />
   <RouterView />
+</template> -->
+
+<template>
+  <RouterView v-slot="{ Component, route }">
+    <SideNavBar  v-if="route.meta.showBar !== false"  />
+    <NavBar  v-if="route.meta.showBar !== false" />
+    <component :is="Component" />
+  </RouterView>
 </template>
 
 <script>

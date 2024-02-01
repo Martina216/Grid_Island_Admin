@@ -26,6 +26,7 @@ const router = createRouter({
       name: "login",
       meta: {
         title:"登入",
+        showBar: false, //打開這個即可不顯示header
       },
       
       component: () => import("../views/LoginView.vue"),
