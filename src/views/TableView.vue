@@ -1,12 +1,39 @@
 <template>
   <div class="table">
-    <h3>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque molestias
-      tempora laborum corrupti iure nisi beatae, distinctio exercitationem
-      inventore deleniti assumenda sunt perspiciatis rerum fuga. Eum cum harum,
-      voluptatibus aspernatur nobis voluptates repudiandae voluptatem nostrum
-      qui vel ea quam, quibusdam rerum voluptas cumque at repellendus quidem
-      illum id beatae consequatur. Table
-    </h3>
+    <div class="tableContent">
+      <h3>桌次管理</h3>
+      
+      <form class="tableInfo">
+        <div class="tableInfoTitle">
+          <span>桌型</span>
+          <span>桌次數量</span>
+        </div>
+        <div class="fourTable">
+          <span>4人桌</span>
+          <input type="number" >
+        </div>
+        <div class="eightTable">
+          <span>8人桌</span>
+          <input type="number" >
+        </div>
+        <div class="twelveTable">
+          <span>12人桌</span>
+          <input type="number" >
+        </div>
+        <input type="submit" value="儲存設定" class="btn btn-info">
+      </form>
+
+
+    </div>
   </div>
 </template>
+
+<script>
+
+
+
+</script>
+
+<style lang="scss">
+//
+</style>
