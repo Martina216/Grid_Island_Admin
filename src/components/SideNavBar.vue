@@ -1,6 +1,6 @@
 <template>
   <div class="sideNavBar">
-    <div class="col-2 px-0 bg-blue fixed-top min-vh-100">
+    <div class="px-0 bg-blue fixed-top min-vh-100 sideNavBarContent">
       <div class="d-flex flex-column px-3 pt-2">
         <RouterLink
           to="/home"
