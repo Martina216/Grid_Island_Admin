@@ -6,7 +6,7 @@
       inventore deleniti assumenda sunt perspiciatis rerum fuga. Eum cum harum,
       voluptatibus aspernatur nobis voluptates repudiandae voluptatem nostrum
       qui vel ea quam, quibusdam rerum voluptas cumque at repellendus quidem
-      illum id beatae consequatur. Premission
+      illum id beatae consequatur. Permission
     </h3>
   </div>
 </template>

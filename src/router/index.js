@@ -112,6 +112,15 @@ const router = createRouter({
       },
       component: () => import("../views/PermissionView.vue"),
     },
+    // 404要寫在最下面
+    {
+      path: "/:pathMatch(.*)*",
+      name: "NotFound",
+            meta: {
+        title:"404NotFound",
+      },
+      component: () => import("../views/NotFoundView.vue"),
+    },
   ],
 });
 // 登入最基本判斷，也是最不安全的做法

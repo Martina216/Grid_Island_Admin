@@ -97,7 +97,7 @@
             </ul>
           </li>
           <li class="nav-item mt-5">
-            <RouterLink to="/premission" class="nav-link align-middle px-0">
+            <RouterLink to="/permission" class="nav-link align-middle px-0">
               <span class="ms-1 text-dark fs-5">權限管理</span>
             </RouterLink>
           </li>
