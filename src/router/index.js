@@ -114,5 +114,31 @@ const router = createRouter({
     },
   ],
 });
+// 登入最基本判斷，也是最不安全的做法
+// 未來可以再深入研究，關鍵字Authentication
+// 並加入動態路由https://router.vuejs.org/zh/guide/advanced/dynamic-routing.html
+const isAuthenticated = () => {
+  const userToken = localStorage.getItem("userToken")
+  return userToken? true: false
+}
+
+router.beforeEach((to) => {
+  // 加入頁籤標題
+  if (to.meta && to.meta.title) {
+    document.title = to.meta.title
+  }
+  
+  // 參考文件
+  // https://router.vuejs.org/zh/guide/advanced/navigation-guards.html
+  if(to.name == 'register' ){
+    return
+
+  }else if ( !isAuthenticated() && to.name !== 'login') {
+    // 检查用户是否已登录 && 避免无限重定向
+    // 将用户重定向到登录页面
+    console.log(1);
+    return { name: 'login' }
+  }
+})
 
 export default router;
