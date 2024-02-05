@@ -77,7 +77,7 @@
             </td>
             <td>{{ item.ordMethod }}</td>
             <td>{{ item.ordName }}</td>
-            <td>${{ item.ordAmount }}</td>
+            <td>$ {{ item.ordAmount }}</td>
             <td>
               <input type="text" id="note" class="rounded" :value="item.note" />
             </td>
