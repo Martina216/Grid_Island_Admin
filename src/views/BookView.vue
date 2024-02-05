@@ -1,6 +1,29 @@
 <template>
   <div class="book">
-
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page">
+          <router-link to="/home">首頁</router-link>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">預約管理</li>
+        <li class="breadcrumb-item active" aria-current="page">預約訂單</li>
+      </ol>
+    </nav>
+    <div class="titleGroup">
+      <h1>預約訂單</h1>
+      <div class="searchGroup">
+        <select id="searchFilter" class="rounded border border-1 border-dark">
+          <option value="bookId">預訂編號</option>
+          <option value="memId">會員編號</option>
+        </select>
+        <input
+          type="text"
+          id="searchBar"
+          placeholder="請輸入編號"
+          class="rounded border border-1 border-dark"
+        />
+      </div>
+    </div>
     <div class="bookTable">
       <table class="table table-hover">
         <thead>
@@ -35,8 +58,6 @@
         </tbody>
       </table>
     </div>
-    <h3>
-    </h3>
   </div>
 </template>
 <script>
@@ -47,7 +68,7 @@ export default {
         {
           bookId: 1,
           memId: "22",
-          memName: "陳雅婷",
+          memName: "雅婷揍迪客",
           bookDate: '2024-01-22',
           booktime: '下午12:00-15:00',
           numOfPeople: 4,
@@ -57,7 +78,7 @@ export default {
         {
           bookId: 2,
           memId: "25",
-          memName: "張教官",
+          memName: "劉比絲吉",
           bookDate: '2024-02-12',
           booktime: '上午09:00-12:00',
           numOfPeople: 8,
