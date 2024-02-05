@@ -32,7 +32,7 @@
       <table class="table table-hover">
         <thead>
           <tr class="border-bottom text-left">
-            <th scope="col">優惠碼編號</th>
+            <th scope="col">編號</th>
             <th scope="col">優惠碼序號</th>
             <th scope="col">優惠碼說明</th>
             <th scope="col">使用開始日期</th>
@@ -48,14 +48,14 @@
           >
             <th class="pb-3 pt-3 text-center number">{{ item.promoId }}</th>
             <td class="cupponCode">{{ item.promoCode }}</td>
-            <td class="Detail" >{{ item.promoDetail }}</td>
-            <td>
+            <td class="detail" >{{ item.promoDetail }}</td>
+            <td class="date" >
               {{ item.promoStartDate }}
             </td>
-            <td>
+            <td class="date" >
             {{ item.promoEndDate }}
             </td>
-            <td>
+            <td class="state">
               {{ item.promoState }}
             </td>
             <td>
@@ -91,27 +91,6 @@ export default {
           promoState:'使用中',
           promoDetail: "玩小遊戲送50元",
           promoCategory: "桌遊",
-        },
-        {
-          promoId: 3,
-          promoCode:'GridIsland',
-          promoStartDate:'2020-01-01',
-          promoEndDate:'9999-12-31',
-          promoState:'已過期',
-          promoDetail: "桌遊夜：每週五晚上，來店體驗最新的桌遊大作！",
-          promoCategory: "活動",
-        },
-        {
-          promoId: 4,
-          promoCode:'GridIsland',
-          promoDetail: "限量版桌遊收藏家系列：獨家發售通知",
-          promoCategory: "桌遊",
-        },
-        {
-          promoId: 5,
-          promoCode:'GridIsland',
-          promoDetail: "新春特惠：1月25日至2月5日，任意桌遊享限時折扣！",
-          promoCategory: "優惠",
         },
       ],
     };
