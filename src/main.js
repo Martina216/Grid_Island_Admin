@@ -10,6 +10,10 @@ import "bootstrap";
 // 樣式
 import "./assets/scss/style.scss";
 
+//vue-cal
+import VueCal from 'vue-cal'
+import 'vue-cal/dist/vuecal.css'
+
 const app = createApp(App);
 
 // 設定全域的網站名稱
@@ -19,3 +23,4 @@ app.use(createPinia());
 app.use(router);
 
 app.mount("#app");
+
