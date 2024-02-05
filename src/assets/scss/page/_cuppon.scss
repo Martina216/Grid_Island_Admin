@@ -1,4 +1,4 @@
-.product {
+.cuppon {
   padding: 30px 30px 30px 250px;
   position: relative;
   nav {
@@ -21,7 +21,7 @@
     .stateFilter {
       position: absolute;
       top: 5px;
-      left: 120px;
+      left: 180px;
       display: flex;
       gap: $M-spacing;
     }
@@ -49,22 +49,27 @@
     top: 100px;
   }
   table {
-    td,
-    th {
+    td,th {
       vertical-align: middle;
     }
-  }
-  .number {
-    width: 100px;
-  }
-  .name {
-    width: 300px;
-  }
-  .img {
-    width: 70px;
-    height:70px;
-    overflow: hidden;
-    object-fit: contain;
-    object-fit: cover;
+    tr {
+      padding: 20px 0;
+    }
+    .cupponCode {
+      width: 180px;
+    }
+    .name {
+      width: 250px;
+    }
+    .number {
+      width: 100px;
+    }
+    .img {
+      width: 70px;
+      height:70px;
+      overflow: hidden;
+      object-fit: contain;
+      object-fit: cover;
+    }
   }
 }
