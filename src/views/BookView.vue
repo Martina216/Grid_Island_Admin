@@ -1,6 +1,6 @@
 <template>
   <div class="book">
-    <h3>
+
     <div class="bookTable">
       <table class="table table-hover">
         <thead>
@@ -25,7 +25,7 @@
             <td>{{ book.numOfPeople }}</td>
             <td>{{ book.tableType }}</td>
             <td>
-              <select name="" id="" v-model="book.bookStatus">
+              <select name="" id="" class="form-select form-select-sm" aria-label="Small select example" v-model="book.bookStatus">
                 <option value="0">已預定</option>
                 <option value="1">已到場</option>
                 <option value="2">逾時未到</option>
@@ -35,6 +35,7 @@
         </tbody>
       </table>
     </div>
+    <h3>
     </h3>
   </div>
 </template>
@@ -71,13 +72,5 @@ export default {
 };
 </script>
 <style lang="scss">
-.book{
-  font-size: 12px;
-  width: 84%;
-  margin-left: auto;
-  table{
-    font-size: 14px;
-  }
-
-}
+//
 </style>
