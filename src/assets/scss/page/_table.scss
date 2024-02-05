@@ -1,22 +1,9 @@
 .tables {
-    padding: 30px 30px 30px 250px;
+    width: 82%;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
 
-    nav {
-        a {
-            color: $black-1;
-            text-decoration: none;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-    }
-
-    h1 {
-        font-size: $PC-h3;
-        padding-left: $S-spacing;
-    }
-    
     .tableInfo div {
         display: flex;
         justify-content: space-between;
@@ -59,7 +46,7 @@
         -moz-appearance: textfield;
     }
 
-    .table>span {
+    [class*="Table"]>span {
         padding: 3% 5%;
         background-color: $blue-3;
     }
