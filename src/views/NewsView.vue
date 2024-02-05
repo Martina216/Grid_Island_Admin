@@ -60,8 +60,8 @@
               <select class="custom-select">
               <option selected>分類</option>
               <option value="1">優惠</option>
-              <option value="1">活動</option>
-              <option value="1">桌遊</option>
+              <option value="2">活動</option>
+              <option value="3">桌遊</option>
             </select>
             </td>
             <td>switch</td>
