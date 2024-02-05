@@ -56,15 +56,25 @@
               <img src="https://i.imgur.com/DtgOnXU.jpeg" class="rounded img" />
             </td>
             <td class="name">{{ item.newsName }}</td>
-            <td>
-              <select class="custom-select">
-              <option selected>分類</option>
-              <option value="1">優惠</option>
-              <option value="2">活動</option>
-              <option value="3">桌遊</option>
-            </select>
+            <td>{{ item.newsCategory }}
             </td>
-            <td>switch</td>
+            <td class="text-center">
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input "
+                  role="switch"
+                  type="checkbox"
+                  :name="item.ordId"
+                  :id="item.ordId"
+                  v-model="item.newsState"
+                />
+                <label class="form-check-label" :for="item.ordId"></label>
+              </div>
+              <div class="ordState">
+                <span v-if="item.newsState">已發佈</span>
+                <span v-else>未發佈</span>
+              </div>
+            </td>
             <td>
               <button type="button" class="btn btn-info">
                 <i class="fa-solid fa-pen-to-square"></i>編輯
@@ -85,26 +95,31 @@ export default {
           newsId: 1,
           newsName: "新春特惠：1月25日至2月5日，任意桌遊享限時折扣！",
           newsCategory: "優惠",
+          newsState:true,
         },
         {
           newsId: 2,
           newsName: "老闆娘推薦：本月十大必玩桌遊盤點",
           newsCategory: "桌遊",
+          newsState:false,
         },
         {
           newsId: 3,
           newsName: "桌遊夜：每週五晚上，來店體驗最新的桌遊大作！",
           newsCategory: "活動",
+          newsState:true,
         },
         {
           newsId: 4,
           newsName: "限量版桌遊收藏家系列：獨家發售通知",
           newsCategory: "桌遊",
+          newsState:true,
         },
         {
           newsId: 5,
           newsName: "新春特惠：1月25日至2月5日，任意桌遊享限時折扣！",
           newsCategory: "優惠",
+          newsState:true,
         },
       ],
     };

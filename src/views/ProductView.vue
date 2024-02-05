@@ -57,7 +57,23 @@
             <td class="name" >{{ item.prodName }}</td>
             <td>$ {{ item.prodPrice }}</td>
             <td>$ {{ item.prodPrice }}</td>
-            <td>switch</td>
+            <td>
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input "
+                  role="switch"
+                  type="checkbox"
+                  :name="item.ordId"
+                  :id="item.ordId"
+                  v-model="item.prodState"
+                />
+                <label class="form-check-label" :for="item.ordId"></label>
+              </div>
+              <div class="prodState">
+                <span v-if="item.prodState">已上架</span>
+                <span v-else>未上架</span>
+              </div>
+            </td>
             <td>
               <button type="button" class="btn btn-info">
                 <i class="fa-solid fa-pen-to-square"></i>編輯
@@ -78,26 +94,31 @@ export default {
           prodId: 1,
           prodName: "蟲蟲沙",
           prodPrice: "300",
+          prodState:false,
         },
         {
           prodId: 2,
           prodName: "阿瓦蟲",
           prodPrice: "400",
+          prodState:true,
         },
         {
           prodId: 3,
           prodName: "貓與城之內豪華精裝版",
           prodPrice: "500",
+          prodState:true,
         },
         {
           prodId: 4,
           prodName: "貓與地下城",
           prodPrice: "600",
+          prodState:true,
         },
         {
           prodId: 5,
           prodName: "蟲蟲總動員",
           prodPrice: "700",
+          prodState:true,
         },
       ],
     };

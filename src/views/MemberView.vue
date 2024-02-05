@@ -42,7 +42,23 @@
             <td>{{ item.memName }}</td>
             <td>{{ item.memTel }}</td>
             <td>{{ item.memEmail }}</td>
-            <td>switch</td>
+            <td>
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input "
+                  role="switch"
+                  type="checkbox"
+                  :name="item.ordId"
+                  :id="item.ordId"
+                  v-model="item.memState"
+                />
+                <label class="form-check-label" :for="item.ordId"></label>
+              </div>
+              <div class="ordState">
+                <span v-if="item.memState">正常</span>
+                <span v-else>已停權</span>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -59,30 +75,35 @@ export default {
           memName: "張基德",
           memTel: "0911-111-000",
           memEmail: "gider@gmail.com",
+          memState:true,
         },
         {
           memId: 2,
           memName: "揍迪客",
           memTel: "0911-222-000",
           memEmail: "zhudick@gmail.com",
+          memState:true,
         },
         {
           memId: 3,
           memName: "雅婷揍迪客",
           memTel: "0911-333-000",
           memEmail: "zhudicker@gmail.com",
+          memState:true,
         },
         {
           memId: 4,
           memName: "小J",
           memTel: "0911-444-000",
           memEmail: "giantj@mail.com",
+          memState:true,
         },
         {
           memId: 5,
           memName: "劉比絲吉",
           memTel: "0911-555-000",
           memEmail: "bisgi@hotmail.com",
+          memState:true,
         },
       ],
     };
