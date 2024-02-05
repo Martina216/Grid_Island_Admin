@@ -37,11 +37,12 @@
     <div class="prodTable">
       <table class="table table-hover">
         <thead>
-          <tr class="border-bottom text-center">
+          <tr class="border-bottom text-left">
             <th scope="col">商品編號</th>
             <th scope="col">商品圖片</th>
             <th scope="col">商品名稱</th>
-            <th scope="col">商品價錢</th>
+            <th scope="col">商品原價</th>
+            <th scope="col">商品特價</th>
             <th scope="col">商品狀態</th>
             <th scope="col">編輯商品</th>
           </tr>
@@ -49,12 +50,13 @@
         <tbody>
           <tr
             v-for="item in prodData"
-            class="border-bottom text-center align-middle"
+            class="border-bottom text-left align-middle"
           >
-            <th class="pb-3 pt-3">{{ item.prodId }}</th>
-            <td><img src="https://fakeimg.pl/60x60/200" class="rounded" /></td>
-            <td>{{ item.prodName }}</td>
-            <td>{{ item.prodPrice }}</td>
+            <th class="pb-3 pt-3 text-center number">{{ item.prodId }}</th>
+            <td><img src="https://fakeimg.pl/60x60/200" class="rounded img" /></td>
+            <td class="name" >{{ item.prodName }}</td>
+            <td>$ {{ item.prodPrice }}</td>
+            <td>$ {{ item.prodPrice }}</td>
             <td>switch</td>
             <td>
               <button type="button" class="btn btn-info">

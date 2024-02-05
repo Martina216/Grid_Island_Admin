@@ -1,4 +1,4 @@
-.product {
+.news {
   padding: 30px 30px 30px 250px;
   position: relative;
   nav {
@@ -21,7 +21,7 @@
     .stateFilter {
       position: absolute;
       top: 5px;
-      left: 120px;
+      left: 180px;
       display: flex;
       gap: $M-spacing;
     }
@@ -49,22 +49,21 @@
     top: 100px;
   }
   table {
-    td,
-    th {
+    td,th {
       vertical-align: middle;
     }
-  }
-  .number {
-    width: 100px;
-  }
-  .name {
-    width: 300px;
-  }
-  .img {
-    width: 70px;
-    height:70px;
-    overflow: hidden;
-    object-fit: contain;
-    object-fit: cover;
+    .number {
+      width: 100px;
+    }
+    .name {
+      width: 400px;
+    }
+    .img {
+      width: 70px;
+      height:70px;
+      overflow: hidden;
+      object-fit: contain;
+      object-fit: cover;
+    }
   }
 }
