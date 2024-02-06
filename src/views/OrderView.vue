@@ -53,42 +53,53 @@
         </thead>
         <tbody>
           <tr
-            v-for="item in displayOrdData"
+            v-for="(item, index) in ordDisplayData"
+            :key="index"
             class="border-bottom text-center align-middle"
           >
-            <th class="pb-3 pt-3 align-middle">{{ item.ordId }}</th>
-            <td>{{ item.ordTime }}</td>
+            <th class="pb-3 pt-3 align-middle">{{ item.ord_id }}</th>
+            <td>{{ item.ord_date }}</td>
             <td>
-              <div class="form-check form-switch">
+              <div
+                class="form-check form-switch"
+                :class="{ notAllow: item.editMode }"
+              >
                 <input
                   class="form-check-input"
                   role="switch"
                   type="checkbox"
                   :name="item.ordId"
                   :id="item.ordId"
-                  v-model="item.ordState"
+                  :disabled="item.editMode"
+                  :value="Boolean(item.ord_state)"
+                  @change="test"
                 />
                 <label class="form-check-label" :for="item.ordId"></label>
               </div>
               <div class="ordState">
-                <span v-if="item.ordState">已處理</span>
+                <span v-if="item.ord_state">已處理</span>
                 <span v-else>未處理</span>
               </div>
             </td>
-            <td>{{ item.ordMethod }}</td>
-            <td>{{ item.ordName }}</td>
-            <td>$ {{ item.ordAmount }}</td>
+            <td>{{ item.ord_payment }}</td>
+            <td>{{ item.ord_name }}</td>
+            <td>$ {{ item.ord_pay }}</td>
             <td>
-              <input type="text" id="note" class="rounded" :value="item.note" />
+              <textarea
+                :value="item.ord_note"
+                :disabled="item.editMode"
+                :class="{ notAllow: item.editMode }"
+              ></textarea>
             </td>
 
             <td>
               <button
-                @click="changeOrd(item.ordId)"
+                @click="changeOrd(item)"
                 type="button"
                 class="btn btn-info"
               >
-                <i class="fa-solid fa-pen-to-square"></i>編輯
+                <i class="fa-solid fa-pen-to-square"></i
+                ><span v-if="item.editMode">編輯</span><span v-else>儲存</span>
               </button>
             </td>
           </tr>
@@ -98,70 +109,15 @@
   </main>
 </template>
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
-      ordData: [
-        {
-          ordId: 1,
-          ordTime: "2023-12-30 15:28",
-          ordState: false,
-          ordMethod: "轉帳",
-          ordName: "基德",
-          ordAmount: 400,
-          note: "無",
-        },
-        {
-          ordId: 2,
-          ordTime: "2024-10-02 10:55",
-          ordState: true,
-          ordMethod: "信用卡",
-          ordName: "揍迪客",
-          ordAmount: 800,
-          note: "商品售罄，已通知訂購人",
-        },
-        {
-          ordId: 3,
-          ordTime: "2024-10-12 10:55",
-          ordState: false,
-          ordMethod: "轉帳",
-          ordName: "古迪錐",
-          ordAmount: 1600,
-          note: "無",
-        },
-      ],
-      displayOrdData: [
-        {
-          ordId: 1,
-          ordTime: "2023-12-30 15:28",
-          ordState: false,
-          ordMethod: "轉帳",
-          ordName: "基德",
-          ordAmount: 400,
-          note: "無",
-        },
-        {
-          ordId: 2,
-          ordTime: "2024-10-02 10:55",
-          ordState: true,
-          ordMethod: "信用卡",
-          ordName: "揍迪客",
-          ordAmount: 800,
-          note: "商品售罄，已通知訂購人",
-        },
-        {
-          ordId: 3,
-          ordTime: "2024-10-12 10:55",
-          ordState: false,
-          ordMethod: "轉帳",
-          ordName: "古迪錐",
-          ordAmount: 1600,
-          note: "無",
-        },
-      ],
       sortIdMethod: "asc",
       searchBar: "",
       searchSelect: "ordId",
+      ordData: [],
+      ordDisplayData: [],
     };
   },
   components: {},
@@ -170,17 +126,21 @@ export default {
   },
   methods: {
     changeOrd(item) {
-      console.log(item);
+      if (item.editMode == undefined) {
+        item.editMode = true;
+      } else {
+        item.editMode = !item.editMode;
+      }
     },
     sortId() {
       if (this.sortIdMethod == "desc") {
-        this.displayOrdData = this.displayOrdData.sort((a, b) => {
-          return a.ordId - b.ordId;
+        this.ordDisplayData = this.ordDisplayData.sort((a, b) => {
+          return a.ord_id - b.ord_id;
         });
         this.sortIdMethod = "asc";
       } else if (this.sortIdMethod == "asc") {
-        this.displayOrdData = this.displayOrdData.sort((a, b) => {
-          return b.ordId - a.ordId;
+        this.ordDisplayData = this.ordDisplayData.sort((a, b) => {
+          return b.ord_id - a.ord_id;
         });
         this.sortIdMethod = "desc";
       }
@@ -188,43 +148,49 @@ export default {
     handleSearch() {
       if (this.searchSelect == "ordId") {
         if (this.searchBar) {
-          this.displayOrdData = this.ordData.filter((item) => {
-            return item.ordId == this.searchBar;
+          this.ordDisplayData = this.ordData.filter((item) => {
+            return item.ord_id == this.searchBar;
           });
         } else {
-          this.displayOrdData = this.ordData;
+          this.ordDisplayData = this.ordData;
         }
       } else if (this.searchSelect == "ordName") {
-        this.displayOrdData = this.ordData.filter((item) => {
-          return item.ordName.includes(this.searchBar);
+        this.ordDisplayData = this.ordData.filter((item) => {
+          return item.ord_name.includes(this.searchBar);
         });
       }
     },
     filter(type) {
       if (type == "all") {
-        this.displayOrdData = this.ordData;
+        this.ordDisplayData = this.ordData;
       } else if (type == "processed") {
-        this.displayOrdData = this.ordData.filter((item) => {
-          return item.ordState == true;
+        this.ordDisplayData = this.ordData.filter((item) => {
+          return item.ord_state == true;
         });
       } else if (type == "unprocessed") {
-        this.displayOrdData = this.ordData.filter((item) => {
-          return item.ordState == false;
+        this.ordDisplayData = this.ordData.filter((item) => {
+          return item.ord_state == false;
         });
       }
     },
     fetchOrder() {
-      fetch("../../../php/getOrder.php")
+      axios
+        .post(`${import.meta.env.VITE_API_URL}/getOrder.php`, {})
         .then((res) => {
-          console.log(res);
-          return res.json();
+          this.ordData = res.data.ords;
+          this.ordDisplayData = res.data.ords;
+          this.ordData.forEach((ord) => {
+            ord.editMode = true;
+          });
         })
-        .then((result) => {
-          console.log(result);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch((error) => console.error("發生錯誤:", error));
+    },
+    test(e) {
+      if (e.target.checked) {
+        console.log("處理完");
+      } else {
+        console.log("未處理");
+      }
     },
   },
   mounted() {},
