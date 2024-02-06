@@ -3,22 +3,14 @@
     <div class="tableContent">
       <h3>桌次管理</h3>
 
-      <form class="tableInfo" v-for="(item, index) in table_typeData">
+      <form class="tableInfo">
         <div class="tableInfoTitle">
           <span>桌型</span>
           <span>桌次數量</span>
         </div>
-        <div class="fourTable">
-          <span>4人桌</span>
-          <input type="number" />
-        </div>
-        <div class="eightTable">
-          <span>8人桌</span>
-          <input type="number" />
-        </div>
-        <div class="twelveTable">
-          <span>12人桌</span>
-          <input type="number" />
+        <div v-for="(item, index) in table_typeData" class="tabletype">
+          <span>{{ item.table_type_name }}</span>
+          <input type="number" v-model="item.table_amount"/>
         </div>
         <input type="submit" value="儲存設定" class="btn btn-info" />
       </form>
@@ -27,6 +19,7 @@
 </template>
 
 <script>
+  import axios from 'axios';
   export default{
     data() {
       return {
@@ -36,7 +29,7 @@
     methods: {
       fetchNews() {
         axios
-          .post(`${import.meta.env.VITE_API_URL}/admin/table_type.php`, {})
+          .post(`${import.meta.env.VITE_API_URL}/table_type.php`, {})
           .then(res => {
             console.log(res.data.table_type); //這可以在f12看到自己的陣列，好用！
             this.table_typeData = res.data.table_type;
