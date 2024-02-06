@@ -37,19 +37,32 @@
             <th class="pb-3 pt-3">{{ item.report_id }}</th>
             <td>{{ item.report_reason }}</td>
             <td>{{ item.msg_content }}</td>
-            <td class="form-check form-switch">
+            <!-- <td class="form-check form-switch">
               <input class="form-check-input" type="checkbox" id="flexSwitchCheck{{ index }}" v-model="item.report_state">
               <label class="form-check-label" for="flexSwitchCheck{{ index }}">
-                <!-- <span class="switch-label">{{ item.isOn ? '上架中' : '已下架' }}</span> -->
                 <span class="switch-label">{{ item.report_state }}</span>
-                <!-- <span class="switch-label">{{ reportStateText }}</span> -->
               </label>
+            </td> -->
+            <td>
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input "
+                  role="switch"
+                  type="checkbox"
+                  :name="item.report_id"
+                  :id="item.report_id"
+                  v-model="item.report_state"
+                />
+                <label class="form-check-label" :for="item.report_id"></label>
+              </div>
+              <div class="prodState">
+                <span v-if="item.report_state">已下架</span>
+                <span v-else>上架中</span>
+              </div>
             </td>
             <td>
-              <!-- <input type="checkbox" v-model="item.report_check" @change="report_cb_state"> -->
               <input type="checkbox" v-model="item.report_check">{{ item.report_check }}
             </td>
-            <!-- <td>switch</td> -->
           </tr>
         </tbody>
       </table>
