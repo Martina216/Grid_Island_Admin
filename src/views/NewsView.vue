@@ -29,7 +29,7 @@
         />
       </div>
     </div>
-    <div class="addProductBtn">
+    <div @click="addNews" class="addProductBtn">
       <button type="button" class="btn btn-info">
         <i class="fa-solid fa-plus"></i>新增消息
       </button>
@@ -84,9 +84,17 @@
         </tbody>
       </table>
     </div>
+
+    <!-- 新增文章燈箱 -->
+    <NewsPage v-if="isAdding">
+
+    </NewsPage>
+    
   </main>
 </template>
 <script>
+import NewsPage from "../components/NewsPage.vue";
+
 export default {
   data() {
     return {
@@ -122,9 +130,17 @@ export default {
           newsState:true,
         },
       ],
+      isAdding:0,
     };
   },
-  components: {},
+  components: {
+    NewsPage,
+  },
   mounted() {},
+  methods:{
+    addNews() {
+      this.isAdding = true;
+    }
+  }
 };
 </script>

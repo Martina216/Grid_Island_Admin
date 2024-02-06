@@ -66,4 +66,13 @@
       object-fit: cover;
     }
   }
+  //新增消息燈箱
+  .newsPage {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid $gray-5;
+  }
+  
 }
