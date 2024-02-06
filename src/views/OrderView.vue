@@ -11,9 +11,13 @@
     <div class="titleGroup pb-5">
       <h1>訂單管理</h1>
       <div class="stateFilter">
-        <span class="pointer" @click="filter('all')">全部(50)</span>
-        <span class="pointer" @click="filter('processed')">已處理(35)</span>
-        <span class="pointer" @click="filter('unprocessed')">未處理(5)</span>
+        <span class="pointer" @click="filter('all')">全部({{ allOrd }})</span>
+        <span class="pointer" @click="filter('processed')"
+          >已處理({{ processedOrd }})</span
+        >
+        <span class="pointer" @click="filter('unprocessed')"
+          >未處理({{ unprocessedOrd }})</span
+        >
       </div>
       <div class="searchGroup">
         <select
@@ -71,13 +75,13 @@
                   :name="item.ordId"
                   :id="item.ordId"
                   :disabled="item.editMode"
-                  :value="Boolean(item.ord_state)"
-                  @change="test"
+                  :checked="item.ord_state === 1"
+                  @change="updateOrderState(item)"
                 />
                 <label class="form-check-label" :for="item.ordId"></label>
               </div>
               <div class="ordState">
-                <span v-if="item.ord_state">已處理</span>
+                <span v-if="item.ord_state == 1">已處理</span>
                 <span v-else>未處理</span>
               </div>
             </td>
@@ -86,9 +90,9 @@
             <td>$ {{ item.ord_pay }}</td>
             <td>
               <textarea
-                :value="item.ord_note"
                 :disabled="item.editMode"
                 :class="{ notAllow: item.editMode }"
+                v-model="item.ord_note"
               ></textarea>
             </td>
 
@@ -97,9 +101,17 @@
                 @click="changeOrd(item)"
                 type="button"
                 class="btn btn-info"
+                v-if="item.editMode"
               >
-                <i class="fa-solid fa-pen-to-square"></i
-                ><span v-if="item.editMode">編輯</span><span v-else>儲存</span>
+                <i class="fa-solid fa-pen-to-square"></i><span>編輯</span>
+              </button>
+              <button
+                @click="saveOrdChange(item)"
+                type="button"
+                class="btn btn-info"
+                v-else
+              >
+                <i class="fa-solid fa-pen-to-square"></i><span>儲存</span>
               </button>
             </td>
           </tr>
@@ -118,6 +130,10 @@ export default {
       searchSelect: "ordId",
       ordData: [],
       ordDisplayData: [],
+      ordNote: "",
+      allOrd: 0,
+      processedOrd: 0,
+      unprocessedOrd: 0,
     };
   },
   components: {},
@@ -126,11 +142,26 @@ export default {
   },
   methods: {
     changeOrd(item) {
-      if (item.editMode == undefined) {
-        item.editMode = true;
-      } else {
-        item.editMode = !item.editMode;
-      }
+      item.editMode = !item.editMode;
+    },
+    saveOrdChange(item) {
+      item.editMode = !item.editMode;
+      axios
+        .post(
+          `${import.meta.env.VITE_API_URL}/updateOrdNote.php`,
+          {
+            ordId: item.ord_id,
+            ordNote: item.ord_note,
+          },
+          { headers: { "Content-Type": "application/json" } }
+        )
+        .then((res) => {
+          console.log(res.data);
+          alert("已修改完成");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     sortId() {
       if (this.sortIdMethod == "desc") {
@@ -179,18 +210,33 @@ export default {
         .then((res) => {
           this.ordData = res.data.ords;
           this.ordDisplayData = res.data.ords;
+          this.allOrd = res.data.allOrd["count(*)"];
+          this.processedOrd = res.data.pOrd["count(*)"];
+          this.unprocessedOrd = res.data.upOrd["count(*)"];
           this.ordData.forEach((ord) => {
             ord.editMode = true;
           });
         })
         .catch((error) => console.error("發生錯誤:", error));
     },
-    test(e) {
-      if (e.target.checked) {
-        console.log("處理完");
-      } else {
-        console.log("未處理");
-      }
+    updateOrderState(item) {
+      const isChecked = item.ord_state == 0 ? 1 : 0;
+      axios
+        .post(
+          `${import.meta.env.VITE_API_URL}/updateOrdState.php`,
+          {
+            ordId: item.ord_id,
+            isChecked,
+          },
+          { headers: { "Content-Type": "application/json" } }
+        )
+        .then((res) => {
+          console.log(res.data);
+          item.ord_state = isChecked;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   mounted() {},
