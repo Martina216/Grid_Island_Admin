@@ -4,6 +4,9 @@
   .pointer {
     cursor: pointer;
   }
+  .notAllow {
+    cursor: not-allowed;
+  }
   nav {
     a {
       color: $black-1;
