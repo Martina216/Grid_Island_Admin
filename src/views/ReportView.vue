@@ -36,7 +36,7 @@
           <tr v-for="item in reData" class="border-bottom text-center">
             <th class="pb-3 pt-3">{{ item.report_id }}</th>
             <td>{{ item.report_reason }}</td>
-            <td>{{ item.msg_content }}</td>
+            <td class="report_article">{{ item.msg_content }}</td>
             <!-- <td class="form-check form-switch">
               <input class="form-check-input" type="checkbox" id="flexSwitchCheck{{ index }}" v-model="item.report_state">
               <label class="form-check-label" for="flexSwitchCheck{{ index }}">
