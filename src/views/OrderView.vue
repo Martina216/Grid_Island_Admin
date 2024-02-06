@@ -165,6 +165,9 @@ export default {
     };
   },
   components: {},
+  created() {
+    this.fetchOrder();
+  },
   methods: {
     changeOrd(item) {
       console.log(item);
@@ -209,6 +212,19 @@ export default {
           return item.ordState == false;
         });
       }
+    },
+    fetchOrder() {
+      fetch("../../../php/getOrder.php")
+        .then((res) => {
+          console.log(res);
+          return res.json();
+        })
+        .then((result) => {
+          console.log(result);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   mounted() {},
