@@ -81,6 +81,14 @@ const router = createRouter({
       component: () => import("../views/NewsView.vue"),
     },
     {
+      path: "/newspage",
+      name: "newsPage",
+      meta: {
+        title:"最新消息新增測試",
+      },
+      component: () => import("../views/NewsTestView.vue"),
+    },
+    {
       path: "/code",
       name: "code",
       meta: {

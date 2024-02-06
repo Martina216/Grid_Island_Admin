@@ -29,7 +29,11 @@
                       <td>{{ item.emp_name }}</td>
                       <td>{{ item.emp_acct }}</td>
                       <td>{{ item.emp_premission }}</td>
-                      <td>修改</td>
+                      <td>
+                        <button type="button" class="btn btn-info">
+                          <i class="fa-solid fa-pen-to-square"></i>編輯
+                        </button>
+                      </td>
                   </tr>
               </tbody>
           </table>

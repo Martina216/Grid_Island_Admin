@@ -1,0 +1,24 @@
+  .newsPage {
+    padding: 30px 30px 30px 250px;
+    position: relative;
+
+    nav {
+      a {
+        color: $black-1;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    .padding { 
+      margin: -5px 20px;
+      width: 122px;
+      height: 44px;
+
+    }
+
+  }
+  .bg-blue {
+    background-color: $blue-1;
+  }
