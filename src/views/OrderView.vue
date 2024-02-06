@@ -72,6 +72,7 @@
                   :id="item.ordId"
                   :disabled="item.editMode"
                   :value="Boolean(item.ord_state)"
+                  @change="test"
                 />
                 <label class="form-check-label" :for="item.ordId"></label>
               </div>
@@ -97,7 +98,8 @@
                 type="button"
                 class="btn btn-info"
               >
-                <i class="fa-solid fa-pen-to-square"></i>編輯
+                <i class="fa-solid fa-pen-to-square"></i
+                ><span v-if="item.editMode">編輯</span><span v-else>儲存</span>
               </button>
             </td>
           </tr>
@@ -175,7 +177,6 @@ export default {
       axios
         .post(`${import.meta.env.VITE_API_URL}/getOrder.php`, {})
         .then((res) => {
-          console.log(res.data.ords);
           this.ordData = res.data.ords;
           this.ordDisplayData = res.data.ords;
           this.ordData.forEach((ord) => {
@@ -183,6 +184,13 @@ export default {
           });
         })
         .catch((error) => console.error("發生錯誤:", error));
+    },
+    test(e) {
+      if (e.target.checked) {
+        console.log("處理完");
+      } else {
+        console.log("未處理");
+      }
     },
   },
   mounted() {},
