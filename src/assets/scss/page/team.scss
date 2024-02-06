@@ -1,4 +1,4 @@
-.report{
+.team{
     padding: 30px 30px 30px 250px;
     nav {
         a {
@@ -37,30 +37,9 @@
         }
 
     }
-
-    .reTable{
-
-        tbody{
-            tr{
-                .report_article{
-                    width: 550px;
-                    line-height: 20px;
-                }
-                td{
-                    input{
-                        cursor: pointer;
-                    }
-                }
-            }
-
-
-
-        }
+    .team_article{
+        width: 400px;
+        line-height: 20px;
     }
-
-
-    
-
-
 
 }
