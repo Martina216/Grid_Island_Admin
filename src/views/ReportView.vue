@@ -45,23 +45,19 @@
             </td> -->
             <td>
               <div class="form-check form-switch">
-                <input
-                  class="form-check-input "
-                  role="switch"
-                  type="checkbox"
-                  :name="item.report_id"
-                  :id="item.report_id"
-                  v-model="item.report_state"
-                />
+                <input @click="updateReport(item.report_id)" class="form-check-input " role="switch" type="checkbox"
+                  :name="item.report_id" :id="item.report_id" :checked="item.report_state == 1" />
                 <label class="form-check-label" :for="item.report_id"></label>
               </div>
               <div class="prodState">
-                <span v-if="item.report_state">已下架</span>
+                <span v-if="item.report_state == 1">已下架</span>
                 <span v-else>上架中</span>
               </div>
             </td>
             <td>
-              <input type="checkbox" v-model="item.report_check">{{ item.report_check }}
+              <!-- click事件要改，參數一樣 -->
+              <input type="checkbox" @click="updateReport(item.report_id)" v-model="item.report_check">{{
+                item.report_check }}
             </td>
           </tr>
         </tbody>
@@ -107,19 +103,22 @@ export default {
         //   // reCheck: false, 
         // },
       ],
+      chdata: [],
+      index: 0,
+      reportData: {},
     };
   },
   methods: {
     props: {
       item: Object
     },
-    report_cb_state() {
-      if (this.item.report_check === 0) {
-        this.item.report_check = false;
-      } else {
-        this.item.report_check = true;
-      }
-    },
+    // report_cb_state() {
+    //   if (this.item.report_check === 0) {
+    //     this.item.report_check = false;
+    //   } else {
+    //     this.item.report_check = true;
+    //   }
+    // },
     // aaa(){
     //   const cb_change = 1;
     // },
@@ -131,6 +130,51 @@ export default {
           this.reData = res.data.Report;
         })
         .catch(error => console.error('發生錯誤:', error))
+    },
+    // checkbox參考這邊
+    updateReport(report_id) {
+      console.log(report_id);
+      this.chdata = this.reData.filter((item) => {
+        return item.report_id = report_id
+      })
+      if (this.chdata[0]["report_state"] == 0) {
+        this.index = 1
+      } else {
+        this.index = 0
+      }
+
+      console.log(this.index);
+      // 路徑再改
+      let url = `http://localhost/GridIsland/admin/update_report.php`;
+      this.reportData = {
+        report_id,
+        report_state: this.index,
+      }
+      console.log(this.reportData);
+      fetch(url, {
+        method: 'post',
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify(this.reportData)
+      }).then(res => res.json())
+        .then(result => {
+          if (!result.error) {
+            this.fetchReport()
+            console.log(this.reData);
+          }
+        })
+
+        .catch(error => console.log(error))
+
+
+      // axios
+      //   .post(`${import.meta.env.VITE_API_URL}/update_report.php`, { report_id: report_id, report_state: this.index, report_check: 0 })
+      //   .then(res => {
+      //     //console.log(1); //這可以在f12看到自己的陣列，好用！
+      //     // this.reData = res.data.updateReport;
+      //   })
+      //   .catch(error => console.error('發生錯誤:', error))
     },
   },
   created() {
