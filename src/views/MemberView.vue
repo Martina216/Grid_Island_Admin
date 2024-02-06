@@ -69,7 +69,7 @@
         methods: {
             fetchMember() {
                 axios
-                    .post(`${import.meta.env.VITE_API_URL}/member.php`, {})
+                    .get(`${import.meta.env.VITE_API_URL}/member.php`)
                     .then(res => {
                         console.log(res.data.member); //這可以在f12看到自己的陣列，好用！
                         this.memData = res.data.member;
