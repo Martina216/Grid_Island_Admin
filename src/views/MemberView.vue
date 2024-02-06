@@ -72,7 +72,7 @@ export default {
       memData: [
         {
           memId: 1,
-          memName: "張基德",
+          memName: "張基德大寶寶",
           memTel: "0911-111-000",
           memEmail: "gider@gmail.com",
           memState:true,
