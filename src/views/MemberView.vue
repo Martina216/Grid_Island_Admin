@@ -60,8 +60,7 @@
     export default {
         data() {
             return {
-                memData: [
-                ],
+                memData:[],
             };
         },
         components: {},
@@ -71,8 +70,8 @@
                 axios
                     .get(`${import.meta.env.VITE_API_URL}/member.php`)
                     .then(res => {
-                        console.log(res.data.member); //這可以在f12看到自己的陣列，好用！
-                        this.memData = res.data.member;
+                        console.log(res.data.mem); //這可以在f12看到自己的陣列，好用！
+                        this.memData = res.data.mem;
                     })
                     .catch(error => console.error('發生錯誤:', error))
             },
