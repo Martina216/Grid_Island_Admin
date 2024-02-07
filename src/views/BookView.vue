@@ -23,31 +23,7 @@
           class="rounded border border-1 border-dark"
         />
       </div>
-    </div>    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page">
-          <router-link to="/home">首頁</router-link>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">預訂管理</li>
-      </ol>
-    </nav>
-    <div class="titleGroup">
-      <h1>預訂管理</h1>
-      <div class="searchGroup">
-        <select id="searchFilter" class="rounded border border-1 border-dark">
-          <option value="ordId">預訂編號</option>
-          <option value="memId">會員編號</option>
-          <option value="memName">會員姓名</option>
-        </select>
-        <input
-          type="text"
-          id="searchBar"
-          placeholder="請輸入預訂資料"
-          class="rounded border border-1 border-dark"
-        />
-      </div>
-    </div>
-
+    </div>    
     <div class="bookTable">
       <table class="table table-hover">
         <thead>

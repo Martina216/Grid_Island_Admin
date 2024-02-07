@@ -1,9 +1,17 @@
 <template>
   <div class="bookClander">
-    <h3>
-
-
-    </h3>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page">
+          <router-link to="/home">首頁</router-link>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">預約管理</li>
+        <li class="breadcrumb-item active" aria-current="page">預約行事曆</li>
+      </ol>
+    </nav>
+    <div class="titleGroup">
+      <h1>預約行事曆</h1>
+    </div>
     <vue-cal class="vuecal--blue-theme"   
     hide-view-selector   
     :selected-date="today" 
@@ -32,9 +40,12 @@ export default {
       events: [{
         start: '2024-02-08 09:00',
         end: '2024-02-08 12:00',
-        title: '王先生4人桌'
-      },
-
+        title: '古迪錐4人桌'
+      },{
+        start: '2024-02-08 09:00',
+        end: '2024-02-08 12:00',
+        title: '古迪錐4人桌'
+      }
     ],
     }
   },
