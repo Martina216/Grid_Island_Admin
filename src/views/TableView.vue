@@ -1,8 +1,18 @@
 <template>
   <div class="tables">
-    <div class="tableContent">
-      <h3>桌次管理</h3>
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page">
+                    <router-link to="/home">首頁</router-link>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">桌次管理</li>
+            </ol>
+        </nav>
+        <div class="titleGroup">
+            <h1>桌次管理</h1>
+        </div>
 
+    <div class="tableContent">
       <form class="tableInfo">
         <div class="tableInfoTitle">
           <span>桌型</span>

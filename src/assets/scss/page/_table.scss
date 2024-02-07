@@ -1,8 +1,25 @@
 .tables {
-    width: 82%;
-    margin-left: auto;
-    display: flex;
-    flex-direction: column;
+    padding: 30px 30px 30px 250px;
+    nav {
+        a {
+          color: $black-1;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+      .titleGroup {
+        display: flex;
+        flex-direction: column;
+        gap: $S-spacing;
+        margin-bottom: $L-spacing;
+        h1 {
+          font-size: $PC-h3;
+          padding-left: $S-spacing;
+        }
+    }
+    
 
     .tableInfo div {
         display: flex;
