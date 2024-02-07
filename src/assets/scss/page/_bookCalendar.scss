@@ -1,4 +1,4 @@
-.book {
+.bookClander {
     padding: 30px 30px 30px 250px;
 
     nav {
@@ -42,5 +42,32 @@
                 padding-left: 30px;
             }
         }
+    }
+
+    .vuecal {
+        height: 80vh;
+        font-size: 1rem;
+    }
+
+    .vuecal__event {
+        cursor: pointer;
+    }
+
+    .vuecal__event-title {
+        font-weight: bold;
+        margin: 4px auto 8px;
+        padding: 4px 0 8px;
+    }
+
+    .vuecal__event-time{
+        display: none;
+    }
+
+    .vuecal--week-view .vuecal__cell-date {
+        height: 80vh;
+    }
+
+    .vuecal__now-line {
+        color: #06c;
     }
 }
