@@ -20,9 +20,9 @@
         </div>
         <div v-for="(item, index) in table_typeData" class="tabletype">
           <span>{{ item.table_type_name }}</span>
-          <input type="number" v-model="item.table_amount"/>
+          <input type="number" v-model="item.table_amount" :key="index"/>
         </div>
-        <input type="submit" value="儲存設定" class="btn btn-info" />
+        <input type="button" @click="changeTables()" value="儲存設定" class="btn btn-info"  />
       </form>
     </div>
   </div>
@@ -37,7 +37,7 @@
       };
     },
     methods: {
-      fetchNews() {
+      fetchTabletypes() { //從資料庫中抓到資料
         axios
           .post(`${import.meta.env.VITE_API_URL}/table_type.php`, {})
           .then(res => {
@@ -46,10 +46,27 @@
           })
           .catch(error => console.error('發生錯誤:',error))
       },
-      
+      changeTables(item){
+        axios
+        .post(
+          `${import.meta.env.VITE_API_URL}/updateTable_temp.php`,
+          this.table_typeData
+          // {
+          //   table_amount: item.table_amount,
+          //   table_type_id: item.table_type_id
+          // },
+        )
+        .then((res) => {
+          console.log(res.data);
+          alert("已修改完成");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
     },
     created() {
-      this.fetchNews();
+      this.fetchTabletypes();
     }
   }
 

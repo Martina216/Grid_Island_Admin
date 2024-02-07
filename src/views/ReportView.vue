@@ -112,16 +112,7 @@ export default {
     props: {
       item: Object
     },
-    // report_cb_state() {
-    //   if (this.item.report_check === 0) {
-    //     this.item.report_check = false;
-    //   } else {
-    //     this.item.report_check = true;
-    //   }
-    // },
-    // aaa(){
-    //   const cb_change = 1;
-    // },
+    //query抓資料庫內容
     fetchReport() {
       axios
         .post(`${import.meta.env.VITE_API_URL}/report.php`, {})
@@ -132,10 +123,11 @@ export default {
         .catch(error => console.error('發生錯誤:', error))
     },
     // checkbox參考這邊
+    //更新後update資料庫
     updateReport(report_id) {
       console.log(report_id);
       this.chdata = this.reData.filter((item) => {
-        return item.report_id = report_id
+        return item.report_id == report_id
       })
       if (this.chdata[0]["report_state"] == 0) {
         this.index = 1
@@ -145,7 +137,7 @@ export default {
 
       console.log(this.index);
       // 路徑再改
-      let url = `http://localhost/GridIsland/admin/update_report.php`;
+      let url = `${import.meta.env.VITE_API_URL}/update_report.php`;
       this.reportData = {
         report_id,
         report_state: this.index,
@@ -159,7 +151,9 @@ export default {
         body: JSON.stringify(this.reportData)
       }).then(res => res.json())
         .then(result => {
+          //如果成功
           if (!result.error) {
+            //重新執行query php檔(重新渲染更新後的資料出來)
             this.fetchReport()
             console.log(this.reData);
           }
@@ -184,9 +178,6 @@ export default {
     reportStateText() {
       return this.item.report_state === 0 ? '上架中' : '已下架';
     }
-  },
-  mounted() {
-
   },
 };
 </script>
