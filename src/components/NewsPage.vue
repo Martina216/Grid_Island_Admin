@@ -18,11 +18,11 @@
           <div class="text">
             <div class="title">
               <label for="newsTitle"><span>消息標題</span></label>
-              <input type="text" name="news_title" id="newsTitle" class="form-check-input rounded border border-1 border-gray">
+              <input type="text" name="news_title" id="newsTitle" class="form-check-input rounded border border-1 border-gray" placeholder="請輸入最新消息標題">
             </div>
             <div class="date">
               <label for="newsDate"><span>消息發佈時間</span></label>
-              <input type="datetime-loacal" name="news_date" id="newsDate" class="form-check-input rounded border border-1 border-gray " >
+              <input type="datetime-local" name="news_date" id="newsDate" class="form-check-input rounded border border-1 border-gray">
             </div>
             <div class="content">
               <label for="newsContent"><span>消息內容</span></label>
@@ -31,8 +31,11 @@
           </div>
           <div class="imgContent">
             <div class="img">
-              <label for="newsImg"><span>上傳消息圖片</span></label>
-              <input type="file" name="news_img" id="newsImg" accept="image/png, image/jpeg" class="">
+                <label for="newsImg">
+                    <img src="../assets/images/default_img/logo_white.svg" alt="">
+                </label>
+                <span class="upload">點擊上傳圖片</span>
+              <input type="file" name="news_img" id="newsImg" accept="image/png, image/jpeg" >
             </div>
             <div class="category">
               <select id="newsCategory" class="rounded border border-1 border-gray">
@@ -44,13 +47,13 @@
             </div>
           </div>
         </div>
-        <div class="btnArea">
+        <div @click="addNews" class="btnArea">
           <div class="addBtn">
           <button type="button" class="btn btn-info">
             <i class="fa-solid fa-plus"></i>新增消息
             </button>
           </div>
-          <div @click="back" class="cancelBtn">
+          <div @click="cancelAdd" class="cancelBtn">
           <button type="button" class="btn btn-outline-secondary">
             取消
           </button>
@@ -65,7 +68,11 @@
 export default {
   data() {
     return {
-        // newsPage: 0,
+        isEditing: false,
+        editedMessage: {
+            content: '',
+        },
+        editingIndex: -1,
     };
   },
   components: {
@@ -73,11 +80,25 @@ export default {
   },
   mounted() {},
   methods:{
-    // back() {
-    //     this.newsPage = false;
+    addNews() {
+        this.$set(this.messages, this.editingIndex, this.editedMessage);
+        this.closeEditor();
+        console.log('新增消息:')
+    },
+    cancelAdd() {
+        this.clearForm();
 
-    // }
-  }
+        this.isEditing = false;
+        this.editedMessage = { content: '' };
+        this.editingIndex = -1;
+        this.$emit('editor-closed');
+    },
+    clearForm() {
+        this.editedMessage = {
+        content: '',
+        };
+    }
+    }
 };
 
 

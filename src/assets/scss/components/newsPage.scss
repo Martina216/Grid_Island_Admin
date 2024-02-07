@@ -41,6 +41,7 @@
           span {
             font-size: 18px;
             letter-spacing: .5px;
+            font-weight: bold;
           }
           .text {
             display: flex;
@@ -72,10 +73,29 @@
             .img {
               display: flex;
               flex-direction: column;
+              position: relative;
+              img {
+                width: 100%;
+                vertical-align: middle;
+                filter: blur(5px);
+                filter: opacity(25%);
+                // border: 2px solid $black-1;
+                border-radius: 8px ;
+                cursor: pointer;
+              }
               input {
                 width: 250px;
                 padding-top: 20px;
-
+                display: none;
+              }
+              .upload {
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: translate(0px,120px);
+                text-align: center;
+                pointer-events: none;
               }
             }
 
@@ -93,14 +113,11 @@
           display: flex;
           gap: 20px;
           justify-content: flex-end;
-          padding-right: 200px ;
+          // padding-right: 200px ;
           margin-top: 20px;
 
           .addBtn {
             display: flex;
-            button {
-              
-            }
           }
           .cancelBtn {
             order: -1;

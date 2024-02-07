@@ -86,7 +86,7 @@
     </div>
 
     <!-- 新增文章燈箱 -->
-    <NewsPage v-if="isAdding">
+    <NewsPage v-if="isAdding" @editor-closed="handleEditorClosed" >
 
     </NewsPage>
     
@@ -140,6 +140,9 @@ export default {
   methods:{
     addNews() {
       this.isAdding = true;
+    },
+    handleEditorClosed() {
+      console.log('編輯器已關閉，可以執行一些操作');
     }
   }
 };
