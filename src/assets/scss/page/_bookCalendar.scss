@@ -1,5 +1,5 @@
-.book {
-    padding: 30px 30px 30px 230px;
+.bookClander {
+    padding: 30px 30px 30px 250px;
 
     nav {
         a {
@@ -43,32 +43,31 @@
             }
         }
     }
-    .titleGroup {
-        display: flex;
-        flex-direction: column;
-        gap: $S-spacing;
-        margin-bottom: $L-spacing;
-        h1 {
-          font-size: $PC-h3;
-          padding-left: $S-spacing;
-        }
-        .searchGroup {
-          padding-left: $S-spacing;
-          display: flex;
-          gap: $S-spacing;
-          select {
-            height: 30px;
-          }
-          input {
-            width: 250px;
-            height: 30px;
-            background-image: url("@/assets/images/general/magnifying-glass-solid.svg");
-            background-size: 20px 20px;
-            background-position: 4px 4px;
-            background-repeat: no-repeat;
-            padding-left: 30px;
-          }
-        }
-      }
-    
+
+    .vuecal {
+        height: 80vh;
+        font-size: 1rem;
+    }
+
+    .vuecal__event {
+        cursor: pointer;
+    }
+
+    .vuecal__event-title {
+        font-weight: bold;
+        margin: 4px auto 8px;
+        padding: 4px 0 8px;
+    }
+
+    .vuecal__event-time{
+        display: none;
+    }
+
+    .vuecal--week-view .vuecal__cell-date {
+        height: 80vh;
+    }
+
+    .vuecal__now-line {
+        color: #06c;
+    }
 }
