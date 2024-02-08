@@ -1,5 +1,5 @@
   .newsPage {
-    padding: 30px 30px 30px 250px;
+    padding: 30px 80px 30px 80px;
     position: relative;
 
     nav {
@@ -25,13 +25,17 @@
         input:not([type="file"]) {
           width: 400px;
           height: 30px;
-          padding-left: 10px;
+          padding: 5px 10px;
+          height: 40px;          
         }
         textarea {
           padding-left: 10px;
           padding-top: 10px;
           letter-spacing: 1.2px;
           line-height: 120%;
+          resize: none;
+          overflow-y: auto;
+          height: 395px;
         }
         .wrapper {
           margin-top: 20px;
@@ -48,12 +52,13 @@
             flex-direction: column;
             gap: 15px;
 
+            input, textarea {
+              margin-top: 8px;
+            }
+            
             .title {
               display: flex;
               flex-direction: column;
-              #newsTitle {
-                margin-top: 8px;
-              }
             }
             .date {
               display: flex;
@@ -74,19 +79,33 @@
               display: flex;
               flex-direction: column;
               position: relative;
-              img {
-                width: 100%;
+              margin-top: 20px;
+              .selectImg {
+                width: 260px;
+                height: 248px;
+                vertical-align: middle;
+                border-radius: 8px ;
+                cursor: pointer;
+                overflow: hidden;
+                object-fit: contain;
+                background-color: $gray-3;
+              }
+              .originalImg {
+                width: 260px;
+                height: 248px;
                 vertical-align: middle;
                 filter: blur(5px);
                 filter: opacity(25%);
-                // border: 2px solid $black-1;
                 border-radius: 8px ;
                 cursor: pointer;
+                overflow: hidden;
+                object-fit: contain;
               }
               input {
                 width: 250px;
-                padding-top: 20px;
+                // padding-top: 20px;
                 display: none;
+                padding: 20px 8px 0 8px;
               }
               .upload {
                 width: 100%;
@@ -96,6 +115,7 @@
                 transform: translate(0px,120px);
                 text-align: center;
                 pointer-events: none;
+                font-size: 22px;
                 
               }
             }
@@ -106,6 +126,7 @@
                 height: 30px;
                 width: 250px;
                 margin-left: 10px ;
+                padding: 0 8px ;
               }
             }
           }

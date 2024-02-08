@@ -26,20 +26,22 @@
             </div>
             <div class="content">
               <label for="newsContent"><span>消息內容</span></label>
-              <textarea name="news_content" id="newsContent" cols="10" rows="20" class=" rounded border border-1 border-gray " ></textarea>
+              <textarea name="news_content" id="newsContent" cols="10" rows="20" class=" rounded border border-1 border-gray" placeholder="請輸入最新消息內容" ></textarea>
             </div>
           </div>
           <div class="imgContent">
             <div class="img">
+              <!-- <span>jj</span> -->
                 <label for="newsImg">
-                    <img src="../assets/images/default_img/logo_white.svg" alt="">
+                    <img v-if="!show" class="selectImg" :src="imgSrc" alt="upload-image">
+                    <img v-if="show" class="originalImg" src="../assets/images/default_img/logo_white.svg" alt="original-image" >
                 </label>
-                <span class="upload">點擊上傳圖片</span>
-              <input type="file" name="news_img" id="newsImg" accept="image/png, image/jpeg" >
+                <span v-show="!imgSrc" class="upload">{{imgText}} </span>
+              <input type="file" name="news_img" id="newsImg" accept="image/png, image/jpeg" @change="selectImage">
             </div>
             <div class="category">
               <select id="newsCategory" class="rounded border border-1 border-gray">
-                <option value="0"><span>請選擇消息分類</span></option>
+                <option value="0"><span>-- 請選擇消息分類 --</span></option>
                 <option value="1">桌遊</option>
                 <option value="2">活動</option>
                 <option value="3">限時</option>
@@ -47,8 +49,8 @@
             </div>
           </div>
         </div>
-        <div @click="addNews" class="btnArea">
-          <div class="addBtn">
+        <div class="btnArea">
+          <div @click="addNews"  class="addBtn">
           <button type="button" class="btn btn-info">
             <i class="fa-solid fa-plus"></i>新增消息
             </button>
@@ -73,6 +75,11 @@ export default {
             content: '',
         },
         editingIndex: -1,
+        imgSrc:'',
+        // textOff: true,
+        imgText:'點擊上傳圖片',
+        show: true,
+
     };
   },
   components: {
@@ -81,24 +88,31 @@ export default {
   mounted() {},
   methods:{
     addNews() {
-        this.$set(this.messages, this.editingIndex, this.editedMessage);
-        this.closeEditor();
-        console.log('新增消息:')
+        this.$emit('closeTab');
     },
     cancelAdd() {
-        this.clearForm();
-
-        this.isEditing = false;
-        this.editedMessage = { content: '' };
-        this.editingIndex = -1;
-        this.$emit('editor-closed');
+        this.$emit('closeTab');
     },
     clearForm() {
         this.editedMessage = {
         content: '',
         };
-    }
-    }
+    },
+    selectImage(e) {
+      const file = e.target.files[0];
+      if (file) {
+        // 使用 FileReader 將圖片轉換成 data URL
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imgSrc = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }else {
+        this.imageSrc = 'src/assets/images/default_img/logo_white.svg';
+      }
+      this.show = false;
+    },
+  }
 };
 
 

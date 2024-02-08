@@ -29,7 +29,7 @@
         />
       </div>
     </div>
-    <div @click="addNews" class="addProductBtn">
+    <div @click="add" class="addProductBtn">
       <button type="button" class="btn btn-info">
         <i class="fa-solid fa-plus"></i>新增消息
       </button>
@@ -51,12 +51,12 @@
             v-for="item in newsData"
             class="border-bottom text-left align-middle"
           >
-            <th class="pb-3 pt-3 text-center number">{{ item.newsId }}</th>
+            <th class="pb-3 pt-3 text-center number">{{ item.news_id }}</th>
             <td>
-              <img src="https://i.imgur.com/DtgOnXU.jpeg" class="rounded img" />
+              <img :src="getUrl(item.news_image)" class="rounded img" />
             </td>
-            <td class="name">{{ item.newsName }}</td>
-            <td>{{ item.newsCategory }}
+            <td class="name">{{ item.news_title }}</td>
+            <td>{{ item.news_category }}
             </td>
             <td class="text-center">
               <div class="form-check form-switch">
@@ -86,20 +86,22 @@
     </div>
 
     <!-- 新增文章燈箱 -->
-    <NewsPage v-if="isAdding" @editor-closed="handleEditorClosed" >
+    <NewsPage v-if="showAdd" @closeTab="handleEditorClosed" >
 
     </NewsPage>
     
   </main>
 </template>
 <script>
+import axios from "axios";
 import NewsPage from "../components/NewsPage.vue";
 
 export default {
   data() {
     return {
-      newsData: [
-        {
+      newsData: [],
+      data:[
+      {
           newsId: 1,
           newsName: "新春特惠：1月25日至2月5日，任意桌遊享限時折扣！",
           newsCategory: "優惠",
@@ -130,7 +132,7 @@ export default {
           newsState:true,
         },
       ],
-      isAdding:0,
+      showAdd: false,
     };
   },
   components: {
@@ -138,12 +140,29 @@ export default {
   },
   mounted() {},
   methods:{
-    addNews() {
-      this.isAdding = true;
+    add() {
+      this.showAdd = true;
     },
     handleEditorClosed() {
-      console.log('編輯器已關閉，可以執行一些操作');
+      this.showAdd = false;
+    },
+    fetchNews() {
+      let url = `${import.meta.env.VITE_API_URL}/getNews.php`;
+      console.log(`${import.meta.env.VITE_API_URL}/getNews.php`);
+      axios
+        .get(`${import.meta.env.VITE_API_URL}/getNews.php`, {})
+        .then(res => {
+          console.log(res.data.news);
+          this.newsData = res.data.news;
+        })
+        .catch(error => console.error('發生錯誤:',error))
+    },
+    getUrl(path) {
+      return `https://tibamef2e.com/chd104/g5/image/news/${path}`;
     }
+  },
+  created() {
+    this.fetchNews();
   }
 };
 </script>
