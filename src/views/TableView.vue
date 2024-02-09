@@ -39,7 +39,7 @@
     methods: {
       fetchTabletypes() { //從資料庫中抓到資料
         axios
-          .post(`${import.meta.env.VITE_API_URL}/table_type.php`, {})
+          .post(`${import.meta.env.VITE_API_URL}/getTable_type.php`, {})
           .then(res => {
             console.log(res.data.table_type); //這可以在f12看到自己的陣列，好用！
             this.table_typeData = res.data.table_type;
