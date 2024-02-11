@@ -53,7 +53,7 @@
           >
             <th class="pb-3 pt-3 text-center number">{{ item.news_id }}</th>
             <td>
-              <img :src="getUrl(item.news_image)" class="rounded img" />
+              <img :src="getImgUrl(item.news_image)" class="rounded img" />
             </td>
             <td class="name">{{ item.news_title }}</td>
             <td>{{ item.news_category }}
@@ -71,12 +71,12 @@
                 <label class="form-check-label" :for="item.ordId"></label>
               </div>
               <div class="ordState">
-                <span v-if="item.newsState">已發佈</span>
+                <span v-if="item.news_state">已發佈</span>
                 <span v-else>未發佈</span>
               </div>
             </td>
             <td>
-              <button type="button" class="btn btn-info">
+              <button @click="edit" type="button" class="btn btn-info">
                 <i class="fa-solid fa-pen-to-square"></i>編輯
               </button>
             </td>
@@ -86,15 +86,16 @@
     </div>
 
     <!-- 新增文章燈箱 -->
-    <NewsPage v-if="showAdd" @closeTab="handleEditorClosed" >
+    <NewsPage v-if="showAdd" @closeTab="handleEditorClosed" /> 
+    <!-- 編輯文章燈箱 -->
+    <editNews v-if="showEdit" @closeTab="handleEditorClosed" /> 
 
-    </NewsPage>
-    
   </main>
 </template>
 <script>
 import axios from "axios";
 import NewsPage from "../components/NewsPage.vue";
+import editNews from "../components/EditNewsPage.vue";
 
 export default {
   data() {
@@ -133,22 +134,28 @@ export default {
         },
       ],
       showAdd: false,
+      showEdit:false,
     };
   },
   components: {
     NewsPage,
+    editNews,
   },
   mounted() {},
   methods:{
     add() {
       this.showAdd = true;
     },
+    edit() {
+      this.showEdit = true;
+    },
     handleEditorClosed() {
       this.showAdd = false;
+      this.showEdit = false;
     },
     fetchNews() {
       let url = `${import.meta.env.VITE_API_URL}/getNews.php`;
-      console.log(`${import.meta.env.VITE_API_URL}/getNews.php`);
+      // console.log(`${import.meta.env.VITE_API_URL}/getNews.php`); //確認php路徑用
       axios
         .get(`${import.meta.env.VITE_API_URL}/getNews.php`, {})
         .then(res => {
@@ -157,12 +164,14 @@ export default {
         })
         .catch(error => console.error('發生錯誤:',error))
     },
-    getUrl(path) {
-      return `https://tibamef2e.com/chd104/g5/image/news/${path}`;
-    }
+    getImgUrl(path) {
+      // return `https://tibamef2e.com/chd104/g5/image/news/${path}`; //上線端
+      return `http://localhost/GridIsland/images/news/${path}`; //本機端
+    },
   },
   created() {
     this.fetchNews();
+
   }
 };
 </script>

@@ -8,25 +8,25 @@
         <li class="breadcrumb-item active" aria-current="page">
           <router-link to="/news">最新消息管理</router-link>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">新增消息</li>
+        <li class="breadcrumb-item active" aria-current="page">編輯消息</li>
       </ol>
     </nav>
     <div class="titleGroup pb-5">
-      <h1>新增消息</h1>
+      <h1>編輯消息</h1>
       <form method="post" enctype="multipart/form-data" @submit.prevent="submitForm">
         <div class="wrapper">
           <div class="text">
             <div class="title">
               <label for="newsTitle"><span>消息標題</span></label>
-              <input v-model="formData.news_title" type="text" name="news_title" id="newsTitle" class="form-check-input rounded border border-1 border-gray" placeholder="請輸入最新消息標題">
+              <input v-model="newsData.news_title" type="text" name="news_title" id="newsTitle" class="form-check-input rounded border border-1 border-gray" placeholder="請輸入最新消息標題">
             </div>
             <div class="date">
               <label for="newsDate"><span>消息發佈時間</span></label>
-              <input v-model="formData.news_date" type="datetime-local" name="news_date" id="newsDate" class="form-check-input rounded border border-1 border-gray">
+              <input v-model="newsData.news_date" type="datetime-local" name="news_date" id="newsDate" class="form-check-input rounded border border-1 border-gray">
             </div>
             <div class="content">
               <label for="newsContent"><span>消息內容</span></label>
-              <textarea v-model="formData.news_content" name="news_content" id="newsContent" cols="10" rows="20" class=" rounded border border-1 border-gray" placeholder="請輸入最新消息內容" ></textarea>
+              <textarea v-model="newsData.news_content" name="news_content" id="newsContent" cols="10" rows="20" class=" rounded border border-1 border-gray" placeholder="請輸入最新消息內容" ></textarea>
             </div>
           </div>
           <div class="imgContent">
@@ -40,7 +40,7 @@
               <input type="file" name="news_image" id="newsImg" accept="image/png, image/jpeg" @change="selectImage">
             </div>
             <div class="category">
-              <select v-model="formData.news_category" id="newsCategory" class="rounded border border-1 border-gray">
+              <select :value="newsData.news_category" id="newsCategory" class="rounded border border-1 border-gray">
                 <option value="0"><span>-- 請選擇消息分類 --</span></option>
                 <option value="桌遊">桌遊</option>
                 <option value="活動">活動</option>
@@ -74,17 +74,22 @@ export default {
         imgSrc:'',
         imgText:'點擊上傳圖片',
         show: true,
-        formData: {
-        news_title: '',
-        news_date: '',
-        news_content: '',
-        news_category: '',
-        news_state: '',
-        },
         file: null,
+        newsData:[],
     };
   },
   methods:{
+    fetchNews() {
+      let url = `${import.meta.env.VITE_API_URL}/getNews.php`;
+      // console.log(`${import.meta.env.VITE_API_URL}/getNews.php`); //確認php路徑用
+      axios
+        .get(`${import.meta.env.VITE_API_URL}/getNews.php`, {})
+        .then(res => {
+          console.log(res.data.news);
+          this.newsData = res.data.news;
+        })
+        .catch(error => console.error('發生錯誤:',error))
+    },
     getPhpUrl(path) {
       const url = `http://localhost/GridIsland/admin/${path}`;
       console.log('Generated URL:', url);
@@ -92,17 +97,7 @@ export default {
       // return `https://tibamef2e.com/chd104/g5/php/admin/${path}`; //上線端
     },
     cancelAdd() {
-      this.clearForm();
       this.$emit('closeTab');
-    },
-    clearForm() {
-      this.formData = {
-        news_title: '',
-        news_date: '',
-        news_content: '',
-        news_category: '',
-        news_state: '',
-      };
     },
     selectImage(e) {
       const file = e.target.files[0];
