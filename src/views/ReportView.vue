@@ -37,34 +37,25 @@
             <th class="pb-3 pt-3">{{ item.report_id }}</th>
             <td>{{ item.report_reason }}</td>
             <td class="report_article">{{ item.msg_content }}</td>
-            <!-- <td class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" id="flexSwitchCheck{{ index }}" v-model="item.report_state">
-              <label class="form-check-label" for="flexSwitchCheck{{ index }}">
-                <span class="switch-label">{{ item.report_state }}</span>
-              </label>
-            </td> -->
             <td>
               <div class="form-check form-switch">
                 <input @click="updateReport(item.report_id)" class="form-check-input " role="switch" type="checkbox"
                   :name="item.report_id" :id="item.report_id" :checked="item.report_state == 1" />
                 <label class="form-check-label" :for="item.report_id"></label>
               </div>
-              <div class="prodState">
+              <div class="reportState">
                 <span v-if="item.report_state == 1">已下架</span>
                 <span v-else>上架中</span>
               </div>
             </td>
             <td>
-              <!-- click事件要改，參數一樣 -->
-              <input type="checkbox" @click="updateReport(item.report_id)" v-model="item.report_check">{{
-                item.report_check }}
+              <input type="checkbox" @click="checkReport(item.report_id)" :name="item.report_id" :id="item.report_id"
+                :checked="item.report_check == 1">
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-
-
   </main>
 </template>
 
@@ -106,6 +97,7 @@ export default {
       chdata: [],
       index: 0,
       reportData: {},
+      checkData: [],
     };
   },
   methods: {
@@ -117,13 +109,12 @@ export default {
       axios
         .post(`${import.meta.env.VITE_API_URL}/report.php`, {})
         .then(res => {
-          console.log(res.data.Report); //這可以在f12看到自己的陣列，好用！
+          // console.log(res.data.Report);
           this.reData = res.data.Report;
         })
         .catch(error => console.error('發生錯誤:', error))
     },
-    // checkbox參考這邊
-    //更新後update資料庫
+    //更新switch後update資料庫
     updateReport(report_id) {
       console.log(report_id);
       this.chdata = this.reData.filter((item) => {
@@ -134,15 +125,11 @@ export default {
       } else {
         this.index = 0
       }
-
-      console.log(this.index);
-      // 路徑再改
       let url = `${import.meta.env.VITE_API_URL}/update_report.php`;
       this.reportData = {
         report_id,
         report_state: this.index,
       }
-      console.log(this.reportData);
       fetch(url, {
         method: 'post',
         headers: {
@@ -158,17 +145,42 @@ export default {
             console.log(this.reData);
           }
         })
-
         .catch(error => console.log(error))
-
-
-      // axios
-      //   .post(`${import.meta.env.VITE_API_URL}/update_report.php`, { report_id: report_id, report_state: this.index, report_check: 0 })
-      //   .then(res => {
-      //     //console.log(1); //這可以在f12看到自己的陣列，好用！
-      //     // this.reData = res.data.updateReport;
-      //   })
-      //   .catch(error => console.error('發生錯誤:', error))
+    },
+    //checkbox
+    checkReport(report_id) {
+      console.log(report_id);
+      this.checkData = this.reData.filter((item) => {
+        return item.report_id == report_id;
+      });
+      if (this.checkData[0]["report_check"] == 0) {
+        this.index = 1;
+      } else {
+        this.index = 0;
+      }
+      console.log(this.index);
+      let url = `${import.meta.env.VITE_API_URL}/check_report.php`;
+      this.checkData = {
+        report_id,
+        report_check: this.index,
+      }
+      fetch(url, {
+        method: 'post',
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify(this.checkData)
+      })
+        .then((res) => res.json())
+        .then(result => {
+          //如果成功
+          if (!result.error) {
+            //重新執行query php檔(重新渲染更新後的資料出來)
+            this.fetchReport()
+            console.log(this.reData);
+          }
+        })
+        .catch(error => console.log(error))
     },
   },
   created() {
