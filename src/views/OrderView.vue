@@ -158,6 +158,7 @@ export default {
         .then((res) => {
           console.log(res.data);
           alert("已修改完成");
+          this.fetchOrder();
         })
         .catch((error) => {
           console.log(error);
@@ -233,7 +234,6 @@ export default {
         .then((res) => {
           console.log(res.data);
           item.ord_state = isChecked;
-          this.fetchOrder();
         })
         .catch((error) => {
           console.log(error);
