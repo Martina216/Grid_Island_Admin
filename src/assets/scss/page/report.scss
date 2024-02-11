@@ -35,11 +35,9 @@
             padding-left: 30px;
             }
         }
-
     }
 
     .reTable{
-
         tbody{
             tr{
                 .report_article{
@@ -49,6 +47,7 @@
                 td{
                     input{
                         cursor: pointer;
+                        margin: auto;
                     }
                 }
             }
