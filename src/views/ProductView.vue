@@ -49,28 +49,38 @@
         </thead>
         <tbody>
           <tr
-            v-for="item in prodData"
+            v-for="item in productData"
             class="border-bottom text-left align-middle"
           >
-            <th class="pb-3 pt-3 text-center number">{{ item.prodId }}</th>
-            <td><img src="https://fakeimg.pl/60x60/200" class="rounded img" /></td>
-            <td class="name" >{{ item.prodName }}</td>
-            <td>$ {{ item.prodPrice }}</td>
-            <td>$ {{ item.prodPrice }}</td>
+            <th class="pb-3 pt-3 text-center number">{{ item.prod_id }}</th>
+            <td>
+              <img
+                :src="item.prod_img1"
+                :alt="item.prod_name"
+                class="rounded img"
+              />
+            </td>
+            <td class="name">{{ item.prod_name }}</td>
+            <td>$ {{ item.prod_price }}</td>
+            <td>
+              <span v-if="item.prod_discount_price"
+                >$ {{ item.prod_discount_price }}</span
+              ><span v-else>無特價</span>
+            </td>
             <td>
               <div class="form-check form-switch">
                 <input
-                  class="form-check-input "
+                  class="form-check-input"
                   role="switch"
                   type="checkbox"
-                  :name="item.ordId"
-                  :id="item.ordId"
-                  v-model="item.prodState"
+                  :name="item.ord_id"
+                  :id="item.ord_id"
+                  :checked="item.prod_state == 1"
                 />
-                <label class="form-check-label" :for="item.ordId"></label>
+                <label class="form-check-label" :for="item.ord_id"></label>
               </div>
               <div class="prodState">
-                <span v-if="item.prodState">已上架</span>
+                <span v-if="item.prod_state == 1">已上架</span>
                 <span v-else>未上架</span>
               </div>
             </td>
@@ -86,44 +96,27 @@
   </main>
 </template>
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
-      prodData: [
-        {
-          prodId: 1,
-          prodName: "蟲蟲沙",
-          prodPrice: "300",
-          prodState:false,
-        },
-        {
-          prodId: 2,
-          prodName: "阿瓦蟲",
-          prodPrice: "400",
-          prodState:true,
-        },
-        {
-          prodId: 3,
-          prodName: "貓與城之內豪華精裝版",
-          prodPrice: "500",
-          prodState:true,
-        },
-        {
-          prodId: 4,
-          prodName: "貓與地下城",
-          prodPrice: "600",
-          prodState:true,
-        },
-        {
-          prodId: 5,
-          prodName: "蟲蟲總動員",
-          prodPrice: "700",
-          prodState:true,
-        },
-      ],
+      productData: [],
     };
   },
   components: {},
   mounted() {},
+  created() {
+    this.fetchProd();
+  },
+  methods: {
+    fetchProd() {
+      axios
+        .post(`${import.meta.env.VITE_API_URL}/getProduct.php`)
+        .then((res) => {
+          this.productData = res.data.products;
+        });
+    },
+  },
 };
 </script>

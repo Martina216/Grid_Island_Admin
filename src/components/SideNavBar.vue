@@ -32,27 +32,25 @@
               <span class="ms-1 text-dark fs-5">預約管理</span>
               <i class="fa-solid fa-angle-right"></i>
             </a>
-            <ul
-              class="collapse nav flex-column ms-4"
-              id="submenu1"
-              data-bs-parent="#menu"
-            >
-              <li class="w-100">
-                <RouterLink to="/bookclander" class="nav-link px-0">
-                  <span class="text-dark fs-6">預約行事曆</span>
-                </RouterLink>
-              </li>
-              <li>
-                <RouterLink to="/book" class="nav-link px-0">
-                  <span class="text-dark fs-6">預約訂單</span>
-                </RouterLink>
-              </li>
-              <li>
-                <RouterLink to="/table" class="nav-link px-0">
-                  <span class="text-dark fs-6">桌次管理</span>
-                </RouterLink>
-              </li>
-            </ul>
+            <div class="collapse" id="submenu1" data-bs-parent="#menu">
+              <ul class="nav flex-column ms-4">
+                <li class="w-100">
+                  <RouterLink to="/bookclander" class="nav-link px-0">
+                    <span class="text-dark fs-6">預約行事曆</span>
+                  </RouterLink>
+                </li>
+                <li class="w-100">
+                  <RouterLink to="/book" class="nav-link px-0">
+                    <span class="text-dark fs-6">預約訂單</span>
+                  </RouterLink>
+                </li>
+                <li>
+                  <RouterLink to="/table" class="nav-link px-0">
+                    <span class="text-dark fs-6">桌次管理</span>
+                  </RouterLink>
+                </li>
+              </ul>
+            </div>
           </li>
           <li class="nav-item">
             <RouterLink to="order" class="nav-link align-middle px-0">
@@ -79,22 +77,20 @@
               <i class="fa-solid fa-angle-right"></i>
             </a>
 
-            <ul
-              class="collapse nav flex-column ms-4"
-              id="submenu2"
-              data-bs-parent="#menu"
-            >
-              <li class="w-100">
-                <RouterLink to="/report" class="nav-link px-0">
-                  <span class="text-dark fs-6">留言檢舉管理</span>
-                </RouterLink>
-              </li>
-              <li>
-                <RouterLink to="/team" class="nav-link px-0">
-                  <span class="text-dark fs-6">報隊管理</span>
-                </RouterLink>
-              </li>
-            </ul>
+            <div id="submenu2" data-bs-parent="#menu" class="collapse">
+              <ul class="nav flex-column ms-4">
+                <li class="w-100">
+                  <RouterLink to="/report" class="nav-link px-0">
+                    <span class="text-dark fs-6">留言檢舉管理</span>
+                  </RouterLink>
+                </li>
+                <li>
+                  <RouterLink to="/team" class="nav-link px-0">
+                    <span class="text-dark fs-6">報隊管理</span>
+                  </RouterLink>
+                </li>
+              </ul>
+            </div>
           </li>
           <li class="nav-item mt-5">
             <RouterLink to="/permission" class="nav-link align-middle px-0">
