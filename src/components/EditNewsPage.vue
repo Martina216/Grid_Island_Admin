@@ -32,8 +32,8 @@
           <div class="imgContent">
             <div class="img">
                 <label for="newsImg">
-                    <img v-if="!show" class="selectImg" :src="imgSrc" alt="upload-image">
-                    <img v-if="show" class="originalImg" src="../assets/images/default_img/logo_white.svg" alt="original-image" >
+                    <img v-if="show" class="selectImg" :src="editedData.news_image" alt="upload-image">
+                    <!-- <img v-if="show" class="originalImg" src="../assets/images/default_img/logo_white.svg" alt="original-image" > -->
                 </label>
                 <span v-show="!imgSrc" class="upload">{{imgText}} </span>
               <input type="file" name="news_image" id="newsImg" accept="image/png, image/jpeg" @change="selectImage">
@@ -71,7 +71,7 @@ export default {
   data() {
     return {
       imgSrc:'',
-      imgText:'點擊上傳圖片',
+      imgText:'點擊更改圖片',
       show: true,
       file: null,
       editedData: { ...this.data }, //將this.data的資料值複製到新的對象editDate中，屬於淺拷貝

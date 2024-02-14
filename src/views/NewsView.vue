@@ -129,7 +129,7 @@ export default {
     },
     // fetchNews() {
     //   let url = `${import.meta.env.VITE_API_URL}/getNews.php`;
-    //   // console.log(`${import.meta.env.VITE_API_URL}/getNews.php`); //確認php路徑用
+    //   console.log(url); //確認php路徑用
     //   axios
     //     .get(`${import.meta.env.VITE_API_URL}/getNews.php`, {})
     //     .then(res => {
@@ -154,6 +154,7 @@ export default {
     async fetchNews() {
       try {
         let url = `${import.meta.env.VITE_API_URL}/getNews.php`;
+        console.log(url);
         const response = await axios.get(url, {});
         
         // 確保 response.data.news 是一個陣列
