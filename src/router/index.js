@@ -81,16 +81,8 @@ const router = createRouter({
       component: () => import("../views/NewsView.vue"),
     },
     {
-      path: "/newspage",
-      name: "newsPage",
-      meta: {
-        title:"最新消息新增測試",
-      },
-      component: () => import("../views/NewsTestView.vue"),
-    },
-    {
-      path: "/code",
-      name: "code",
+      path: "/cuppon",
+      name: "cuppon",
       meta: {
         title:"優惠碼管理",
       },

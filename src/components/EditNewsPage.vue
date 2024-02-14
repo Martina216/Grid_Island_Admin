@@ -18,20 +18,19 @@
           <div class="text">
             <div class="title">
               <label for="newsTitle"><span>消息標題</span></label>
-              <input v-model="newsData.news_title" type="text" name="news_title" id="newsTitle" class="form-check-input rounded border border-1 border-gray" placeholder="請輸入最新消息標題">
+              <input v-model="editedData.news_title" type="text" name="news_title" id="newsTitle" class="form-check-input rounded border border-1 border-gray" placeholder="請輸入最新消息標題">
             </div>
             <div class="date">
               <label for="newsDate"><span>消息發佈時間</span></label>
-              <input v-model="newsData.news_date" type="datetime-local" name="news_date" id="newsDate" class="form-check-input rounded border border-1 border-gray">
+              <input v-model="editedData.news_date" type="datetime-local" name="news_date" id="newsDate" class="form-check-input rounded border border-1 border-gray">
             </div>
             <div class="content">
               <label for="newsContent"><span>消息內容</span></label>
-              <textarea v-model="newsData.news_content" name="news_content" id="newsContent" cols="10" rows="20" class=" rounded border border-1 border-gray" placeholder="請輸入最新消息內容" ></textarea>
+              <textarea v-model="editedData.news_content" name="news_content" id="newsContent" cols="10" rows="20" class=" rounded border border-1 border-gray" placeholder="請輸入最新消息內容" ></textarea>
             </div>
           </div>
           <div class="imgContent">
             <div class="img">
-              <!-- <span>jj</span> -->
                 <label for="newsImg">
                     <img v-if="!show" class="selectImg" :src="imgSrc" alt="upload-image">
                     <img v-if="show" class="originalImg" src="../assets/images/default_img/logo_white.svg" alt="original-image" >
@@ -40,7 +39,7 @@
               <input type="file" name="news_image" id="newsImg" accept="image/png, image/jpeg" @change="selectImage">
             </div>
             <div class="category">
-              <select :value="newsData.news_category" id="newsCategory" class="rounded border border-1 border-gray">
+              <select v-model="editedData.news_category" id="newsCategory" class="rounded border border-1 border-gray">
                 <option value="0"><span>-- 請選擇消息分類 --</span></option>
                 <option value="桌遊">桌遊</option>
                 <option value="活動">活動</option>
@@ -50,12 +49,12 @@
           </div>
         </div>
         <div class="btnArea">
-          <div class="addBtn">
+          <div @click="saveChange" class="addBtn">
           <button type="submit" class="btn btn-info">
-            <i class="fa-solid fa-plus"></i>新增消息
+            <i class="fa-solid fa-plus"></i>儲存消息
           </button>
           </div>
-          <div @click="cancelAdd" class="cancelBtn">
+          <div @click="cancelEdit" class="cancelBtn">
           <button type="button" class="btn btn-outline-secondary">
             取消
           </button>
@@ -71,32 +70,24 @@ import axios from 'axios';
 export default {
   data() {
     return {
-        imgSrc:'',
-        imgText:'點擊上傳圖片',
-        show: true,
-        file: null,
-        newsData:[],
+      imgSrc:'',
+      imgText:'點擊上傳圖片',
+      show: true,
+      file: null,
+      editedData: { ...this.data }, //將this.data的資料值複製到新的對象editDate中，屬於淺拷貝
     };
   },
+  props: {
+    data: Object,
+  },
   methods:{
-    fetchNews() {
-      let url = `${import.meta.env.VITE_API_URL}/getNews.php`;
-      // console.log(`${import.meta.env.VITE_API_URL}/getNews.php`); //確認php路徑用
-      axios
-        .get(`${import.meta.env.VITE_API_URL}/getNews.php`, {})
-        .then(res => {
-          console.log(res.data.news);
-          this.newsData = res.data.news;
-        })
-        .catch(error => console.error('發生錯誤:',error))
-    },
     getPhpUrl(path) {
       const url = `http://localhost/GridIsland/admin/${path}`;
       console.log('Generated URL:', url);
       return url; //本機端
       // return `https://tibamef2e.com/chd104/g5/php/admin/${path}`; //上線端
     },
-    cancelAdd() {
+    cancelEdit() {
       this.$emit('closeTab');
     },
     selectImage(e) {
@@ -115,41 +106,38 @@ export default {
       }
       this.show = false;
     },
-    submitForm() {
+    async submitForm() {
       const formData = new FormData();
-      formData.append('news_title', this.formData.news_title);
-      formData.append('news_date', new Date(this.formData.news_date).toISOString()); //將日期轉換為ISO格式
-      formData.append('news_content', this.formData.news_content);
-      formData.append('news_image', this.file);
-      formData.append('news_category', this.formData.news_category);
-      formData.append('news_state', this.formData.news_state);
-
-      axios.post(this.getPhpUrl('insertNews.php'), formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then(res => {
-        console.log(res.data);
-        alert(res.data.msg);
-      })
-      .then(result =>{
-        this.$emit('closeTab');
-        this.reloadPage();
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+      formData.append('news_title', this.editedData.news_title);
+      formData.append('news_date', new Date(this.editedData.news_date).toISOString()); //將日期轉換為ISO格式
+      formData.append('news_content', this.editedData.news_content);
+      // formData.append('news_image', this.file);
+      formData.append('news_category', this.editedData.news_category);
+      // formData.append('news_state', this.editedData.news_state);
+      await this.saveChange();
     },
+    async saveChange() {
+      try {
+        await axios.post(this.getPhpUrl('updateNews.php'), this.editedData);
+        this.$emit('update', this.editedData);
+      } catch (error) {
+        console.error('發生錯誤:', error);
+      }
+    },
+
     reloadPage() {
       location.reload();
     },
   },
   created() {
-    //檢查php路徑正確與否使用
-    // this.action = this.getPhpUrl('insertNews.php');
-    // console.log(this.action);
-  }
+    // 檢查php路徑正確與否使用
+    console.log(this.getPhpUrl('updateNews.php'));
+  },
+  watch: {
+    data(newValue) {
+      this.editedData = { ...newValue };//將newValue的資料值複製到新的對象editDate中
+    },
+  },
 
 };
 

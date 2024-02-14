@@ -76,7 +76,7 @@
               </div>
             </td>
             <td>
-              <button @click="edit" type="button" class="btn btn-info">
+              <button @click="openEditor(item.news_id)" class="btn btn-info">
                 <i class="fa-solid fa-pen-to-square"></i>編輯
               </button>
             </td>
@@ -88,7 +88,8 @@
     <!-- 新增文章燈箱 -->
     <NewsPage v-if="showAdd" @closeTab="handleEditorClosed" /> 
     <!-- 編輯文章燈箱 -->
-    <editNews v-if="showEdit" @closeTab="handleEditorClosed" /> 
+    <editNews v-if="showEdit" :data="selectedNews" @closeTab="handleEditorClosed"
+    /> 
 
   </main>
 </template>
@@ -101,40 +102,16 @@ export default {
   data() {
     return {
       newsData: [],
-      data:[
-      {
-          newsId: 1,
-          newsName: "新春特惠：1月25日至2月5日，任意桌遊享限時折扣！",
-          newsCategory: "優惠",
-          newsState:true,
-        },
-        {
-          newsId: 2,
-          newsName: "老闆娘推薦：本月十大必玩桌遊盤點",
-          newsCategory: "桌遊",
-          newsState:false,
-        },
-        {
-          newsId: 3,
-          newsName: "桌遊夜：每週五晚上，來店體驗最新的桌遊大作！",
-          newsCategory: "活動",
-          newsState:true,
-        },
-        {
-          newsId: 4,
-          newsName: "限量版桌遊收藏家系列：獨家發售通知",
-          newsCategory: "桌遊",
-          newsState:true,
-        },
-        {
-          newsId: 5,
-          newsName: "新春特惠：1月25日至2月5日，任意桌遊享限時折扣！",
-          newsCategory: "優惠",
-          newsState:true,
-        },
-      ],
       showAdd: false,
       showEdit:false,
+      editedData:{
+        id: 1,
+        news_title: '測試文章1',
+        news_date: '2024-02-11',
+        news_content: '測試內容',
+        news_category: '桌遊',
+      },
+      selectedNews: null,
     };
   },
   components: {
@@ -146,27 +123,50 @@ export default {
     add() {
       this.showAdd = true;
     },
-    edit() {
-      this.showEdit = true;
-    },
     handleEditorClosed() {
       this.showAdd = false;
       this.showEdit = false;
     },
-    fetchNews() {
-      let url = `${import.meta.env.VITE_API_URL}/getNews.php`;
-      // console.log(`${import.meta.env.VITE_API_URL}/getNews.php`); //確認php路徑用
-      axios
-        .get(`${import.meta.env.VITE_API_URL}/getNews.php`, {})
-        .then(res => {
-          console.log(res.data.news);
-          this.newsData = res.data.news;
-        })
-        .catch(error => console.error('發生錯誤:',error))
-    },
+    // fetchNews() {
+    //   let url = `${import.meta.env.VITE_API_URL}/getNews.php`;
+    //   // console.log(`${import.meta.env.VITE_API_URL}/getNews.php`); //確認php路徑用
+    //   axios
+    //     .get(`${import.meta.env.VITE_API_URL}/getNews.php`, {})
+    //     .then(res => {
+    //       console.log(res.data.news);
+    //       this.newsData = res.data.news;
+    //     })
+    //     .catch(error => console.error('發生錯誤:',error))
+    // },
     getImgUrl(path) {
       // return `https://tibamef2e.com/chd104/g5/image/news/${path}`; //上線端
       return `http://localhost/GridIsland/images/news/${path}`; //本機端
+    },
+    openEditor(newsId) {
+      const selectedNews = this.getNewsById(newsId);
+      if (selectedNews) {
+        this.selectedNews = selectedNews;
+        this.showEdit = true;
+      } else {
+        console.error(`找不到 id 為 ${newsId} 的新聞`);
+      }
+    },
+    async fetchNews() {
+      try {
+        let url = `${import.meta.env.VITE_API_URL}/getNews.php`;
+        const response = await axios.get(url, {});
+        
+        // 確保 response.data.news 是一個陣列
+        this.newsData = Array.isArray(response.data.news) ? response.data.news : [];
+      } catch (error) {
+        console.error('發生錯誤:', error);
+      }
+    },
+    getNewsById(newsId) {
+      if (this.newsData && this.newsData.length > 0) {
+        return this.newsData.find(news => news.news_id === newsId); //根據商品ID從 newsData 中找到對應的商品資訊
+      }
+      return null;
     },
   },
   created() {
