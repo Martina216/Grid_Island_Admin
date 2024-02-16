@@ -62,9 +62,14 @@
   }
   .img {
     width: 70px;
-    height:70px;
+    height: 70px;
     overflow: hidden;
     object-fit: contain;
     object-fit: cover;
+  }
+  .prodState {
+    span {
+      font-size: 12px;
+    }
   }
 }
