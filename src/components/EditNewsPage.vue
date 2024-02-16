@@ -13,7 +13,7 @@
     </nav>
     <div class="titleGroup pb-5">
       <h1>編輯消息</h1>
-      <form method="post" enctype="multipart/form-data" @submit.prevent="submitForm">
+      <form method="post" enctype="multipart/form-data" @submit.prevent="updateNews">
         <div class="wrapper">
           <div class="text">
             <div class="title">
@@ -49,7 +49,7 @@
           </div>
         </div>
         <div class="btnArea">
-          <div @click="saveChange" class="addBtn">
+          <div class="addBtn">
           <button type="submit" class="btn btn-info">
             <i class="fa-solid fa-plus"></i>儲存消息
           </button>
@@ -75,6 +75,7 @@ export default {
       show: true,
       file: null,
       editedData: { ...this.data }, //將this.data的資料值複製到新的對象editDate中，屬於淺拷貝
+      requestData:[],
     };
   },
   props: {
@@ -106,25 +107,26 @@ export default {
       }
       this.show = false;
     },
-    async submitForm() {
-      const formData = new FormData();
-      formData.append('news_title', this.editedData.news_title);
-      formData.append('news_date', new Date(this.editedData.news_date).toISOString()); //將日期轉換為ISO格式
-      formData.append('news_content', this.editedData.news_content);
-      // formData.append('news_image', this.file);
-      formData.append('news_category', this.editedData.news_category);
-      // formData.append('news_state', this.editedData.news_state);
-      await this.saveChange();
-    },
-    async saveChange() {
+    async updateNews() {
       try {
-        await axios.post(this.getPhpUrl('updateNews.php'), this.editedData);
-        this.$emit('update', this.editedData);
+        const requestData = {
+        };
+
+        // 當按下 "更新新聞" 按鈕時，將 editedData 的值賦給 requestData
+        this.requestData = { ...this.editedData };
+
+        // 此時 requestData 中的值已經更新為 editedData 中的值
+        console.log(this.requestData);
+
+        const res = await axios.post(this.getPhpUrl('updateNews.php'), this.requestData)
+
+        console.log(res.data);
+        alert('成功修改最新消息')
       } catch (error) {
         console.error('發生錯誤:', error);
       }
+      this.reloadPage();
     },
-
     reloadPage() {
       location.reload();
     },
