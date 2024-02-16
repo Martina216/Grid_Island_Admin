@@ -55,7 +55,7 @@
             <th class="pb-3 pt-3 text-center number">{{ item.prod_id }}</th>
             <td>
               <img
-                :src="item.prod_img1"
+                :src="`https://tibamef2e.com/chd104/g5/image/prod/${item.prod_img1}`"
                 :alt="item.prod_name"
                 class="rounded img"
               />
@@ -76,6 +76,7 @@
                   :name="item.ord_id"
                   :id="item.ord_id"
                   :checked="item.prod_state == 1"
+                  @change="updateProdState(item)"
                 />
                 <label class="form-check-label" :for="item.ord_id"></label>
               </div>
@@ -115,6 +116,21 @@ export default {
         .post(`${import.meta.env.VITE_API_URL}/getProduct.php`)
         .then((res) => {
           this.productData = res.data.products;
+        });
+    },
+    updateProdState(item) {
+      const isChecked = item.prod_state == 0 ? 1 : 0;
+      axios
+        .post(
+          `${import.meta.env.VITE_API_URL}/updateProdState.php`,
+          {
+            prodId: item.prod_id,
+            isChecked,
+          },
+          { headers: { "Content-Type": "application/json" } }
+        )
+        .then((res) => {
+          item.prod_state = isChecked;
         });
     },
   },
