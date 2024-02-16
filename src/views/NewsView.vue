@@ -64,13 +64,15 @@
                   class="form-check-input "
                   role="switch"
                   type="checkbox"
-                  :name="item.ordId"
-                  :id="item.ordId"
+                  :name="item.newsId"
+                  :id="item.newsId"
                   v-model="item.newsState"
+                  :checked="item.news_state === 1"
+                  @change="updateNewsState(item)"
                 />
-                <label class="form-check-label" :for="item.ordId"></label>
+                <label class="form-check-label" :for="item.newsId"></label>
               </div>
-              <div class="ordState">
+              <div class="newsState">
                 <span v-if="item.news_state">已發佈</span>
                 <span v-else>未發佈</span>
               </div>
@@ -104,13 +106,6 @@ export default {
       newsData: [],
       showAdd: false,
       showEdit:false,
-      editedData:{
-        id: 1,
-        news_title: '測試文章1',
-        news_date: '2024-02-11',
-        news_content: '測試內容',
-        news_category: '桌遊',
-      },
       selectedNews: null,
     };
   },
@@ -127,17 +122,6 @@ export default {
       this.showAdd = false;
       this.showEdit = false;
     },
-    // fetchNews() {
-    //   let url = `${import.meta.env.VITE_API_URL}/getNews.php`;
-    //   console.log(url); //確認php路徑用
-    //   axios
-    //     .get(`${import.meta.env.VITE_API_URL}/getNews.php`, {})
-    //     .then(res => {
-    //       console.log(res.data.news);
-    //       this.newsData = res.data.news;
-    //     })
-    //     .catch(error => console.error('發生錯誤:',error))
-    // },
     getImgUrl(path) {
       // return `https://tibamef2e.com/chd104/g5/image/news/${path}`; //上線端
       return `http://localhost/GridIsland/images/news/${path}`; //本機端
@@ -169,6 +153,33 @@ export default {
       }
       return null;
     },
+    getPhpUrl(path) {
+      const url = `http://localhost/GridIsland/admin/${path}`;
+      console.log('Generated URL:', url);
+      return url; //本機端
+      // return `https://tibamef2e.com/chd104/g5/php/admin/${path}`; //上線端
+    },
+    updateNewsState(item) {
+      const isChecked = item.news_state == 0 ? 1 : 0; //切換狀態
+        axios.post(this.getPhpUrl('updateNewsState.php'),
+        { 
+          newsId: item.news_id, 
+          isChecked,
+        }, {
+          headers: { "Content-Type": "application/json" }
+        })
+        .then(res => {
+          // 更新成功
+          console.log(res.data);
+          console.log("已發佈最新消息");
+          item.news_state = isChecked;
+        })
+        .catch(error => {
+          console.error(error);
+          // 恢復狀態，避免更新失敗
+          item.isChecked = !item.isChecked;
+        });
+      }
   },
   created() {
     this.fetchNews();
