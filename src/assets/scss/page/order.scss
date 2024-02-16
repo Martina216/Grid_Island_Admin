@@ -20,7 +20,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: $S-spacing;
+    gap: $M-spacing;
     h1 {
       font-size: $PC-h3;
     }
@@ -30,6 +30,13 @@
       left: 120px;
       display: flex;
       gap: $M-spacing;
+      span {
+        padding: $S-spacing;
+        border-radius: $S-button-radius;
+        &:hover {
+          background-color: $gray-3;
+        }
+      }
     }
     .searchGroup {
       padding-left: $S-spacing;
