@@ -100,16 +100,19 @@ export default {
       checkData: [],
     };
   },
+  props: {
+    item: Object
+  },
   methods: {
-    props: {
-      item: Object
-    },
+    //props: {
+      //item: Object
+    //},
     //query抓資料庫內容
     fetchReport() {
       axios
         .post(`${import.meta.env.VITE_API_URL}/report.php`, {})
         .then(res => {
-          // console.log(res.data.Report);
+          console.log(res.data);
           this.reData = res.data.Report;
         })
         .catch(error => console.error('發生錯誤:', error))

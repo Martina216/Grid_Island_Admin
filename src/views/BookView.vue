@@ -48,10 +48,10 @@
             <td>{{ book.book_people }}</td>
             <td>{{ book.table_type_name }}</td>
             <td>
-              <select name="" id="" class="form-select form-select-sm" aria-label="Small select example" v-model="book.book_state" @change="deliverBook">
-                <option value="0">已預定</option>
-                <option value="1">已到場</option>
-                <option value="2">逾時未到</option>
+              <select name="" id="" class="form-select form-select-sm" aria-label="Small select example" v-model="book.book_state" @change="deliverBook()">
+                <option value="0">已取消</option>
+                <option value="1">未到場</option>
+                <option value="2">已到場</option>
               </select>
             </td>
           </tr>
@@ -76,7 +76,7 @@ export default {
   methods: {
     fetchbooks() {
       axios
-      .post(`${import.meta.env.VITE_API_URL}/book.php`, {})
+      .post(`${import.meta.env.VITE_API_URL}/getbook.php`, {})
       .then(res => {
         console.log(res.data.books);
         this.booksData = res.data.books;
