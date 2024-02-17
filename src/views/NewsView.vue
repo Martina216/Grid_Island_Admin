@@ -171,7 +171,6 @@ export default {
         .then(res => {
           // 更新成功
           console.log(res.data);
-          console.log("已發佈最新消息");
           item.news_state = isChecked;
         })
         .catch(error => {
