@@ -227,7 +227,6 @@ export default {
           { headers: { "Content-Type": "application/json" } }
         )
         .then((res) => {
-          console.log(res.data);
           item.ord_state = isChecked;
           this.fetchOrder();
         })
