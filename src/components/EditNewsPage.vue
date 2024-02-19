@@ -76,6 +76,7 @@ export default {
       file: null,
       editedData: { ...this.data }, //將this.data的資料值複製到新的對象editDate中，屬於淺拷貝
       requestData:[],
+      file: null,
     };
   },
   props: {
@@ -104,33 +105,82 @@ export default {
           this.imgSrc = e.target.result;
         };
         reader.readAsDataURL(file);
-        this.file = file; // 將檔案存儲在 this.file 中
+        this.file = file;
+        console.log(this.file); // 將檔案存儲在 this.file 中
 // ----------------------------------
       }else {
         this.imgSrc = 'src/assets/images/default_img/logo_white.svg';
       }
       this.show = false;
     },
-    async updateNews() {
-      try {
-        const requestData = {
-        };
+    updateImg() {
+      const formData = new FormData();
+      formData.append('news_image', this.file);
 
-        // 當按下 "更新新聞" 按鈕時，將 editedData 的值賦給 requestData
-        this.requestData = { ...this.editedData };
-
-        // 此時 requestData 中的值已經更新為 editedData 中的值
-        console.log(this.requestData);
-
-        const res = await axios.post(this.getPhpUrl('updateNews.php'), this.requestData)
-
+      axios.post(this.getPhpUrl('updateNewsImg.php'),formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(res => {
         console.log(res.data);
-        alert('成功修改最新消息')
-      } catch (error) {
-        console.error('發生錯誤:', error);
-      }
-      this.reloadPage();
+        alert(res.data.msg);
+      })
+      .then(result =>{
+        this.$emit('closeTab');
+        this.reloadPage();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
     },
+    // async updateNews() {
+    //   try {
+    //     const requestData = {
+    //     };
+
+    //     // 當按下 "更新新聞" 按鈕時，將 editedData 的值賦給 requestData
+    //     this.requestData = { ...this.editedData };
+
+    //     // 此時 requestData 中的值已經更新為 editedData 中的值
+    //     console.log(this.requestData);
+
+    //     const res = await axios.post(this.getPhpUrl('updateNews.php'), this.requestData)
+
+    //     console.log(res.data);
+    //     alert('成功修改最新消息')
+    //   } catch (error) {
+    //     console.error('發生錯誤:', error);
+    //   }
+    //   this.reloadPage();
+    // },
+  async updateNews() {
+  try {
+    const formData = new FormData();
+    // for (const item in this.editedData) {
+    //   formData.append(item, this.editedData[item]);
+    // }
+
+    formData.append('news_id', this.editedData.news_id);
+    formData.append('news_title', this.editedData.news_title);
+    formData.append('news_date', new Date(this.editedData.news_date).toISOString()); //將日期轉換為ISO格式
+    formData.append('news_content', this.editedData.news_content);
+    formData.append('news_image', this.file);
+    formData.append('news_category', this.editedData.news_category);
+
+    console.log( formData.get("news_image"));
+
+    // Perform the POST request using axios with formData
+    const res = await axios.post(this.getPhpUrl('updateNews.php'), formData);
+
+    console.log(res.data);
+    alert('成功修改最新消息');
+  } catch (error) {
+    console.error('發生錯誤:', error);
+  }
+
+  this.reloadPage();
+},
     reloadPage() {
       location.reload();
     },
