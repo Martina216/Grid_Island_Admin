@@ -104,9 +104,6 @@ export default {
     item: Object
   },
   methods: {
-    //props: {
-      //item: Object
-    //},
     //query抓資料庫內容
     fetchReport() {
       axios
