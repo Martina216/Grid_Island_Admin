@@ -72,7 +72,7 @@ export default {
   data() {
     return {
         imgSrc:'',
-        imgText:'點擊上傳圖片',
+        imgText:'點擊新增圖片',
         show: true,
         formData: {
         news_title: '',
