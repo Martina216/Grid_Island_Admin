@@ -74,22 +74,22 @@
                     <img v-if="show" class="originalImg" src="../assets/images/default_img/logo_white.svg" alt="original-image" >
                 </label>
                 <span v-show="!imgSrc" class="upload">{{imgText}} </span>
-              <input type="file" name="prod_img1" id="prodImg1" accept="image/png, image/jpeg" @change="selectImage">
+              <input type="file" name="prod_img1" id="prodImg1" accept="image/png, image/jpeg" @change="selectImage1">
             </div>
             <div class="small_image">
               <div class="image2">
                   <label for="prodImg2">
-                    <img v-if="!show" class="selectImg" :src="imgSrc" alt="upload-image">
+                    <img v-if="!show" class="selectImg" :src="imgSrc2" alt="upload-image">
                     <img v-if="show" class="originalImg" src="../assets/images/default_img/logo_white.svg" alt="original-image" >
                   </label>
-                <input type="file" name="prod_img2" id="prodImg2" accept="image/png, image/jpeg" @change="selectImage">
+                <input type="file" name="prod_img2" id="prodImg2" accept="image/png, image/jpeg" @change="selectImage2">
               </div>
               <div class="image3">
                   <label for="prodImg3">
-                    <img v-if="!show" class="selectImg" :src="imgSrc" alt="upload-image">
+                    <img v-if="!show" class="selectImg" :src="imgSrc3" alt="upload-image">
                     <img v-if="show" class="originalImg" src="../assets/images/default_img/logo_white.svg" alt="original-image" >
                   </label>
-                <input type="file" name="prod_img3" id="prodImg3" accept="image/png, image/jpeg" @change="selectImage">
+                <input type="file" name="prod_img3" id="prodImg3" accept="image/png, image/jpeg" @change="selectImage3">
               </div>
             </div>
             <div class="priceArea">
@@ -128,6 +128,8 @@ export default {
   data() {
     return {
         imgSrc:'',
+        imgSrc2:'',
+        imgSrc3:'',
         imgText:'新增商品圖片',
         show: true,
         formData: {
@@ -142,31 +144,56 @@ export default {
   },
   methods:{
     getPhpUrl(path) {
-      const url = `http://localhost/GridIsland/admin/${path}`;
+      const url = `${import.meta.env.VITE_API_URL}/${path}`;
       console.log('Generated URL:', url);
-      return url; //本機端
-      // return `https://tibamef2e.com/chd104/g5/php/admin/${path}`; //上線端
+      return url;
     },
     cancelAdd() {
       this.clearForm();
       this.$emit('closeTab');
     },
     clearForm() {
-      this.formData = {
-        news_title: '',
-        news_date: '',
-        news_content: '',
-        news_category: '',
-        news_state: '',
-      };
+
     },
-    selectImage(e) {
+    selectImage1(e) {
       const file = e.target.files[0];
       if (file) {
         // 使用 FileReader 將圖片轉換成 data URL
         const reader = new FileReader();
         reader.onload = (e) => {
           this.imgSrc = e.target.result;
+        };
+        reader.readAsDataURL(file);
+        this.file = file; // 將檔案存儲在 this.file 中
+// ----------------------------------
+      }else {
+        this.imgSrc = 'src/assets/images/default_img/logo_white.svg';
+      }
+      this.show = false;
+    },
+    selectImage2(e) {
+      const file = e.target.files[0];
+      if (file) {
+        // 使用 FileReader 將圖片轉換成 data URL
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imgSrc2 = e.target.result;
+        };
+        reader.readAsDataURL(file);
+        this.file = file; // 將檔案存儲在 this.file 中
+// ----------------------------------
+      }else {
+        this.imgSrc = 'src/assets/images/default_img/logo_white.svg';
+      }
+      this.show = false;
+    },
+    selectImage3(e) {
+      const file = e.target.files[0];
+      if (file) {
+        // 使用 FileReader 將圖片轉換成 data URL
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imgSrc3 = e.target.result;
         };
         reader.readAsDataURL(file);
         this.file = file; // 將檔案存儲在 this.file 中

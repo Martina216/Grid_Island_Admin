@@ -85,7 +85,7 @@ export default {
   },
   methods:{
     getPhpUrl(path) {
-      const url = `http://localhost/GridIsland/admin/${path}`;
+      const url = `${import.meta.env.VITE_API_URL}/${path}`;
       console.log('Generated URL:', url);
       return url; //本機端
       // return `https://tibamef2e.com/chd104/g5/php/admin/${path}`; //上線端
