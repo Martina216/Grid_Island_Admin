@@ -1,5 +1,8 @@
 .permission {
   padding: 30px 30px 30px 250px;
+  .pointer {
+    cursor: pointer;
+  }
   nav {
     a {
       color: $black-1;
@@ -33,6 +36,19 @@
         background-position: 4px 4px;
         background-repeat: no-repeat;
         padding-left: 30px;
+      }
+    }
+  }
+  td,
+  th {
+    vertical-align: middle;
+    .form-switch {
+      display: flex;
+      justify-content: center;
+    }
+    .empState {
+      span {
+        font-size: 12px;
       }
     }
   }

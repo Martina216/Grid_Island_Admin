@@ -12,6 +12,7 @@
   </main>
 </template>
 <script>
+import axios from "axios";
 import HomeCard from "../components/HomeCard.vue";
 export default {
   data() {
@@ -25,7 +26,7 @@ export default {
         },
         {
           pageIcon: "fa-solid fa-cart-shopping",
-          pageCount: 126,
+          pageCount: 110,
           pageName: "商品數量",
           pageLink: "/product",
         },
@@ -59,6 +60,22 @@ export default {
   components: {
     HomeCard,
   },
+  created() {
+    this.fetchData();
+  },
   mounted() {},
+  methods: {
+    fetchData() {
+      axios
+        .post(`${import.meta.env.VITE_API_URL}/getData.php`, {})
+        .then((res) => {
+          this.homeData.forEach((item) => {
+            const key = item.pageLink.substring(1);
+            item.pageCount = res.data[key] || 0;
+          });
+        })
+        .catch((error) => console.error("發生錯誤:", error));
+    },
+  },
 };
 </script>

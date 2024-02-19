@@ -72,7 +72,7 @@ export default {
   data() {
     return {
         imgSrc:'',
-        imgText:'點擊上傳圖片',
+        imgText:'點擊新增圖片',
         show: true,
         formData: {
         news_title: '',
@@ -120,6 +120,7 @@ export default {
       }
       this.show = false;
     },
+
     submitForm() {
       const formData = new FormData();
       formData.append('news_title', this.formData.news_title);

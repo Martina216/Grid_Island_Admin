@@ -64,17 +64,13 @@
             <th class="pb-3 pt-3 align-middle">{{ item.ord_id }}</th>
             <td>{{ item.ord_date }}</td>
             <td>
-              <div
-                class="form-check form-switch"
-                :class="{ notAllow: item.editMode }"
-              >
+              <div class="form-check form-switch">
                 <input
                   class="form-check-input"
                   role="switch"
                   type="checkbox"
                   :name="item.ordId"
                   :id="item.ordId"
-                  :disabled="item.editMode"
                   :checked="item.ord_state === 1"
                   @change="updateOrderState(item)"
                 />
@@ -158,7 +154,6 @@ export default {
         .then((res) => {
           console.log(res.data);
           alert("已修改完成");
-          this.fetchOrder();
         })
         .catch((error) => {
           console.log(error);
@@ -234,6 +229,7 @@ export default {
         .then((res) => {
           console.log(res.data);
           item.ord_state = isChecked;
+          this.fetchOrder();
         })
         .catch((error) => {
           console.log(error);
