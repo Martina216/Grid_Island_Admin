@@ -234,7 +234,6 @@ export default {
     },
     sortDisPrice() {
       if (this.sortDisPriceMethod == "asc") {
-        console.log("hi");
         this.productDisData = this.productDisData.sort((a, b) => {
           if (
             a.prod_discount_price === null &&

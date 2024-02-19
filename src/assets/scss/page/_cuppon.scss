@@ -55,6 +55,10 @@
     td,
     th {
       vertical-align: middle;
+      .form-switch {
+        display: flex;
+        justify-content: center;
+      }
       span {
         font-size: 12px;
       }

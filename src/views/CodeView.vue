@@ -37,7 +37,7 @@
     <div class="prodTable">
       <table class="table table-hover">
         <thead>
-          <tr class="border-bottom text-left">
+          <tr class="border-bottom text-left text-center">
             <th scope="col" @click="sortId" class="pointer">
               編號<i class="fa-solid fa-sort ms-1"></i>
             </th>
@@ -56,7 +56,7 @@
         <tbody>
           <tr
             v-for="item in promoDisData"
-            class="border-bottom text-left align-middle"
+            class="border-bottom text-left align-middle text-center"
           >
             <th class="pb-3 pt-3 text-center number">{{ item.promo_id }}</th>
             <td class="cupponCode">{{ item.promo_code }}</td>
@@ -125,7 +125,7 @@ export default {
         .post(
           `${import.meta.env.VITE_API_URL}/updatePromoState.php`,
           {
-            prodId: item.promo_id,
+            promoId: item.promo_id,
             isChecked,
           },
           { headers: { "Content-Type": "application/json" } }
@@ -152,12 +152,12 @@ export default {
     sortId() {
       if (this.sortIdMethod == "asc") {
         this.promoDisData = this.promoDisData.sort((a, b) => {
-          return a.promo_id - b.promo_id;
+          return b.promo_id - a.promo_id;
         });
         this.sortIdMethod = "desc";
       } else if (this.sortIdMethod == "desc") {
         this.promoDisData = this.promoDisData.sort((a, b) => {
-          return b.promo_id - a.promo_id;
+          return a.promo_id - b.promo_id;
         });
         this.sortIdMethod = "asc";
       }
@@ -167,14 +167,14 @@ export default {
         this.promoDisData = this.promoDisData.sort((a, b) => {
           const aDate = new Date(a.promo_start_date);
           const bDate = new Date(b.promo_start_date);
-          return aDate - bDate;
+          return bDate - aDate;
         });
         this.sortStartTimeMethod = "desc";
       } else if (this.sortStartTimeMethod == "desc") {
         this.promoDisData = this.promoDisData.sort((a, b) => {
           const aDate = new Date(a.promo_start_date);
           const bDate = new Date(b.promo_start_date);
-          return bDate - aDate;
+          return aDate - bDate;
         });
         this.sortStartTimeMethod = "asc";
       }
@@ -184,14 +184,14 @@ export default {
         this.promoDisData = this.promoDisData.sort((a, b) => {
           const aDate = new Date(a.promo_end_date);
           const bDate = new Date(b.promo_end_date);
-          return aDate - bDate;
+          return bDate - aDate;
         });
         this.sortEndTimeMethod = "desc";
       } else if (this.sortEndTimeMethod == "desc") {
         this.promoDisData = this.promoDisData.sort((a, b) => {
           const aDate = new Date(a.promo_end_date);
           const bDate = new Date(b.promo_end_date);
-          return bDate - aDate;
+          return aDate - bDate;
         });
         this.sortEndTimeMethod = "asc";
       }
