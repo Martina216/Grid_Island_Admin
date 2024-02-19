@@ -70,7 +70,9 @@
             v-for="item in productDisData"
             class="border-bottom text-left align-middle"
           >
-            <th class="pb-3 pt-3 text-center number">{{ item.prod_id }}</th>
+            <th class="pb-3 pt-3 text-center number text-center">
+              {{ item.prod_id }}
+            </th>
             <td>
               <img
                 :src="`https://tibamef2e.com/chd104/g5/image/prod/${item.prod_img1}`"
