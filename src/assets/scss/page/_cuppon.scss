@@ -49,8 +49,12 @@
     top: 100px;
   }
   table {
-    td,th {
+    td,
+    th {
       vertical-align: middle;
+      span {
+        font-size: 12px;
+      }
     }
     tr {
       padding: 20px 0;

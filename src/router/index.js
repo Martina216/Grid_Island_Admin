@@ -9,15 +9,14 @@ const router = createRouter({
       name: "home",
       component: HomeView,
       meta: {
-        title:"首頁",
+        title: "首頁",
       },
-      
     },
     {
       path: "/member",
       name: "member",
       meta: {
-        title:"會員管理",
+        title: "會員管理",
       },
       component: () => import("../views/MemberView.vue"),
     },
@@ -25,26 +24,26 @@ const router = createRouter({
       path: "/",
       name: "login",
       meta: {
-        title:"登入",
+        title: "登入",
         showBar: false, //打開這個即可不顯示header
       },
-      
+
       component: () => import("../views/LoginView.vue"),
     },
     {
       path: "/product",
       name: "product",
       meta: {
-        title:"商品管理",
+        title: "商品管理",
       },
-      
+
       component: () => import("../views/ProductView.vue"),
     },
     {
       path: "/bookclander",
       name: "bookclander",
       meta: {
-        title:"預訂行事曆",
+        title: "預訂行事曆",
       },
       component: () => import("../views/BookClanderView.vue"),
     },
@@ -52,7 +51,7 @@ const router = createRouter({
       path: "/book",
       name: "book",
       meta: {
-        title:"預約訂單",
+        title: "預約訂單",
       },
       component: () => import("../views/BookView.vue"),
     },
@@ -60,7 +59,7 @@ const router = createRouter({
       path: "/table",
       name: "table",
       meta: {
-        title:"桌次管理",
+        title: "桌次管理",
       },
       component: () => import("../views/TableView.vue"),
     },
@@ -68,7 +67,7 @@ const router = createRouter({
       path: "/order",
       name: "order",
       meta: {
-        title:"訂單管理",
+        title: "訂單管理",
       },
       component: () => import("../views/OrderView.vue"),
     },
@@ -76,15 +75,15 @@ const router = createRouter({
       path: "/news",
       name: "new",
       meta: {
-        title:"最新消息管理",
+        title: "最新消息管理",
       },
       component: () => import("../views/NewsView.vue"),
     },
     {
-      path: "/cuppon",
-      name: "cuppon",
+      path: "/code",
+      name: "code",
       meta: {
-        title:"優惠碼管理",
+        title: "優惠碼管理",
       },
       component: () => import("../views/CodeView.vue"),
     },
@@ -92,7 +91,7 @@ const router = createRouter({
       path: "/report",
       name: "report",
       meta: {
-        title:"檢舉管理",
+        title: "檢舉管理",
       },
       component: () => import("../views/ReportView.vue"),
     },
@@ -100,7 +99,7 @@ const router = createRouter({
       path: "/team",
       name: "team",
       meta: {
-        title:"報隊管理",
+        title: "報隊管理",
       },
       component: () => import("../views/TeamView.vue"),
     },
@@ -108,7 +107,7 @@ const router = createRouter({
       path: "/permission",
       name: "permission",
       meta: {
-        title:"權限管理",
+        title: "權限管理",
       },
       component: () => import("../views/PermissionView.vue"),
     },
@@ -116,8 +115,8 @@ const router = createRouter({
     {
       path: "/:pathMatch(.*)*",
       name: "NotFound",
-            meta: {
-        title:"404NotFound",
+      meta: {
+        title: "404NotFound",
       },
       component: () => import("../views/NotFoundView.vue"),
     },
@@ -136,7 +135,7 @@ const router = createRouter({
 //   if (to.meta && to.meta.title) {
 //     document.title = to.meta.title
 //   }
-  
+
 //   // 參考文件
 //   // https://router.vuejs.org/zh/guide/advanced/navigation-guards.html
 //   if(to.name == 'register' ){

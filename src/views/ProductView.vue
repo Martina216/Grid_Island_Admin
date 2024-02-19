@@ -91,12 +91,12 @@
                   class="form-check-input"
                   role="switch"
                   type="checkbox"
-                  :name="item.ord_id"
-                  :id="item.ord_id"
+                  :name="item.prod_id"
+                  :id="item.prod_id"
                   :checked="item.prod_state == 1"
                   @change="updateProdState(item)"
                 />
-                <label class="form-check-label" :for="item.ord_id"></label>
+                <label class="form-check-label" :for="item.prod_id"></label>
               </div>
               <div class="prodState">
                 <span v-if="item.prod_state == 1">已上架</span>

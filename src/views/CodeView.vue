@@ -46,17 +46,29 @@
             v-for="item in promoData"
             class="border-bottom text-left align-middle"
           >
-            <th class="pb-3 pt-3 text-center number">{{ item.promoId }}</th>
-            <td class="cupponCode">{{ item.promoCode }}</td>
-            <td class="detail" >{{ item.promoDetail }}</td>
-            <td class="date" >
-              {{ item.promoStartDate }}
+            <th class="pb-3 pt-3 text-center number">{{ item.promo_id }}</th>
+            <td class="cupponCode">{{ item.promo_code }}</td>
+            <td class="detail">{{ item.promo_detail }}</td>
+            <td class="date">
+              {{ item.promo_start_date }}
             </td>
-            <td class="date" >
-            {{ item.promoEndDate }}
+            <td class="date">
+              {{ item.promo_end_date }}
             </td>
             <td class="state">
-              {{ item.promoState }}
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  role="switch"
+                  type="checkbox"
+                  :name="item.promo_id"
+                  :id="item.promo_id"
+                  :checked="item.promo_state == 1"
+                />
+                <label class="form-check-label" :for="item.promo_id"></label>
+              </div>
+              <span v-if="item.promo_state == 1">已啟用</span>
+              <span v-else>未啟用</span>
             </td>
             <td>
               <button type="button" class="btn btn-info">
@@ -70,32 +82,24 @@
   </main>
 </template>
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
-      promoData: [
-        {
-          promoId: 1,
-          promoCode:'GridIsland',
-          promoStartDate:'2020-01-01',
-          promoEndDate:'9999-12-31',
-          promoState:'使用中',
-          promoDetail: "捏小蟲送50元",
-          promoCategory: "優惠",
-        },
-        {
-          promoId: 2,
-          promoCode:'GridIsland2023',
-          promoStartDate:'2020-01-01',
-          promoEndDate:'9999-12-31',
-          promoState:'使用中',
-          promoDetail: "玩小遊戲送50元",
-          promoCategory: "桌遊",
-        },
-      ],
+      promoData: [],
     };
   },
   components: {},
+  created() {
+    this.fetchCode();
+  },
+  methods: {
+    fetchCode() {
+      axios.post(`${import.meta.env.VITE_API_URL}/getCode.php`).then((res) => {
+        this.promoData = res.data.promos;
+      });
+    },
+  },
   mounted() {},
 };
 </script>
