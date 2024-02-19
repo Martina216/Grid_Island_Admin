@@ -1,0 +1,155 @@
+  .ProdPage {
+    padding: 30px 80px 30px 80px;
+    position: relative;
+
+    nav {
+      a {
+        color: $black-1;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    .titleGroup {
+      display: flex;
+      flex-direction: column;
+      gap: $S-spacing;
+      margin-bottom: $L-spacing;
+      h1 {
+        font-size: $PC-h3;
+        padding-left: $S-spacing;
+      }
+
+      form {
+        input:not([type="file"]) {
+          width: 400px;
+          height: 30px;
+          padding: 5px 10px;
+          height: 40px;          
+        }
+        textarea {
+          padding-left: 10px;
+          padding-top: 10px;
+          letter-spacing: 1.2px;
+          line-height: 120%;
+          resize: none;
+          overflow-y: auto;
+          height: 395px;
+        }
+        .wrapper {
+          margin-top: 20px;
+          display: flex;
+          gap: 46px;
+         
+          span {
+            font-size: 18px;
+            letter-spacing: .5px;
+            font-weight: bold;
+          }
+          .text {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            input, textarea {
+              margin-top: 8px;
+            }
+            
+            .title {
+              display: flex;
+              flex-direction: column;
+            }
+            .date {
+              display: flex;
+              flex-direction: column;
+            }
+            .content {
+              display: flex;
+              flex-direction: column;
+            }
+          }
+          .imgContent {
+            display: flex;
+            flex-direction: column;
+            order: -1;
+            gap: 15px;
+
+            .img {
+              display: flex;
+              flex-direction: column;
+              position: relative;
+              margin-top: 20px;
+              .selectImg {
+                width: 260px;
+                height: 248px;
+                vertical-align: middle;
+                border-radius: 8px ;
+                cursor: pointer;
+                overflow: hidden;
+                object-fit: contain;
+                background-color: $gray-3;
+              }
+              .originalImg {
+                width: 260px;
+                height: 248px;
+                vertical-align: middle;
+                filter: blur(5px);
+                filter: opacity(25%);
+                border-radius: 8px ;
+                cursor: pointer;
+                overflow: hidden;
+                object-fit: contain;
+              }
+              input {
+                width: 250px;
+                // padding-top: 20px;
+                display: none;
+                padding: 20px 8px 0 8px;
+              }
+              .upload {
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: translate(0px,120px);
+                text-align: center;
+                pointer-events: none;
+                font-size: 22px;
+                
+              }
+            }
+
+            .category {
+              margin-top: 10px;
+              select {
+                height: 30px;
+                width: 250px;
+                margin-left: 10px ;
+                padding: 0 8px ;
+              }
+            }
+          }
+        }
+        .btnArea {
+          display: flex;
+          gap: 20px;
+          justify-content: flex-end;
+          // padding-right: 200px ;
+          margin-top: 20px;
+
+          .addBtn {
+            display: flex;
+          }
+          .cancelBtn {
+            order: -1;
+          }
+        }
+      }
+      
+    }
+
+  }
+  .bg-blue {
+    background-color: $blue-1;
+  }

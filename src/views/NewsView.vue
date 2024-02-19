@@ -123,7 +123,6 @@ export default {
       this.showEdit = false;
     },
     getImgUrl(path) {
-      // return `https://tibamef2e.com/chd104/g5/image/news/${path}`; //上線端
       return `http://localhost/GridIsland/images/news/${path}`; //本機端
     },
     openEditor(newsId) {
@@ -154,10 +153,9 @@ export default {
       return null;
     },
     getPhpUrl(path) {
-      const url = `http://localhost/GridIsland/admin/${path}`;
+      const url = `${import.meta.env.VITE_API_URL}/${path}`;
       console.log('Generated URL:', url);
-      return url; //本機端
-      // return `https://tibamef2e.com/chd104/g5/php/admin/${path}`; //上線端
+      return url;
     },
     updateNewsState(item) {
       const isChecked = item.news_state == 0 ? 1 : 0; //切換狀態

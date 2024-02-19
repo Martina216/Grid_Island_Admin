@@ -1,5 +1,5 @@
 <template>
-    <main class="editNewsPage">
+    <main class="editProdPage">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item" aria-current="page">
