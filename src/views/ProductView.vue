@@ -41,7 +41,7 @@
         />
       </div>
     </div>
-    <div class="addProductBtn">
+    <div class="addProductBtn" @click="add">
       <button type="button" class="btn btn-info">
         <i class="fa-solid fa-plus"></i>新增商品
       </button>
@@ -114,10 +114,16 @@
         </tbody>
       </table>
     </div>
+    <!-- 新增商品燈箱 -->
+    <prodPage v-if="showAdd" @closeTab="handleEditorClosed" />
+    <!-- 編輯燈箱 (尚未完成)-->
+    <!-- <editProdPage /> -->
   </main>
 </template>
 <script>
 import axios from "axios";
+import prodPage from "../components/ProdPage.vue";
+import editProdPage from "../components/EditProdPage.vue";
 
 export default {
   data() {
@@ -133,10 +139,14 @@ export default {
       sortIdMethod: "asc",
       sortPriceMethod: "asc",
       sortDisPriceMethod: "asc",
+      showAdd:false,
+      showEdit:false,
     };
   },
-  components: {},
-  mounted() {},
+  components: {
+    prodPage,
+    editProdPage,
+  },
   created() {
     this.fetchProd();
   },
@@ -268,6 +278,15 @@ export default {
         });
         this.sortDisPriceMethod = "asc";
       }
+    },
+
+    // ------------------打開新增商品燈箱
+    add() {
+      this.showAdd = true;
+    },
+    handleEditorClosed() {
+      this.showAdd = false;
+      this.showEdit = false;
     },
   },
 };

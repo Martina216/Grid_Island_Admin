@@ -1,7 +1,8 @@
-  .ProdPage {
+  .prodPage {
     padding: 30px 80px 30px 80px;
     position: relative;
-
+    background-color: #fff;
+    border: 1px solid $gray-5;
     nav {
       a {
         color: $black-1;
@@ -11,7 +12,7 @@
         }
       }
     }
-    .titleGroup {
+    .mainTitle {
       display: flex;
       flex-direction: column;
       gap: $S-spacing;
@@ -22,7 +23,7 @@
       }
 
       form {
-        input:not([type="file"]) {
+        input:not([type="file"],[type="number"], [type="radio"]) {
           width: 400px;
           height: 30px;
           padding: 5px 10px;
@@ -35,7 +36,6 @@
           line-height: 120%;
           resize: none;
           overflow-y: auto;
-          height: 395px;
         }
         .wrapper {
           margin-top: 20px;
@@ -56,30 +56,36 @@
               margin-top: 8px;
             }
             
-            .title {
+            .title, .brief, .date, .content, .device {
               display: flex;
               flex-direction: column;
             }
-            .date {
-              display: flex;
-              flex-direction: column;
+
+            // -------------------------------------------標籤
+            .productTag {
+
+              .ppl, .category, .diff{
+                span {
+                  font-size: 16px;
+                  font-weight: unset;
+                }
+              }
             }
-            .content {
-              display: flex;
-              flex-direction: column;
-            }
+           
+
           }
           .imgContent {
             display: flex;
             flex-direction: column;
             order: -1;
             gap: 15px;
-
             .img {
               display: flex;
               flex-direction: column;
               position: relative;
               margin-top: 20px;
+              width: 260px;
+              height: 248px;
               .selectImg {
                 width: 260px;
                 height: 248px;
@@ -94,7 +100,6 @@
                 width: 260px;
                 height: 248px;
                 vertical-align: middle;
-                filter: blur(5px);
                 filter: opacity(25%);
                 border-radius: 8px ;
                 cursor: pointer;
@@ -119,14 +124,58 @@
                 
               }
             }
-
-            .category {
-              margin-top: 10px;
-              select {
-                height: 30px;
+            .small_image {
+              display: flex;
+              justify-content: space-around;
+            }
+            .image2, .image3 {
+              display: flex;
+              flex-direction: column;
+              margin-top: 5px;
+              height: 124px;
+              .selectImg {
+                width: 260px;
+                height: 248px;
+                vertical-align: middle;
+                border-radius: 8px ;
+                cursor: pointer;
+                overflow: hidden;
+                object-fit: contain;
+                background-color: $gray-3;
+              }
+              .originalImg {
+                vertical-align: middle;
+                filter: opacity(25%);
+                border-radius: 8px ;
+                cursor: pointer;
+                overflow: hidden;
+                object-fit: contain;
+                width: 125px;
+              }
+              input {
                 width: 250px;
-                margin-left: 10px ;
-                padding: 0 8px ;
+                // padding-top: 20px;
+                display: none;
+                padding: 20px 8px 0 8px;
+              }
+            }
+
+            .priceArea {
+              margin-top: 10px;
+              display: flex;
+              width: 260px;
+              justify-content: space-around;
+              align-items: center;
+              input {
+                margin-top: 8px;
+                width: 100px;
+                height: 30px;
+                padding: 5px 10px;
+                height: 40px;          
+              }
+              .prcie, .DisPrcie {
+                display: flex;
+                flex-direction: column;
               }
             }
           }

@@ -6,9 +6,9 @@
           <router-link to="/home">首頁</router-link>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-          <router-link to="/news">最新消息管理</router-link>
+          <router-link to="/product">商品管理</router-link>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">編輯消息</li>
+        <li class="breadcrumb-item active" aria-current="page">編輯商品</li>
       </ol>
     </nav>
     <div class="titleGroup pb-5">

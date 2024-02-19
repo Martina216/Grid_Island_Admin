@@ -1,58 +1,114 @@
 <template>
-    <main class="ProdPage">
+    <main class="prodPage">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item" aria-current="page">
           <router-link to="/home">首頁</router-link>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-          <router-link to="/news">最新消息管理</router-link>
+          <router-link to="/product">商品管理</router-link>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">新增消息</li>
+        <li class="breadcrumb-item active" aria-current="page">新增商品</li>
       </ol>
     </nav>
-    <div class="titleGroup pb-5">
-      <h1>新增消息</h1>
+    <div class="mainTitle pb-5">
+      <h1>新增商品</h1>
       <form method="post" enctype="multipart/form-data" @submit.prevent="submitForm">
         <div class="wrapper">
           <div class="text">
             <div class="title">
-              <label for="newsTitle"><span>消息標題</span></label>
-              <input v-model="formData.news_title" type="text" name="news_title" id="newsTitle" class="form-check-input rounded border border-1 border-gray" placeholder="請輸入最新消息標題">
+              <label for="prodName"><span>商品名稱</span></label>
+              <input v-model="formData.news_title" type="text" name="prod_name" id="prodName" class="form-check-input rounded border border-1 border-gray" placeholder="請輸入商品名稱">
             </div>
-            <div class="date">
-              <label for="newsDate"><span>消息發佈時間</span></label>
-              <input v-model="formData.news_date" type="datetime-local" name="news_date" id="newsDate" class="form-check-input rounded border border-1 border-gray">
+            <div class="brief">
+              <label for="prodBrief"><span>商品簡介</span></label>
+                <textarea v-model="formData.prod_breif" name="prod_brief" id="prodBrief" cols="10" rows="5" class=" rounded border border-1 border-gray" placeholder="請輸入商品短語簡介" ></textarea>
+            </div>
+            <div class="productTag">
+              <span>商品標籤</span>
+              <div class="ppl">
+                <span>人數</span>
+                <input type="radio" name="gamePpl" id="underFour">
+                <label for="underFour">2-4人</label>
+                <input type="radio" name="gamePpl" id="underEig">
+                <label for="underEig">5-8人</label>
+                <input type="radio" name="gamePpl" id="overEig">
+                <label for="overEig">8人以上</label>
+              </div>
+              <div class="category">
+                <span>種類</span>
+                <input type="radio" name="category" id="easy">
+                <label for="easy">簡單</label>
+                <input type="radio" name="category" id="mid">
+                <label for="mid">中等</label>
+                <input type="radio" name="category" id="hard">
+                <label for="hard">困難</label>
+              </div>
+              <div class="diff">
+                <span>難度</span>
+                <input type="radio" name="diff" id="strategy">
+                <label for="strategy">策略</label>
+                <input type="radio" name="diff" id="paperGame">
+                <label for="paperGame">紙牌</label>
+                <input type="radio" name="diff" id="business">
+                <label for="business">經營</label>
+              </div>
             </div>
             <div class="content">
-              <label for="newsContent"><span>消息內容</span></label>
-              <textarea v-model="formData.news_content" name="news_content" id="newsContent" cols="10" rows="20" class=" rounded border border-1 border-gray" placeholder="請輸入最新消息內容" ></textarea>
+              <label for="prodIntro"><span>介紹與內容</span></label>
+              <textarea v-model="formData.prod_intro" name="prod_intro" id="prodIntro" cols="10" rows="12" class=" rounded border border-1 border-gray" placeholder="請輸入商品介紹與遊玩方法" ></textarea>
+            </div>
+            <div class="device">
+              <label for="prodDesc"><span>規格資訊</span></label>
+                <textarea v-model="formData.prod_desc" name="prod_desc" id="prodDesc" cols="10" rows="10" class=" rounded border border-1 border-gray" placeholder="請輸入商品規格資訊" ></textarea>
+            </div>
+            <div class="date">
+              <label for="prodDate"><span>發佈時間</span></label>
+              <input v-model="formData.news_date" type="datetime-local" name="prod_date" id="prodDate" class="form-check-input rounded border border-1 border-gray">
             </div>
           </div>
           <div class="imgContent">
             <div class="img">
-              <!-- <span>jj</span> -->
-                <label for="newsImg">
+                <label for="prodImg1">
                     <img v-if="!show" class="selectImg" :src="imgSrc" alt="upload-image">
                     <img v-if="show" class="originalImg" src="../assets/images/default_img/logo_white.svg" alt="original-image" >
                 </label>
                 <span v-show="!imgSrc" class="upload">{{imgText}} </span>
-              <input type="file" name="news_image" id="newsImg" accept="image/png, image/jpeg" @change="selectImage">
+              <input type="file" name="prod_img1" id="prodImg1" accept="image/png, image/jpeg" @change="selectImage">
             </div>
-            <div class="category">
-              <select v-model="formData.news_category" id="newsCategory" class="rounded border border-1 border-gray">
-                <option value="0"><span>-- 請選擇消息分類 --</span></option>
-                <option value="桌遊">桌遊</option>
-                <option value="活動">活動</option>
-                <option value="限時">限時</option>
-              </select>
+            <div class="small_image">
+              <div class="image2">
+                  <label for="prodImg2">
+                    <img v-if="!show" class="selectImg" :src="imgSrc" alt="upload-image">
+                    <img v-if="show" class="originalImg" src="../assets/images/default_img/logo_white.svg" alt="original-image" >
+                  </label>
+                <input type="file" name="prod_img2" id="prodImg2" accept="image/png, image/jpeg" @change="selectImage">
+              </div>
+              <div class="image3">
+                  <label for="prodImg3">
+                    <img v-if="!show" class="selectImg" :src="imgSrc" alt="upload-image">
+                    <img v-if="show" class="originalImg" src="../assets/images/default_img/logo_white.svg" alt="original-image" >
+                  </label>
+                <input type="file" name="prod_img3" id="prodImg3" accept="image/png, image/jpeg" @change="selectImage">
+              </div>
+            </div>
+            <div class="priceArea">
+              <div class="price">
+                <label for="prodPrice"><span>價格</span></label>
+                <input type="number" name="prod_price" id="prodPrice" min="300" class="form-check-input rounded border border-1 border-gray" placeholder="輸入價格" >
+              </div>
+              <div class="DisPrice">
+                <label for="prodDiscountPrice"><span>特價</span></label>
+                <input type="number" name="prod_discount_price" id="prodDiscountPrice" min="300"
+                class="form-check-input rounded border border-1 border-gray" placeholder="選填" >
+              </div>
             </div>
           </div>
         </div>
         <div class="btnArea">
           <div class="addBtn">
           <button type="submit" class="btn btn-info">
-            <i class="fa-solid fa-plus"></i>新增消息
+            <i class="fa-solid fa-plus"></i>新增商品
           </button>
           </div>
           <div @click="cancelAdd" class="cancelBtn">
@@ -72,7 +128,7 @@ export default {
   data() {
     return {
         imgSrc:'',
-        imgText:'點擊新增圖片',
+        imgText:'新增商品圖片',
         show: true,
         formData: {
         news_title: '',

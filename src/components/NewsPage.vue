@@ -11,7 +11,7 @@
         <li class="breadcrumb-item active" aria-current="page">新增消息</li>
       </ol>
     </nav>
-    <div class="titleGroup pb-5">
+    <div class="mainTitle pb-5">
       <h1>新增消息</h1>
       <form method="post" enctype="multipart/form-data" @submit.prevent="submitForm">
         <div class="wrapper">
@@ -31,7 +31,6 @@
           </div>
           <div class="imgContent">
             <div class="img">
-              <!-- <span>jj</span> -->
                 <label for="newsImg">
                     <img v-if="!show" class="selectImg" :src="imgSrc" alt="upload-image">
                     <img v-if="show" class="originalImg" src="../assets/images/default_img/logo_white.svg" alt="original-image" >
