@@ -120,6 +120,7 @@ export default {
       }
       this.show = false;
     },
+
     submitForm() {
       const formData = new FormData();
       formData.append('news_title', this.formData.news_title);

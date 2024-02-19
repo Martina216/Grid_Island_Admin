@@ -1,5 +1,5 @@
 <template>
-    <main class="newsPage">
+    <main class="editNewsPage">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item" aria-current="page">
@@ -32,8 +32,8 @@
           <div class="imgContent">
             <div class="img">
                 <label for="newsImg">
-                    <img v-if="show" class="selectImg" :src="editedData.news_image" alt="upload-image">
-                    <!-- <img v-if="show" class="originalImg" src="../assets/images/default_img/logo_white.svg" alt="original-image" > -->
+                    <img v-if="show" class="originalImg" :src="getImgUrl(editedData.news_image)" alt="original-image" >
+                    <img v-else="show" class="selectImg" :src="imgSrc" alt="upload-image">
                 </label>
                 <span v-show="!imgSrc" class="upload">{{imgText}} </span>
               <input type="file" name="news_image" id="newsImg" accept="image/png, image/jpeg" @change="selectImage">
@@ -87,6 +87,10 @@ export default {
       console.log('Generated URL:', url);
       return url; //本機端
       // return `https://tibamef2e.com/chd104/g5/php/admin/${path}`; //上線端
+    },
+    getImgUrl(path) {
+      // return `https://tibamef2e.com/chd104/g5/image/news/${path}`; //上線端
+      return `http://localhost/GridIsland/images/news/${path}`; //本機端
     },
     cancelEdit() {
       this.$emit('closeTab');
