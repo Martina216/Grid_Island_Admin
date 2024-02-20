@@ -86,10 +86,10 @@ export default {
     getPhpUrl(path) {
       const url = `${import.meta.env.VITE_API_URL}/${path}`;
       console.log('Generated URL:', url);
-      return url; //本機端
+      return url;
     },
     getImgUrl(path) {
-      return `${import.meta.env.VITE_API_URL}/${path}`; //本機端
+      return `${import.meta.env.VITE_API_URL}/${path}`;
     },
     cancelEdit() {
       this.$emit('closeTab');

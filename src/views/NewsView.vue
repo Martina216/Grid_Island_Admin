@@ -125,6 +125,12 @@ export default {
     getImgUrl(path) {
       return `http://localhost/GridIsland/images/news/${path}`; //本機端
     },
+    getNewsById(newsId) {
+      if (this.newsData && this.newsData.length > 0) {
+        return this.newsData.find(news => news.news_id === newsId); //用最新消息 id 從 newsData 中找到對應的資訊
+      }
+      return null;
+    },
     openEditor(newsId) {
       const selectedNews = this.getNewsById(newsId);
       if (selectedNews) {
@@ -145,12 +151,6 @@ export default {
       } catch (error) {
         console.error('發生錯誤:', error);
       }
-    },
-    getNewsById(newsId) {
-      if (this.newsData && this.newsData.length > 0) {
-        return this.newsData.find(news => news.news_id === newsId); //根據商品ID從 newsData 中找到對應的商品資訊
-      }
-      return null;
     },
     getPhpUrl(path) {
       const url = `${import.meta.env.VITE_API_URL}/${path}`;
@@ -180,7 +180,6 @@ export default {
   },
   created() {
     this.fetchNews();
-
   }
 };
 </script>

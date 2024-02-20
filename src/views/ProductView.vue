@@ -106,7 +106,7 @@
               </div>
             </td>
             <td>
-              <button type="button" class="btn btn-info">
+              <button @click="openEditor(item.prod_id)" type="button" class="btn btn-info">
                 <i class="fa-solid fa-pen-to-square"></i>編輯
               </button>
             </td>
@@ -117,7 +117,7 @@
     <!-- 新增商品燈箱 -->
     <prodPage v-if="showAdd" @closeTab="handleEditorClosed" />
     <!-- 編輯燈箱 (尚未完成)-->
-    <!-- <editProdPage /> -->
+    <editProdPage v-if="showEdit" @closeTab="handleEditorClosed" :data="selectedProd"/>
   </main>
 </template>
 <script>
@@ -141,6 +141,7 @@ export default {
       sortDisPriceMethod: "asc",
       showAdd:false,
       showEdit:false,
+      selectedProd: null,
     };
   },
   components: {
@@ -279,7 +280,6 @@ export default {
         this.sortDisPriceMethod = "asc";
       }
     },
-
     // ------------------打開新增商品燈箱
     add() {
       this.showAdd = true;
@@ -288,6 +288,23 @@ export default {
       this.showAdd = false;
       this.showEdit = false;
     },
+    // ------------------打開個別編輯商品燈箱
+    getProdById(prodId) {
+      if (this.productDisData && this.productDisData.length > 0) {
+        return this.productDisData.find(prod => prod.prod_id === prodId);
+      }
+      return null;
+    },
+    openEditor(prodId) {
+      const selectedProd = this.getProdById(prodId);
+      if (selectedProd) {
+        this.selectedProd = selectedProd;
+        this.showEdit = true;
+      } else {
+        console.error(`找不到 id 為 ${prodId} 的商品`);
+      }
+    },
+
   },
 };
 </script>

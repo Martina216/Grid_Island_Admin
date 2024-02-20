@@ -151,9 +151,16 @@ export default {
     cancelAdd() {
       this.clearForm();
       this.$emit('closeTab');
+      this.clearForm();
     },
     clearForm() {
-
+      this.formData = {
+        news_title: '',
+        news_date: '',
+        news_content: '',
+        news_category: '',
+        news_state: '',
+      };
     },
     selectImage1(e) {
       const file = e.target.files[0];
@@ -165,7 +172,6 @@ export default {
         };
         reader.readAsDataURL(file);
         this.file = file; // 將檔案存儲在 this.file 中
-// ----------------------------------
       }else {
         this.imgSrc = 'src/assets/images/default_img/logo_white.svg';
       }
@@ -181,7 +187,6 @@ export default {
         };
         reader.readAsDataURL(file);
         this.file = file; // 將檔案存儲在 this.file 中
-// ----------------------------------
       }else {
         this.imgSrc = 'src/assets/images/default_img/logo_white.svg';
       }
@@ -197,13 +202,11 @@ export default {
         };
         reader.readAsDataURL(file);
         this.file = file; // 將檔案存儲在 this.file 中
-// ----------------------------------
       }else {
         this.imgSrc = 'src/assets/images/default_img/logo_white.svg';
       }
       this.show = false;
     },
-
     submitForm() {
       const formData = new FormData();
       formData.append('news_title', this.formData.news_title);
