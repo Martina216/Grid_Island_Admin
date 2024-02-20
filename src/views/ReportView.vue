@@ -26,6 +26,7 @@
         <thead>
           <tr class="border-bottom text-center">
             <th scope="col">檢舉編號</th>
+            <th scope="col">文章編號</th>
             <th scope="col">檢舉原因</th>
             <th scope="col">文章內容</th>
             <th scope="col">狀態</th>
@@ -35,6 +36,7 @@
         <tbody>
           <tr v-for="item in reData" class="border-bottom text-center">
             <th class="pb-3 pt-3">{{ item.report_id }}</th>
+            <td>{{ item.msg_id }}</td>
             <td>{{ item.report_reason }}</td>
             <td class="report_article">{{ item.msg_content }}</td>
             <td>
@@ -116,7 +118,7 @@ export default {
     },
     //更新switch後update資料庫
     updateReport(report_id) {
-      console.log(report_id);
+      // console.log(msg_id);
       this.chdata = this.reData.filter((item) => {
         return item.report_id == report_id
       })
