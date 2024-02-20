@@ -11,14 +11,23 @@
     <div class="titleGroup">
       <h1>檢舉管理</h1>
       <div class="searchGroup">
-        <select id="searchFilter" class="rounded border border-1 border-dark">
-          <option value="msgId">留言編號</option>
+        <select
+        id="searchFilter"
+        v-model="searchFilter"
+        class="rounded border border-1 border-dark"
+        >
+          <option value="reportId">檢舉編號</option>
+          <option value="msgId">文章編號</option>
           <option value="reReason">檢舉原因</option>
-          <option value="msg_content">檢舉狀態</option>
-          <option value="reTime">未審核</option>
-          <option value="reTime">已審核</option>
         </select>
-        <input type="text" id="searchBar" placeholder="請輸入查詢資料" class="rounded border border-1 border-dark" />
+        <input 
+        type="text" 
+        id="searchBar" 
+        v-model="searchBar" 
+        placeholder="請輸入查詢資料"
+        class="rounded border border-1 border-dark" 
+        @input="handleSearch" 
+        />
       </div>
     </div>
     <div class="reTable">
@@ -108,6 +117,8 @@ export default {
       checkData: [],
       sortIdMethod: "asc",
       sortIdMsgMethod: "asc",
+      searchFilter: "reportId",
+      searchBar: "",
     };
   },
   props: {
@@ -119,7 +130,7 @@ export default {
       axios
         .post(`${import.meta.env.VITE_API_URL}/report.php`, {})
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
           this.reData = res.data.Report;
         })
         .catch(error => console.error('發生錯誤:', error))
@@ -192,6 +203,7 @@ export default {
         })
         .catch(error => console.log(error))
     },
+    //檢舉排序
     sortId() {
       if (this.sortIdMethod == "asc") {
         this.reData = this.reData.sort((a, b) => {
@@ -205,6 +217,7 @@ export default {
         this.sortIdMethod = "asc";
       }
     },
+    //文章排序
     sortIdMsg() {
       if (this.sortIdMsgMethod == "asc") {
         this.reData = this.reData.sort((a, b) => {
@@ -216,6 +229,52 @@ export default {
           return a.msg_id - b.msg_id;
         });
         this.sortIdMsgMethod = "asc";
+      }
+    },
+    // handleSearch() {
+    //   let searchData = [...this.reData]; // 使用複本保存原始資料
+    //   let keyword = this.searchBar.trim().toLowerCase(); // 將搜索欄中的關鍵字轉為小寫並去除空白
+
+    //   if (!keyword) {
+    //     this.reData = searchData; // 如果搜索欄為空，顯示完整資料
+    //     return;
+    //   }
+
+    //   this.reData = searchData.filter((item) => {
+    //     if (this.searchFilter === "reportId") {
+    //       return String(item.report_id).includes(keyword);
+    //     } else if (this.searchFilter === "msgId") {
+    //       return String(item.msg_id).includes(keyword);
+    //     } else if (this.searchFilter === "reReason") {
+    //       return item.report_reason.toLowerCase().includes(keyword);
+    //     }
+    //   });
+    // },
+
+
+    handleSearch() {
+      console.log(this.reData);
+      if (this.searchFilter === "reportId") {
+        if (this.searchBar) {
+          this.reData = this.chdata.filter((item) => {
+            return item.report_id == this.searchBar;
+          });
+        } else {
+          this.reData = this.chdata;
+        }
+      }
+      else if (this.searchFilter === "msgId") {
+        if (this.searchBar) {
+          this.reData = this.chdata.filter((item) => {
+            return item.msg_id == this.searchBar;
+          });
+        } else {
+          this.reData = this.chdata;
+        }
+      } else if (this.searchFilter === "reReason") {
+        this.reData = this.chdata.filter((item) => {
+          return item.report_reason.includes(this.searchBar);
+        });
       }
     },
   },
