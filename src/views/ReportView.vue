@@ -25,8 +25,14 @@
       <table class="table table-hover">
         <thead>
           <tr class="border-bottom text-center">
-            <th scope="col">檢舉編號</th>
-            <th scope="col">文章編號</th>
+            <!-- <th scope="col">檢舉編號</th> -->
+            <th scope="col" @click="sortId" class="pointer">
+              檢舉編號<i class="fa-solid fa-sort ms-1"></i>
+            </th>
+            <th scope="col" @click="sortIdMsg" class="pointer">
+              文章編號<i class="fa-solid fa-sort ms-1"></i>
+            </th>
+            <!-- <th scope="col">文章編號</th> -->
             <th scope="col">檢舉原因</th>
             <th scope="col">文章內容</th>
             <th scope="col">狀態</th>
@@ -100,6 +106,8 @@ export default {
       index: 0,
       reportData: {},
       checkData: [],
+      sortIdMethod: "asc",
+      sortIdMsgMethod: "asc",
     };
   },
   props: {
@@ -183,6 +191,32 @@ export default {
           }
         })
         .catch(error => console.log(error))
+    },
+    sortId() {
+      if (this.sortIdMethod == "asc") {
+        this.reData = this.reData.sort((a, b) => {
+          return b.report_id - a.report_id;
+        });
+        this.sortIdMethod = "desc";
+      } else if (this.sortIdMethod == "desc") {
+        this.reData = this.reData.sort((a, b) => {
+          return a.report_id - b.report_id;
+        });
+        this.sortIdMethod = "asc";
+      }
+    },
+    sortIdMsg() {
+      if (this.sortIdMsgMethod == "asc") {
+        this.reData = this.reData.sort((a, b) => {
+          return b.msg_id - a.msg_id;
+        });
+        this.sortIdMsgMethod = "desc";
+      } else if (this.sortIdMsgMethod == "desc") {
+        this.reData = this.reData.sort((a, b) => {
+          return a.msg_id - b.msg_id;
+        });
+        this.sortIdMsgMethod = "asc";
+      }
     },
   },
   created() {

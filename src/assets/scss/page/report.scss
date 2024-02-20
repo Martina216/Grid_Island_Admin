@@ -41,7 +41,7 @@
         tbody{
             tr{
                 .report_article{
-                    width: 550px;
+                    width: 400px;
                     line-height: 20px;
                 }
                 td{
@@ -51,15 +51,9 @@
                     }
                 }
             }
-
-
-
         }
     }
-
-
-    
-
-
-
+    .pointer{
+        cursor: pointer;
+    }
 }
