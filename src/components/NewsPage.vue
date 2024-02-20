@@ -113,13 +113,11 @@ export default {
         };
         reader.readAsDataURL(file);
         this.file = file; // 將檔案存儲在 this.file 中
-// ----------------------------------
       }else {
         this.imgSrc = 'src/assets/images/default_img/logo_white.svg';
       }
       this.show = false;
     },
-
     submitForm() {
       const formData = new FormData();
       formData.append('news_title', this.formData.news_title);
