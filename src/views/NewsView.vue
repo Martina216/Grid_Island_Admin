@@ -189,7 +189,7 @@ export default {
         .catch((error) => {
           console.error(error);
           // 恢復狀態，避免更新失敗
-          item.isChecked = !item.isChecked;
+          // item.isChecked = !item.isChecked;
         });
     },
   },

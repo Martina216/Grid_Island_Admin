@@ -112,16 +112,16 @@
             <div class="img">
               <label for="prodImg1">
                 <img
-                  v-if="!show"
-                  class="selectImg"
-                  :src="imgSrc"
-                  alt="upload-image"
-                />
-                <img
                   v-if="show"
                   class="originalImg"
                   src="../assets/images/default_img/logo_white.svg"
                   alt="original-image"
+                />
+                <img
+                  v-else="show"
+                  class="selectImg"
+                  :src="imgSrc"
+                  alt="upload-image"
                 />
               </label>
               <span v-show="!imgSrc" class="upload">{{ imgText }} </span>
@@ -129,8 +129,8 @@
                 type="file"
                 name="prod_img1"
                 id="prodImg1"
-                accept="image/png, image/jpeg"
-                @change="selectImage1"
+                accept="image/png, image/jpeg, image/webp"
+                @change="selectImage1" multiple
               />
             </div>
             <div class="small_image">
@@ -158,20 +158,13 @@
                 />
               </div>
               <div class="image3">
-                <label for="prodImg3">
                   <img
-                    v-if="!show"
+                    v-if="imgSrc"
                     class="selectImg"
-                    :src="imgSrc3"
+                    :src="imgSrc"
                     alt="upload-image"
                   />
-                  <img
-                    v-if="show"
-                    class="originalImg"
-                    src="../assets/images/default_img/logo_white.svg"
-                    alt="original-image"
-                  />
-                </label>
+              
                 <input
                   type="file"
                   name="prod_img3"
@@ -229,7 +222,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      imgSrc: "",
+      imgSrc: [],
       imgSrc2: "",
       imgSrc3: "",
       imgText: "新增商品圖片",
@@ -265,12 +258,21 @@ export default {
       };
     },
     selectImage1(e) {
-      const file = e.target.files[0];
+      const files = e.target.files;
+
+    files.forEach((file, index) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        // 將圖片資料加入 imgSrc 陣列
+        this.$set(this.imgSrc, index, e.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+
       if (file) {
         // 使用 FileReader 將圖片轉換成 data URL
         const reader = new FileReader();
         reader.onload = (e) => {
-          this.imgSrc = e.target.result;
         };
         reader.readAsDataURL(file);
         this.file = file; // 將檔案存儲在 this.file 中
