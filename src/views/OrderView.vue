@@ -56,61 +56,89 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="(item, index) in ordDisplayData"
-            :key="index"
-            class="border-bottom text-center align-middle"
-          >
-            <th class="pb-3 pt-3 align-middle">{{ item.ord_id }}</th>
-            <td>{{ item.ord_date }}</td>
-            <td>
-              <div class="form-check form-switch">
-                <input
-                  class="form-check-input"
-                  role="switch"
-                  type="checkbox"
-                  :name="item.ordId"
-                  :id="item.ordId"
-                  :checked="item.ord_state === 1"
-                  @change="updateOrderState(item)"
-                />
-                <label class="form-check-label" :for="item.ordId"></label>
-              </div>
-              <div class="ordState">
-                <span v-if="item.ord_state == 1">已處理</span>
-                <span v-else>未處理</span>
-              </div>
-            </td>
-            <td>{{ item.ord_payment }}</td>
-            <td>{{ item.ord_name }}</td>
-            <td>$ {{ item.ord_pay }}</td>
-            <td>
-              <textarea
-                :disabled="item.editMode"
-                :class="{ notAllow: item.editMode }"
-                v-model="item.ord_note"
-              ></textarea>
-            </td>
-
-            <td>
-              <button
-                @click="changeOrd(item)"
-                type="button"
-                class="btn btn-info"
-                v-if="item.editMode"
-              >
-                <i class="fa-solid fa-pen-to-square"></i><span>編輯</span>
-              </button>
-              <button
-                @click="saveOrdChange(item)"
-                type="button"
-                class="btn btn-info"
-                v-else
-              >
-                <i class="fa-solid fa-pen-to-square"></i><span>儲存</span>
-              </button>
-            </td>
-          </tr>
+          <template v-for="(item, index) in ordDisplayData" :key="index">
+            <tr
+              :href="'#orderRow' + index"
+              data-bs-toggle="collapse"
+              class="border-bottom text-center align-middle"
+            >
+              <th class="pb-3 pt-3 align-middle">{{ item.ord_id }}</th>
+              <td>{{ item.ord_date }}</td>
+              <td>
+                <div class="form-check form-switch">
+                  <input
+                    class="form-check-input"
+                    role="switch"
+                    type="checkbox"
+                    :name="item.ordId"
+                    :id="item.ordId"
+                    :checked="item.ord_state == 1"
+                    @change="updateOrderState(item)"
+                  />
+                  <label class="form-check-label" :for="item.ordId"></label>
+                </div>
+                <div class="ordState">
+                  <span v-if="item.ord_state == 1">已處理</span>
+                  <span v-else>未處理</span>
+                </div>
+              </td>
+              <td>{{ item.ord_payment }}</td>
+              <td>{{ item.ord_name }}</td>
+              <td>$ {{ item.ord_pay }}</td>
+              <td>
+                <textarea
+                  :disabled="item.editMode"
+                  :class="{ notAllow: item.editMode }"
+                  v-model="item.ord_note"
+                ></textarea>
+              </td>
+              <td>
+                <button
+                  @click="changeOrd(item)"
+                  type="button"
+                  class="btn btn-info"
+                  v-if="item.editMode"
+                >
+                  <i class="fa-solid fa-pen-to-square"></i><span>編輯</span>
+                </button>
+                <button
+                  @click="saveOrdChange(item)"
+                  type="button"
+                  class="btn btn-info"
+                  v-else
+                >
+                  <i class="fa-solid fa-pen-to-square"></i><span>儲存</span>
+                </button>
+              </td>
+            </tr>
+            <tr
+              :id="'orderRow' + index"
+              data-bs-parent="#menu"
+              class="collapse"
+            >
+              <td colspan="100">
+                <table class="table table-hover">
+                  <thead class="border-bottom text-center">
+                    <th class="pt-3 pb-3">商品名稱</th>
+                    <th>商品單價</th>
+                    <th>購買數量</th>
+                    <th>商品總價</th>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="prod in item.items"
+                      class="border-bottom text-center"
+                    >
+                      <td>{{ prod.prod_name }}</td>
+                      <td>{{ prod.ord_item_price }}</td>
+                      <td>{{ prod.ord_item_qty }}</td>
+                      <td>{{ prod.ord_item_price * prod.ord_item_qty }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </template>
         </tbody>
       </table>
     </div>
