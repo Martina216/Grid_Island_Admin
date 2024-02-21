@@ -12,14 +12,18 @@
     <div class="titleGroup">
       <h1>預約訂單</h1>
       <div class="searchGroup">
-        <select id="searchFilter" class="rounded border border-1 border-dark">
+        <select id="searchFilter" class="rounded border border-1 border-dark"
+        v-model="searchSelect"
+          @change="searching">
           <option value="bookId">預訂編號</option>
           <option value="memId">會員編號</option>
         </select>
         <input
           type="text"
           id="searchBar"
+          v-model="searchBar"
           placeholder="請輸入編號"
+          @input="searching"
           class="rounded border border-1 border-dark"
         />
       </div>
@@ -39,7 +43,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="book in booksData" class="border-bottom text-center">
+          <tr v-for="book in displayBookdata" class="border-bottom text-center">
             <th class="pb-3 pt-3">{{ book.book_id }}</th>
             <td>{{ book.mem_id }}</td>
             <td>{{ book.mem_name }}</td>
@@ -65,7 +69,10 @@ import axios from "axios";
 export default {
   data() {
     return {
-      booksData: [],
+      booksData: [],//預訂資料
+      displayBookdata:[], //複製預訂資料展示用
+      searchBar:"",//輸入框
+      searchSelect:"bookId", //預設搜尋選擇的是訂單編號
     };
   },
   components: {},
@@ -78,14 +85,44 @@ export default {
       axios
       .post(`${import.meta.env.VITE_API_URL}/getbook.php`, {})
       .then(res => {
-        console.log(res.data.books);
         this.booksData = res.data.books;
+        this.displayBookdata = res.data.books;
+        // console.log(this.displayBookdata);
       })
       .catch(error => console.error('發生錯誤:',error))
     },
-    deliverBook(){
-      
-    }
+    searching(){
+      //預約的訂單
+      //filter可用來遍歷booksData裡的所有東西
+        if(this.searchSelect=="bookId"){
+          if(this.searchBar){
+            this.displayBookdata = this.booksData.filter(book => {
+          // 根據輸入的預約編號進行搜尋
+          return book.book_id.toString().includes(this.searchBar.trim());
+          //toString將預訂編號轉換為字串，因為 includes() 方法只能用於字串。
+          //includes檢查預訂編號是否包含在搜尋欄 (searchBar) 中。
+          });
+        }else{
+          this.displayBookdata = this.booksData;
+        }
+
+      }else if(this.searchSelect=="memId"){
+        if (this.searchBar) {
+          this.displayBookdata = this.booksData.filter(book => {
+          // 根據輸入的預約編號進行搜尋
+          return book.mem_id.toString().includes(this.searchBar.trim());
+          //toString將預訂編號轉換為字串，因為 includes() 方法只能用於字串。
+          //includes檢查預訂編號是否包含在搜尋欄 (searchBar) 中。
+          });
+        }else{
+          this.displayBookdata = this.booksData;
+        }
+
+      }
+
+      },
+    deliverBook(){},
+
   }
 };
 </script>

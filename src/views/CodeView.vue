@@ -104,8 +104,8 @@ export default {
       searchFilter: "promoId",
       searchBar: "",
       sortIdMethod: "asc",
-      sortStartTimeMethod: "asc",
-      sortEndTimeMethod: "asc",
+      sortStartTimeMethod: "",
+      sortEndTimeMethod: "",
     };
   },
   components: {},
@@ -155,11 +155,15 @@ export default {
           return b.promo_id - a.promo_id;
         });
         this.sortIdMethod = "desc";
-      } else if (this.sortIdMethod == "desc") {
+        this.sortStartTimeMethod = "";
+        this.sortEndTimeMethod = "";
+      } else if (this.sortIdMethod == "desc" || this.sortIdMethod == "") {
         this.promoDisData = this.promoDisData.sort((a, b) => {
           return a.promo_id - b.promo_id;
         });
         this.sortIdMethod = "asc";
+        this.sortStartTimeMethod = "";
+        this.sortEndTimeMethod = "";
       }
     },
     sortStartTime() {
@@ -170,13 +174,20 @@ export default {
           return bDate - aDate;
         });
         this.sortStartTimeMethod = "desc";
-      } else if (this.sortStartTimeMethod == "desc") {
+        this.sortEndTimeMethod = "";
+        this.sortIdMethod = "";
+      } else if (
+        this.sortStartTimeMethod == "desc" ||
+        this.sortStartTimeMethod == ""
+      ) {
         this.promoDisData = this.promoDisData.sort((a, b) => {
           const aDate = new Date(a.promo_start_date);
           const bDate = new Date(b.promo_start_date);
           return aDate - bDate;
         });
         this.sortStartTimeMethod = "asc";
+        this.sortEndTimeMethod = "";
+        this.sortIdMethod = "";
       }
     },
     sortEndTime() {
@@ -187,13 +198,20 @@ export default {
           return bDate - aDate;
         });
         this.sortEndTimeMethod = "desc";
-      } else if (this.sortEndTimeMethod == "desc") {
+        this.sortIdMethod = "";
+        this.sortEndTimeMethod = "";
+      } else if (
+        this.sortEndTimeMethod == "desc" ||
+        this.sortEndTimeMethod == ""
+      ) {
         this.promoDisData = this.promoDisData.sort((a, b) => {
           const aDate = new Date(a.promo_end_date);
           const bDate = new Date(b.promo_end_date);
           return aDate - bDate;
         });
         this.sortEndTimeMethod = "asc";
+        this.sortIdMethod = "";
+        this.sortEndTimeMethod = "";
       }
     },
   },

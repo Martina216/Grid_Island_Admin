@@ -101,6 +101,7 @@ export default {
         // },
       ],
       chdata: [],
+      resData: [],
       index: 0,
       reportData: {},
       checkData: [],
@@ -121,43 +122,48 @@ export default {
         .then(res => {
           // console.log(res.data);
           this.reData = res.data.Report;
+          this.resData = res.data.Report;
         })
         .catch(error => console.error('發生錯誤:', error))
     },
-    //更新switch後update資料庫
+
+    //同步更新switch後update資料庫
     updateReport(report_id) {
-      // console.log(msg_id);
-      this.chdata = this.reData.filter((item) => {
-        return item.report_id == report_id
-      })
-      if (this.chdata[0]["report_state"] == 0) {
-        this.index = 1
-      } else {
-        this.index = 0
-      }
+      // 1. 找到與被點擊的報告相關聯的 msg_id
+      const clickedReport = this.reData.find(report => report.report_id === report_id);
+      const msg_id = clickedReport.msg_id;
+      // 2. 遍歷 this.reData 陣列，找到所有 msg_id 等於被點擊報告的 msg_id 的報告
+      const reportsToUpdate = this.reData.filter(report => report.msg_id === msg_id);
+      // 3. 將所有找到的報告的 report_state 更新為點擊報告的狀態
+      const newReportState = clickedReport.report_state === 0 ? 1 : 0;
+      reportsToUpdate.forEach(report => report.report_state = newReportState);
+      // 4. 向後端發送更新請求
       let url = `${import.meta.env.VITE_API_URL}/update_report.php`;
-      this.reportData = {
-        report_id,
-        report_state: this.index,
-      }
+      //準備要發送到後端的資料，包括msg_id跟更新後的report_state
+      let temp = {
+        //找到陣列中的第一個msg_id
+        msg_id: reportsToUpdate[0].msg_id,
+        report_state: newReportState,
+      };
       fetch(url, {
         method: 'post',
         headers: {
           "content-type": "application/json"
         },
-        body: JSON.stringify(this.reportData)
-      }).then(res => res.json())
+        body: JSON.stringify(temp) // 將準備好的資料轉換成 JSON 字串
+      }).then(res => res.json()) // 解析後端回傳的 JSON 格式的回應
         .then(result => {
-          //如果成功
+          // 如果成功
           if (!result.error) {
-            //重新執行query php檔(重新渲染更新後的資料出來)
-            this.fetchReport()
-            console.log(this.reData);
+            // 重新從後端獲取最新的資料
+            this.fetchReport();
+            console.log(result);
           }
         })
-        .catch(error => console.log(error))
+        .catch(error => console.log(error));
     },
-    //checkbox
+
+    //更新checkbox後update資料庫
     checkReport(report_id) {
       console.log(report_id);
       this.checkData = this.reData.filter((item) => {
@@ -220,48 +226,19 @@ export default {
         this.sortIdMsgMethod = "asc";
       }
     },
-    // handleSearch() {
-    //   let searchData = [...this.reData]; // 使用複本保存原始資料
-    //   let keyword = this.searchBar.trim().toLowerCase(); // 將搜索欄中的關鍵字轉為小寫並去除空白
-
-    //   if (!keyword) {
-    //     this.reData = searchData; // 如果搜索欄為空，顯示完整資料
-    //     return;
-    //   }
-
-    //   this.reData = searchData.filter((item) => {
-    //     if (this.searchFilter === "reportId") {
-    //       return String(item.report_id).includes(keyword);
-    //     } else if (this.searchFilter === "msgId") {
-    //       return String(item.msg_id).includes(keyword);
-    //     } else if (this.searchFilter === "reReason") {
-    //       return item.report_reason.toLowerCase().includes(keyword);
-    //     }
-    //   });
-    // },
-
-
+    //搜尋
     handleSearch() {
-      console.log(this.reData);
-      if (this.searchFilter === "reportId") {
+      if (this.searchFilter === "msgId") {
         if (this.searchBar) {
-          this.reData = this.chdata.filter((item) => {
-            return item.report_id == this.searchBar;
-          });
-        } else {
-          this.reData = this.chdata;
-        }
-      }
-      else if (this.searchFilter === "msgId") {
-        if (this.searchBar) {
-          this.reData = this.chdata.filter((item) => {
+          console.log(this.chdata);
+          this.reData = this.resData.filter((item) => {
             return item.msg_id == this.searchBar;
           });
         } else {
-          this.reData = this.chdata;
+          this.reData = this.resData;
         }
       } else if (this.searchFilter === "reReason") {
-        this.reData = this.chdata.filter((item) => {
+        this.reData = this.resData.filter((item) => {
           return item.report_reason.includes(this.searchBar);
         });
       }

@@ -16,6 +16,7 @@
     hide-view-selector   
     :selected-date="today" 
     :disable-views="['years', 'year']"
+    locale = "zh-hk"
     :time-from="9 * 60"
     :time-to="21 * 60"
     :time-step="180"

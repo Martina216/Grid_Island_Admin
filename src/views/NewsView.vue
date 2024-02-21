@@ -11,14 +11,14 @@
     <div class="titleGroup pb-5">
       <h1>最新消息管理</h1>
       <div class="stateFilter">
-        <span>全部(10)</span>
-        <span>優惠(4)</span>
-        <span>桌遊(3)</span>
-        <span>活動(3)</span>
+        <span>全部({{ allCount }})</span>
+        <span>優惠({{ promotionCount }})</span>
+        <span>桌遊({{ boardGameCount }})</span>
+        <span>活動({{ activityCount }})</span>
       </div>
       <div class="searchGroup">
         <select id="searchFilter" class="rounded border border-1 border-dark">
-          <option value="newsId">排序編號</option>
+          <option value="newsId">消息編號</option>
           <option value="mewsName">消息標題</option>
         </select>
         <input
@@ -38,12 +38,12 @@
       <table class="table table-hover">
         <thead>
           <tr class="border-bottom text-left">
-            <th scope="col">排序編號</th>
+            <th scope="col" class="text-center">消息編號</th>
             <th scope="col">消息圖片</th>
             <th scope="col">消息標題</th>
-            <th scope="col">消息分類</th>
-            <th scope="col">消息狀態</th>
-            <th scope="col">編輯消息</th>
+            <th scope="col" class="text-center">消息分類</th>
+            <th scope="col" class="text-center">消息狀態</th>
+            <th scope="col" class="text-center">編輯消息</th>
           </tr>
         </thead>
         <tbody>
@@ -56,12 +56,11 @@
               <img :src="`https://tibamef2e.com/chd104/g5/image/news/${item.news_image}`" class="rounded img" />
             </td>
             <td class="name">{{ item.news_title }}</td>
-            <td>{{ item.news_category }}
-            </td>
+            <td class="text-center">{{ item.news_category }}</td>
             <td class="text-center">
               <div class="form-check form-switch">
                 <input
-                  class="form-check-input "
+                  class="form-check-input"
                   role="switch"
                   type="checkbox"
                   :name="item.newsId"
@@ -77,7 +76,7 @@
                 <span v-else>未發佈</span>
               </div>
             </td>
-            <td>
+            <td class="text-center">
               <button @click="openEditor(item.news_id)" class="btn btn-info">
                 <i class="fa-solid fa-pen-to-square"></i>編輯
               </button>
@@ -88,11 +87,13 @@
     </div>
 
     <!-- 新增文章燈箱 -->
-    <NewsPage v-if="showAdd" @closeTab="handleEditorClosed" /> 
+    <NewsPage v-if="showAdd" @closeTab="handleEditorClosed" />
     <!-- 編輯文章燈箱 -->
-    <editNews v-if="showEdit" :data="selectedNews" @closeTab="handleEditorClosed"
-    /> 
-
+    <editNews
+      v-if="showEdit"
+      :data="selectedNews"
+      @closeTab="handleEditorClosed"
+    />
   </main>
 </template>
 <script>
@@ -105,8 +106,12 @@ export default {
     return {
       newsData: [],
       showAdd: false,
-      showEdit:false,
+      showEdit: false,
       selectedNews: null,
+      allCount: 0,
+      promotionCount: 0,
+      activityCount: 0,
+      boardGameCount: 0,
     };
   },
   components: {
@@ -114,7 +119,7 @@ export default {
     editNews,
   },
   mounted() {},
-  methods:{
+  methods: {
     add() {
       this.showAdd = true;
     },
@@ -127,7 +132,7 @@ export default {
     },
     getNewsById(newsId) {
       if (this.newsData && this.newsData.length > 0) {
-        return this.newsData.find(news => news.news_id === newsId); //用最新消息 id 從 newsData 中找到對應的資訊
+        return this.newsData.find((news) => news.news_id === newsId); //用最新消息 id 從 newsData 中找到對應的資訊
       }
       return null;
     },
@@ -145,41 +150,51 @@ export default {
         let url = `${import.meta.env.VITE_API_URL}/getNews.php`;
         console.log(url);
         const response = await axios.get(url, {});
-        
+
         // 確保 response.data.news 是一個陣列
-        this.newsData = Array.isArray(response.data.news) ? response.data.news : [];
+        this.newsData = Array.isArray(response.data.news)
+          ? response.data.news
+          : [];
+        this.allCount = response.data.allNewsCount;
+        this.promotionCount = response.data.promotionCount;
+        this.activityCount = response.data.activityCount;
+        this.boardGameCount = response.data.boardGameCount;
       } catch (error) {
-        console.error('發生錯誤:', error);
+        console.error("發生錯誤:", error);
       }
     },
     getPhpUrl(path) {
       const url = `${import.meta.env.VITE_API_URL}/${path}`;
-      console.log('Generated URL:', url);
+      console.log("Generated URL:", url);
       return url;
     },
     updateNewsState(item) {
       const isChecked = item.news_state == 0 ? 1 : 0; //切換狀態
-        axios.post(this.getPhpUrl('updateNewsState.php'),
-        { 
-          newsId: item.news_id, 
-          isChecked,
-        }, {
-          headers: { "Content-Type": "application/json" }
-        })
-        .then(res => {
+      axios
+        .post(
+          this.getPhpUrl("updateNewsState.php"),
+          {
+            newsId: item.news_id,
+            isChecked,
+          },
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        )
+        .then((res) => {
           // 更新成功
           console.log(res.data);
           item.news_state = isChecked;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
           // 恢復狀態，避免更新失敗
           item.isChecked = !item.isChecked;
         });
-      }
+    },
   },
   created() {
     this.fetchNews();
-  }
+  },
 };
 </script>

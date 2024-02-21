@@ -36,4 +36,17 @@
       }
     }
   }
+  table {
+    td,
+    th {
+      vertical-align: middle;
+      span {
+        font-size: 12px;
+      }
+      .form-switch {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
 }
