@@ -145,8 +145,8 @@ export default {
       searchFilter: "prodId",
       searchBar: "",
       sortIdMethod: "asc",
-      sortPriceMethod: "asc",
-      sortDisPriceMethod: "asc",
+      sortPriceMethod: "",
+      sortDisPriceMethod: "",
       showAdd: false,
       showEdit: false,
       selectedProd: null,
@@ -228,27 +228,35 @@ export default {
     sortId() {
       if (this.sortIdMethod == "asc") {
         this.productDisData = this.productDisData.sort((a, b) => {
-          return a.prod_id - b.prod_id;
-        });
-        this.sortIdMethod = "desc";
-      } else if (this.sortIdMethod == "desc") {
-        this.productDisData = this.productDisData.sort((a, b) => {
           return b.prod_id - a.prod_id;
         });
+        this.sortIdMethod = "desc";
+        this.sortPriceMethod = "";
+        this.sortDisPriceMethod = "";
+      } else if (this.sortIdMethod == "desc" || this.sortIdMethod == "") {
+        this.productDisData = this.productDisData.sort((a, b) => {
+          return a.prod_id - b.prod_id;
+        });
         this.sortIdMethod = "asc";
+        this.sortPriceMethod = "";
+        this.sortDisPriceMethod = "";
       }
     },
     sortPrice() {
       if (this.sortPriceMethod == "asc") {
         this.productDisData = this.productDisData.sort((a, b) => {
-          return a.prod_price - b.prod_price;
-        });
-        this.sortPriceMethod = "desc";
-      } else if (this.sortPriceMethod == "desc") {
-        this.productDisData = this.productDisData.sort((a, b) => {
           return b.prod_price - a.prod_price;
         });
+        this.sortPriceMethod = "desc";
+        this.sortIdMethod = "";
+        this.sortDisPriceMethod = "";
+      } else if (this.sortPriceMethod == "desc" || this.sortPriceMethod == "") {
+        this.productDisData = this.productDisData.sort((a, b) => {
+          return a.prod_price - b.prod_price;
+        });
         this.sortPriceMethod = "asc";
+        this.sortIdMethod = "";
+        this.sortDisPriceMethod = "";
       }
     },
     sortDisPrice() {
@@ -266,10 +274,13 @@ export default {
           if (b.prod_discount_price === null) {
             return -1; // b 為 null，排在 a 之後
           }
-          return a.prod_discount_price - b.prod_discount_price;
+          return b.prod_discount_price - a.prod_discount_price;
         });
         this.sortDisPriceMethod = "desc";
-      } else if (this.sortDisPriceMethod == "desc") {
+      } else if (
+        this.sortDisPriceMethod == "desc" ||
+        this.sortDisPriceMethod == ""
+      ) {
         this.productDisData = this.productDisData.sort((a, b) => {
           if (
             a.prod_discount_price === null &&
@@ -283,7 +294,7 @@ export default {
           if (b.prod_discount_price === null) {
             return -1; // b 為 null，排在 a 之後
           }
-          return b.prod_discount_price - a.prod_discount_price;
+          return a.prod_discount_price - b.prod_discount_price;
         });
         this.sortDisPriceMethod = "asc";
       }
