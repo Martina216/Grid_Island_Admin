@@ -117,7 +117,6 @@
               width: 260px;
               height: 248px;
               vertical-align: middle;
-              filter: opacity(25%);
               border-radius: 8px ;
               cursor: pointer;
               overflow: hidden;
@@ -140,7 +139,7 @@
           }
           .small_image {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
           }
           .image2, .image3 {
             display: flex;
@@ -148,9 +147,9 @@
             margin-top: 5px;
             height: 124px;
             justify-content: center;
-            // background-color: $gray-3;
             border-radius: 8px ;
             overflow: hidden;
+            background-color: $gray-3;
             .selectImg {
               width: 125px;
               vertical-align: middle;
@@ -161,13 +160,11 @@
             }
             .originalImg {
               vertical-align: middle;
-              filter: opacity(25%);
               cursor: pointer;
               overflow: hidden;
               object-fit: contain;
               width: 125px;
               transition: all .1s ease-in;
-              background-color: $gray-3;
               &:hover {
                 filter: blur(5px);
                 filter: opacity(40%);

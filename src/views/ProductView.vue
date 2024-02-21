@@ -120,7 +120,7 @@
     </div>
     <!-- 新增商品燈箱 -->
     <prodPage v-if="showAdd" @closeTab="handleEditorClosed" />
-    <!-- 編輯燈箱 (尚未完成)-->
+    <!-- 編輯燈箱 -->
     <editProdPage
       v-if="showEdit"
       @closeTab="handleEditorClosed"

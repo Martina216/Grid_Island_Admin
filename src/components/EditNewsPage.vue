@@ -60,7 +60,7 @@
                 <img
                   v-if="show"
                   class="originalImg"
-                  :src="getImgUrl(editedData.news_image)"
+                  :src="`https://tibamef2e.com/chd104/g5/image/news/${editedData.news_image}`"
                   alt="original-image"
                 />
                 <img
@@ -75,7 +75,7 @@
                 type="file"
                 name="news_image"
                 id="newsImg"
-                accept="image/png, image/jpeg"
+                accept="image/png, image/jpeg,  image/webp"
                 @change="selectImage"
               />
             </div>
@@ -133,9 +133,6 @@ export default {
       const url = `${import.meta.env.VITE_API_URL}/${path}`;
       console.log("Generated URL:", url);
       return url;
-    },
-    getImgUrl(path) {
-      return `${import.meta.env.VITE_API_URL}/${path}`;
     },
     cancelEdit() {
       this.$emit("closeTab");

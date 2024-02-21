@@ -166,16 +166,16 @@
             <div class="img">
               <label for="prodImg1">
                 <img
-                  v-if="!show"
+                  v-if="show"
+                  class="originalImg"
+                  :src="`https://tibamef2e.com/chd104/g5/image/prod/${editedData.prod_img1}`"
+                  alt="original-image"
+                />
+                <img
+                  v-else="show"
                   class="selectImg"
                   :src="imgSrc"
                   alt="upload-image"
-                />
-                <img
-                  v-if="show"
-                  class="originalImg"
-                  src="../assets/images/default_img/logo_white.svg"
-                  alt="original-image"
                 />
               </label>
               <span v-show="!imgSrc" class="upload">{{ imgText }} </span>
@@ -183,7 +183,7 @@
                 type="file"
                 name="prod_img1"
                 id="prodImg1"
-                accept="image/png, image/jpeg"
+                accept="image/png, image/jpeg, image/webp"
                 @change="selectImage1"
               />
             </div>
@@ -191,46 +191,46 @@
               <div class="image2">
                 <label for="prodImg2">
                   <img
-                    v-if="!show"
+                    v-if="show"
+                    class="originalImg"
+                    :src="`https://tibamef2e.com/chd104/g5/image/prod/${editedData.prod_img2}`"
+                    alt="original-image"
+                  />
+                  <img
+                    v-else="show"
                     class="selectImg"
                     :src="imgSrc2"
                     alt="upload-image"
-                  />
-                  <img
-                    v-if="show"
-                    class="originalImg"
-                    src="../assets/images/default_img/logo_white.svg"
-                    alt="original-image"
                   />
                 </label>
                 <input
                   type="file"
                   name="prod_img2"
                   id="prodImg2"
-                  accept="image/png, image/jpeg"
+                  accept="image/png, image/jpeg, image/webp"
                   @change="selectImage2"
                 />
               </div>
               <div class="image3">
                 <label for="prodImg3">
                   <img
-                    v-if="!show"
+                    v-if="show"
+                    class="originalImg"
+                    :src="`https://tibamef2e.com/chd104/g5/image/prod/${editedData.prod_img3}`"
+                    alt="original-image"
+                  />
+                  <img
+                    v-else="show"
                     class="selectImg"
                     :src="imgSrc3"
                     alt="upload-image"
-                  />
-                  <img
-                    v-if="show"
-                    class="originalImg"
-                    src="../assets/images/default_img/logo_white.svg"
-                    alt="original-image"
                   />
                 </label>
                 <input
                   type="file"
                   name="prod_img3"
                   id="prodImg3"
-                  accept="image/png, image/jpeg"
+                  accept="image/png, image/jpeg, image/webp"
                   @change="selectImage3"
                 />
               </div>
