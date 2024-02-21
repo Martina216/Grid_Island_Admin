@@ -46,29 +46,83 @@
               <span>商品標籤</span>
               <div class="ppl">
                 <span>人數</span>
-                <input type="radio" name="gamePpl" id="underFour" />
+                <input
+                  type="radio"
+                  name="gamePpl"
+                  id="underFour"
+                  value="2-4人"
+                  v-model="editedData.tags.人數"
+                />
                 <label for="underFour">2-4人</label>
-                <input type="radio" name="gamePpl" id="underEig" />
+                <input
+                  type="radio"
+                  name="gamePpl"
+                  id="underEig"
+                  value="5-8人"
+                  v-model="editedData.tags.人數"
+                />
                 <label for="underEig">5-8人</label>
-                <input type="radio" name="gamePpl" id="overEig" />
+                <input
+                  type="radio"
+                  name="gamePpl"
+                  id="overEig"
+                  value=">8人"
+                  v-model="editedData.tags.人數"
+                />
                 <label for="overEig">8人以上</label>
-              </div>
-              <div class="category">
-                <span>種類</span>
-                <input type="radio" name="category" id="easy" />
-                <label for="easy">簡單</label>
-                <input type="radio" name="category" id="mid" />
-                <label for="mid">中等</label>
-                <input type="radio" name="category" id="hard" />
-                <label for="hard">困難</label>
               </div>
               <div class="diff">
                 <span>難度</span>
-                <input type="radio" name="diff" id="strategy" />
+                <input
+                  type="radio"
+                  name="diff"
+                  value="簡單"
+                  id="easy"
+                  v-model="editedData.tags.難度"
+                />
+                <label for="easy">簡單</label>
+                <input
+                  type="radio"
+                  name="diff"
+                  id="mid"
+                  value="中等"
+                  v-model="editedData.tags.難度"
+                />
+                <label for="mid">中等</label>
+                <input
+                  type="radio"
+                  name="diff"
+                  id="hard"
+                  value="困難"
+                  v-model="editedData.tags.難度"
+                />
+                <label for="hard">困難</label>
+              </div>
+              <div class="category">
+                <span>種類</span>
+                <input
+                  type="radio"
+                  name="category"
+                  id="strategy"
+                  value="策略"
+                  v-model="editedData.tags.種類"
+                />
                 <label for="strategy">策略</label>
-                <input type="radio" name="diff" id="paperGame" />
+                <input
+                  type="radio"
+                  name="category"
+                  id="paperGame"
+                  value="紙牌"
+                  v-model="editedData.tags.種類"
+                />
                 <label for="paperGame">紙牌</label>
-                <input type="radio" name="diff" id="business" />
+                <input
+                  type="radio"
+                  name="category"
+                  id="business"
+                  value="經營"
+                  v-model="editedData.tags.種類"
+                />
                 <label for="business">經營</label>
               </div>
             </div>
