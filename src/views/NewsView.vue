@@ -11,10 +11,10 @@
     <div class="titleGroup pb-5">
       <h1>最新消息管理</h1>
       <div class="stateFilter">
-        <span>全部(10)</span>
-        <span>優惠(4)</span>
-        <span>桌遊(3)</span>
-        <span>活動(3)</span>
+        <span>全部({{ allCount }})</span>
+        <span>優惠({{ promotionCount }})</span>
+        <span>桌遊({{ boardGameCount }})</span>
+        <span>活動({{ activityCount }})</span>
       </div>
       <div class="searchGroup">
         <select id="searchFilter" class="rounded border border-1 border-dark">
@@ -108,6 +108,10 @@ export default {
       showAdd: false,
       showEdit: false,
       selectedNews: null,
+      allCount: 0,
+      promotionCount: 0,
+      activityCount: 0,
+      boardGameCount: 0,
     };
   },
   components: {
@@ -151,6 +155,10 @@ export default {
         this.newsData = Array.isArray(response.data.news)
           ? response.data.news
           : [];
+        this.allCount = response.data.allNewsCount;
+        this.promotionCount = response.data.promotionCount;
+        this.activityCount = response.data.activityCount;
+        this.boardGameCount = response.data.boardGameCount;
       } catch (error) {
         console.error("發生錯誤:", error);
       }
