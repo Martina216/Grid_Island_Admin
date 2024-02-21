@@ -43,7 +43,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="book in displayBookdata" class="border-bottom text-center">
+          <tr v-for="(book, id) in displayBookdata" class="border-bottom text-center">
             <th class="pb-3 pt-3">{{ book.book_id }}</th>
             <td>{{ book.mem_id }}</td>
             <td>{{ book.mem_name }}</td>
@@ -52,7 +52,7 @@
             <td>{{ book.book_people }}</td>
             <td>{{ book.table_type_name }}</td>
             <td>
-              <select name="" id="" class="form-select form-select-sm" aria-label="Small select example" v-model="book.book_state" @change="deliverBook()">
+              <select name="" id="" class="form-select form-select-sm" aria-label="Small select example" v-model="book.book_state" @change="deliverBook(id)">
                 <option value="0">已取消</option>
                 <option value="1">未到場</option>
                 <option value="2">已到場</option>
@@ -73,6 +73,8 @@ export default {
       displayBookdata:[], //複製預訂資料展示用
       searchBar:"",//輸入框
       searchSelect:"bookId", //預設搜尋選擇的是訂單編號
+
+      
     };
   },
   components: {},
@@ -121,7 +123,28 @@ export default {
       }
 
       },
-    deliverBook(){},
+    deliverBook(id){//修改預訂狀態
+      console.log(this.booksData[id].book_state)
+      console.log(this.booksData[id].book_id)
+      axios({
+        method: 'post',
+        url: `${import.meta.env.VITE_API_URL}/updateBookState.php`,
+        headers: { "Content-Type": "multipart/form-data" },
+        data:{
+            book_id: this.booksData[id].book_id,
+            book_state:this.booksData[id].book_state
+        }
+    })
+    .then((res) => {
+            console.log(res.data);
+            alert("已修改完成");
+            location.reload()
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+    },
 
   }
 };
