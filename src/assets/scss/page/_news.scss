@@ -1,6 +1,9 @@
 .news {
   padding: 30px 30px 30px 250px;
   position: relative;
+  .pointer {
+    cursor: pointer;
+  }
   nav {
     a {
       color: $black-1;
@@ -24,6 +27,13 @@
       left: 180px;
       display: flex;
       gap: $M-spacing;
+      span {
+        padding: $S-spacing;
+        border-radius: $S-button-radius;
+        &:hover {
+          background-color: $gray-3;
+        }
+      }
     }
     .searchGroup {
       padding-left: $S-spacing;
