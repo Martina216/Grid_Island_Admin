@@ -53,7 +53,7 @@
           >
             <th class="pb-3 pt-3 text-center number">{{ item.news_id }}</th>
             <td>
-              <img :src="getImgUrl(item.news_image)" class="rounded img" />
+              <img :src="`https://tibamef2e.com/chd104/g5/image/news/${item.news_image}`" class="rounded img" />
             </td>
             <td class="name">{{ item.news_title }}</td>
             <td>{{ item.news_category }}
@@ -123,7 +123,7 @@ export default {
       this.showEdit = false;
     },
     getImgUrl(path) {
-      return `http://localhost/GridIsland/images/news/${path}`; //本機端
+      return `${import.meta.env.VITE_API_URL}/${path}`; //本機端
     },
     getNewsById(newsId) {
       if (this.newsData && this.newsData.length > 0) {
