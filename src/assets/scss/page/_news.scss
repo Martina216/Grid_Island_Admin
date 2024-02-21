@@ -49,8 +49,16 @@
     top: 100px;
   }
   table {
-    td,th {
+    td,
+    th {
       vertical-align: middle;
+      span {
+        font-size: 12px;
+      }
+      .form-switch {
+        display: flex;
+        justify-content: center;
+      }
     }
     .number {
       width: 100px;
@@ -60,7 +68,7 @@
     }
     .img {
       width: 70px;
-      height:70px;
+      height: 70px;
       overflow: hidden;
       object-fit: contain;
       object-fit: cover;
@@ -81,5 +89,4 @@
     background-color: #fff;
     border: 1px solid $gray-5;
   }
-  
 }

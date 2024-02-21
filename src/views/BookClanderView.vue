@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import VueCal from 'vue-cal'
 import { dateFormat } from 'vue-cal/dist/i18n/en.cjs';
 import 'vue-cal/dist/vuecal.css'
@@ -36,24 +37,44 @@ export default {
   components: { VueCal },
   data(){
     return{
+      booksData:[],
       today: '',
-      events: [{
-        start: '2024-02-08 09:00',
-        end: '2024-02-08 12:00',
-        title: '古迪錐4人桌'
-      },{
-        start: '2024-02-08 09:00',
-        end: '2024-02-08 12:00',
-        title: '古迪錐4人桌'
-      }
-    ],
+      events:[],
     }
+  },
+  created(){
+    this.fetchbooks();
   },
   methods:{
     getToday(){
       const today = new Date()
       this.today = today.getFullYear() + '-' + parseInt(today.getMonth()+1) + '-' + today.getDate()
-    }
+    },
+    fetchbooks() {
+      axios
+      .post(`${import.meta.env.VITE_API_URL}/bookCanlender.php`, {})
+      .then(res => {
+        console.log(res.data.books);
+        this.booksData = res.data.books;
+        // console.log(this.booksData.id);
+        this.createEvents();
+      })
+      .catch(error => console.error('發生錯誤:',error))
+    },
+    createEvents(){
+      this.booksData.forEach(item => {
+        //先定義一個物件存放資料
+        const event={
+          start:`${item.book_date} ${item.book_start_time}`,
+          end:`${item.book_date} ${item.book_end_time}`,
+          title:`${item.mem_name}，${item.table_type_name}`
+        };
+        //在把這個存放資料的物件放進去events陣列裡
+        this.events.push(event);
+      });
+      console.log(JSON.stringify(this.events.length));
+    },
+
   }
   
 }

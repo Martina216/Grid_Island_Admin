@@ -55,14 +55,14 @@
             </th>
             <th scope="col">商品圖片</th>
             <th scope="col">商品名稱</th>
-            <th scope="col" class="pointer" @click="sortPrice">
+            <th scope="col" class="pointer text-center" @click="sortPrice">
               商品原價<i class="fa-solid fa-sort ms-1"></i>
             </th>
-            <th scope="col" class="pointer" @click="sortDisPrice">
+            <th scope="col" class="pointer text-center" @click="sortDisPrice">
               商品特價<i class="fa-solid fa-sort ms-1"></i>
             </th>
-            <th scope="col">商品狀態</th>
-            <th scope="col">編輯商品</th>
+            <th scope="col" class="text-center">商品狀態</th>
+            <th scope="col" class="text-center">編輯商品</th>
           </tr>
         </thead>
         <tbody>
@@ -81,13 +81,13 @@
               />
             </td>
             <td class="name">{{ item.prod_name }}</td>
-            <td>$ {{ item.prod_price }}</td>
-            <td>
+            <td class="text-center">$ {{ item.prod_price }}</td>
+            <td class="text-center">
               <span v-if="item.prod_discount_price"
                 >$ {{ item.prod_discount_price }}</span
               ><span v-else>無特價</span>
             </td>
-            <td>
+            <td class="text-center">
               <div class="form-check form-switch">
                 <input
                   class="form-check-input"
@@ -105,8 +105,12 @@
                 <span v-else>未上架</span>
               </div>
             </td>
-            <td>
-              <button @click="openEditor(item.prod_id)" type="button" class="btn btn-info">
+            <td class="text-center">
+              <button
+                @click="openEditor(item.prod_id)"
+                type="button"
+                class="btn btn-info"
+              >
                 <i class="fa-solid fa-pen-to-square"></i>編輯
               </button>
             </td>
@@ -117,7 +121,11 @@
     <!-- 新增商品燈箱 -->
     <prodPage v-if="showAdd" @closeTab="handleEditorClosed" />
     <!-- 編輯燈箱 (尚未完成)-->
-    <editProdPage v-if="showEdit" @closeTab="handleEditorClosed" :data="selectedProd"/>
+    <editProdPage
+      v-if="showEdit"
+      @closeTab="handleEditorClosed"
+      :data="selectedProd"
+    />
   </main>
 </template>
 <script>
@@ -139,8 +147,8 @@ export default {
       sortIdMethod: "asc",
       sortPriceMethod: "asc",
       sortDisPriceMethod: "asc",
-      showAdd:false,
-      showEdit:false,
+      showAdd: false,
+      showEdit: false,
       selectedProd: null,
     };
   },
@@ -291,7 +299,7 @@ export default {
     // ------------------打開個別編輯商品燈箱
     getProdById(prodId) {
       if (this.productDisData && this.productDisData.length > 0) {
-        return this.productDisData.find(prod => prod.prod_id === prodId);
+        return this.productDisData.find((prod) => prod.prod_id === prodId);
       }
       return null;
     },
@@ -304,7 +312,6 @@ export default {
         console.error(`找不到 id 為 ${prodId} 的商品`);
       }
     },
-
   },
 };
 </script>
