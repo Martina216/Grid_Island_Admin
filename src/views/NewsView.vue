@@ -11,21 +11,34 @@
     <div class="titleGroup pb-5">
       <h1>最新消息管理</h1>
       <div class="stateFilter">
-        <span>全部({{ allCount }})</span>
-        <span>優惠({{ promotionCount }})</span>
-        <span>桌遊({{ boardGameCount }})</span>
-        <span>活動({{ activityCount }})</span>
+        <span class="pointer" @click="filter('all')">全部({{ allCount }})</span>
+        <span class="pointer" @click="filter('promotion')"
+          >優惠({{ promotionCount }})</span
+        >
+        <span class="pointer" @click="filter('boardGame')"
+          >桌遊({{ boardGameCount }})</span
+        >
+        <span class="pointer" @click="filter('activity')"
+          >活動({{ activityCount }})</span
+        >
       </div>
       <div class="searchGroup">
-        <select id="searchFilter" class="rounded border border-1 border-dark">
+        <select
+          id="searchFilter"
+          v-model="searchFilter"
+          @input="handleSearch"
+          class="rounded border border-1 border-dark"
+        >
           <option value="newsId">消息編號</option>
-          <option value="mewsName">消息標題</option>
+          <option value="newsName">消息標題</option>
         </select>
         <input
           type="text"
           id="searchBar"
           placeholder="請輸入查詢資料"
           class="rounded border border-1 border-dark"
+          @input="handleSearch"
+          v-model="searchBar"
         />
       </div>
     </div>
@@ -38,7 +51,9 @@
       <table class="table table-hover">
         <thead>
           <tr class="border-bottom text-left">
-            <th scope="col" class="text-center">消息編號</th>
+            <th scope="col" class="text-center pointer" @click="sortId">
+              消息編號<i class="fa-solid fa-sort ms-1"></i>
+            </th>
             <th scope="col">消息圖片</th>
             <th scope="col">消息標題</th>
             <th scope="col" class="text-center">消息分類</th>
@@ -48,12 +63,15 @@
         </thead>
         <tbody>
           <tr
-            v-for="item in newsData"
+            v-for="item in disData"
             class="border-bottom text-left align-middle"
           >
             <th class="pb-3 pt-3 text-center number">{{ item.news_id }}</th>
             <td>
-              <img :src="`https://tibamef2e.com/chd104/g5/image/news/${item.news_image}`" class="rounded img" />
+              <img
+                :src="`https://tibamef2e.com/chd104/g5/image/news/${item.news_image}`"
+                class="rounded img"
+              />
             </td>
             <td class="name">{{ item.news_title }}</td>
             <td class="text-center">{{ item.news_category }}</td>
@@ -105,6 +123,7 @@ export default {
   data() {
     return {
       newsData: [],
+      disData: [],
       showAdd: false,
       showEdit: false,
       selectedNews: null,
@@ -112,6 +131,9 @@ export default {
       promotionCount: 0,
       activityCount: 0,
       boardGameCount: 0,
+      searchFilter: "newsId",
+      searchBar: "",
+      sortIdMethod: "asc",
     };
   },
   components: {
@@ -155,6 +177,7 @@ export default {
         this.newsData = Array.isArray(response.data.news)
           ? response.data.news
           : [];
+        this.disData = response.data.news;
         this.allCount = response.data.allNewsCount;
         this.promotionCount = response.data.promotionCount;
         this.activityCount = response.data.activityCount;
@@ -191,6 +214,56 @@ export default {
           // 恢復狀態，避免更新失敗
           // item.isChecked = !item.isChecked;
         });
+    },
+    filter(method) {
+      switch (method) {
+        case "all":
+          this.disData = this.newsData;
+          break;
+        case "promotion":
+          this.disData = this.newsData.filter((item) => {
+            return item.news_category == "優惠";
+          });
+          break;
+        case "boardGame":
+          this.disData = this.newsData.filter((item) => {
+            return item.news_category == "桌遊";
+          });
+          break;
+        case "activity":
+          this.disData = this.newsData.filter((item) => {
+            return item.news_category == "活動";
+          });
+          break;
+      }
+    },
+    handleSearch() {
+      if (this.searchFilter == "newsId") {
+        if (this.searchBar) {
+          this.disData = this.newsData.filter((item) => {
+            return item.news_id == this.searchBar;
+          });
+        } else {
+          this.disData = this.newsData;
+        }
+      } else if (this.searchFilter == "newsName") {
+        this.disData = this.newsData.filter((item) => {
+          return item.news_title.includes(this.searchBar);
+        });
+      }
+    },
+    sortId() {
+      if (this.sortIdMethod == "desc") {
+        this.disData = this.disData.sort((a, b) => {
+          return a.news_id - b.news_id;
+        });
+        this.sortIdMethod = "asc";
+      } else if (this.sortIdMethod == "asc") {
+        this.disData = this.disData.sort((a, b) => {
+          return b.news_id - a.news_id;
+        });
+        this.sortIdMethod = "desc";
+      }
     },
   },
   created() {
