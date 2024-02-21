@@ -34,6 +34,7 @@
             <div class="brief">
               <label for="prodBrief"><span>商品簡介</span></label>
               <textarea
+                v-model="editedData.prod_brief"
                 name="prod_brief"
                 id="prodBrief"
                 cols="10"
