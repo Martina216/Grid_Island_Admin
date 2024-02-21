@@ -64,6 +64,10 @@
     td,
     th {
       vertical-align: middle;
+      .form-switch {
+        display: flex;
+        justify-content: center;
+      }
     }
   }
   .number {
