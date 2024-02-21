@@ -55,14 +55,14 @@
             </th>
             <th scope="col">商品圖片</th>
             <th scope="col">商品名稱</th>
-            <th scope="col" class="pointer" @click="sortPrice">
+            <th scope="col" class="pointer text-center" @click="sortPrice">
               商品原價<i class="fa-solid fa-sort ms-1"></i>
             </th>
-            <th scope="col" class="pointer" @click="sortDisPrice">
+            <th scope="col" class="pointer text-center" @click="sortDisPrice">
               商品特價<i class="fa-solid fa-sort ms-1"></i>
             </th>
-            <th scope="col">商品狀態</th>
-            <th scope="col">編輯商品</th>
+            <th scope="col" class="text-center">商品狀態</th>
+            <th scope="col" class="text-center">編輯商品</th>
           </tr>
         </thead>
         <tbody>
@@ -81,13 +81,13 @@
               />
             </td>
             <td class="name">{{ item.prod_name }}</td>
-            <td>$ {{ item.prod_price }}</td>
-            <td>
+            <td class="text-center">$ {{ item.prod_price }}</td>
+            <td class="text-center">
               <span v-if="item.prod_discount_price"
                 >$ {{ item.prod_discount_price }}</span
               ><span v-else>無特價</span>
             </td>
-            <td>
+            <td class="text-center">
               <div class="form-check form-switch">
                 <input
                   class="form-check-input"
@@ -105,8 +105,12 @@
                 <span v-else>未上架</span>
               </div>
             </td>
-            <td>
-              <button @click="openEditor(item.prod_id)" type="button" class="btn btn-info">
+            <td class="text-center">
+              <button
+                @click="openEditor(item.prod_id)"
+                type="button"
+                class="btn btn-info"
+              >
                 <i class="fa-solid fa-pen-to-square"></i>編輯
               </button>
             </td>
@@ -117,7 +121,11 @@
     <!-- 新增商品燈箱 -->
     <prodPage v-if="showAdd" @closeTab="handleEditorClosed" />
     <!-- 編輯燈箱 (尚未完成)-->
-    <editProdPage v-if="showEdit" @closeTab="handleEditorClosed" :data="selectedProd"/>
+    <editProdPage
+      v-if="showEdit"
+      @closeTab="handleEditorClosed"
+      :data="selectedProd"
+    />
   </main>
 </template>
 <script>
@@ -137,10 +145,10 @@ export default {
       searchFilter: "prodId",
       searchBar: "",
       sortIdMethod: "asc",
-      sortPriceMethod: "asc",
-      sortDisPriceMethod: "asc",
-      showAdd:false,
-      showEdit:false,
+      sortPriceMethod: "",
+      sortDisPriceMethod: "",
+      showAdd: false,
+      showEdit: false,
       selectedProd: null,
     };
   },
@@ -220,27 +228,35 @@ export default {
     sortId() {
       if (this.sortIdMethod == "asc") {
         this.productDisData = this.productDisData.sort((a, b) => {
-          return a.prod_id - b.prod_id;
-        });
-        this.sortIdMethod = "desc";
-      } else if (this.sortIdMethod == "desc") {
-        this.productDisData = this.productDisData.sort((a, b) => {
           return b.prod_id - a.prod_id;
         });
+        this.sortIdMethod = "desc";
+        this.sortPriceMethod = "";
+        this.sortDisPriceMethod = "";
+      } else if (this.sortIdMethod == "desc" || this.sortIdMethod == "") {
+        this.productDisData = this.productDisData.sort((a, b) => {
+          return a.prod_id - b.prod_id;
+        });
         this.sortIdMethod = "asc";
+        this.sortPriceMethod = "";
+        this.sortDisPriceMethod = "";
       }
     },
     sortPrice() {
       if (this.sortPriceMethod == "asc") {
         this.productDisData = this.productDisData.sort((a, b) => {
-          return a.prod_price - b.prod_price;
-        });
-        this.sortPriceMethod = "desc";
-      } else if (this.sortPriceMethod == "desc") {
-        this.productDisData = this.productDisData.sort((a, b) => {
           return b.prod_price - a.prod_price;
         });
+        this.sortPriceMethod = "desc";
+        this.sortIdMethod = "";
+        this.sortDisPriceMethod = "";
+      } else if (this.sortPriceMethod == "desc" || this.sortPriceMethod == "") {
+        this.productDisData = this.productDisData.sort((a, b) => {
+          return a.prod_price - b.prod_price;
+        });
         this.sortPriceMethod = "asc";
+        this.sortIdMethod = "";
+        this.sortDisPriceMethod = "";
       }
     },
     sortDisPrice() {
@@ -258,10 +274,13 @@ export default {
           if (b.prod_discount_price === null) {
             return -1; // b 為 null，排在 a 之後
           }
-          return a.prod_discount_price - b.prod_discount_price;
+          return b.prod_discount_price - a.prod_discount_price;
         });
         this.sortDisPriceMethod = "desc";
-      } else if (this.sortDisPriceMethod == "desc") {
+      } else if (
+        this.sortDisPriceMethod == "desc" ||
+        this.sortDisPriceMethod == ""
+      ) {
         this.productDisData = this.productDisData.sort((a, b) => {
           if (
             a.prod_discount_price === null &&
@@ -275,7 +294,7 @@ export default {
           if (b.prod_discount_price === null) {
             return -1; // b 為 null，排在 a 之後
           }
-          return b.prod_discount_price - a.prod_discount_price;
+          return a.prod_discount_price - b.prod_discount_price;
         });
         this.sortDisPriceMethod = "asc";
       }
@@ -291,7 +310,7 @@ export default {
     // ------------------打開個別編輯商品燈箱
     getProdById(prodId) {
       if (this.productDisData && this.productDisData.length > 0) {
-        return this.productDisData.find(prod => prod.prod_id === prodId);
+        return this.productDisData.find((prod) => prod.prod_id === prodId);
       }
       return null;
     },
@@ -304,7 +323,6 @@ export default {
         console.error(`找不到 id 為 ${prodId} 的商品`);
       }
     },
-
   },
 };
 </script>
