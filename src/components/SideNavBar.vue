@@ -114,8 +114,8 @@ export default {
     RouterLink,
   },
   mounted(){
-    if(localStorage.getItem("userDataStr")){
-      const userData = JSON.parse(localStorage.getItem("userDataStr"))
+    if(localStorage.getItem("empDataStr")){
+      const userData = JSON.parse(localStorage.getItem("empDataStr"))
       this.userPermisson = userData.emp_permission == 'S'
     }
   }

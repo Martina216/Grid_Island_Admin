@@ -137,8 +137,8 @@ const router = createRouter({
 });
 
 const isAuthenticated = () => {
-  const userToken = localStorage.getItem("userToken")
-  return userToken? true: false
+  const empToken = localStorage.getItem("empToken")
+  return empToken? true: false
 }
 
 
@@ -152,7 +152,7 @@ router.beforeEach(async (to) => {
   if (isAuthenticated() && to.name == "login") {
     return { name: "home" };
   }
-  const userData = JSON.parse(localStorage.getItem("userDataStr"))
+  const userData = JSON.parse(localStorage.getItem("empDataStr"))
   if (isAuthenticated() && to.name == "permission" && userData.emp_permission !== 'S'){
     return { name: "NotFound" };
   }

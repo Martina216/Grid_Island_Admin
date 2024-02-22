@@ -23,8 +23,8 @@ export default {
   },
   methods: {
     logout(){
-      localStorage.removeItem('userToken')
-      localStorage.removeItem('userDataStr')
+      localStorage.removeItem('empToken')
+      localStorage.removeItem('empDataStr')
       this.$router.push('/')
     }
   },

@@ -10,19 +10,19 @@ export default defineStore("userStore", {
         updateToken(payload) {
             if (payload) {
                 this.token = payload
-                localStorage.setItem('userToken', payload)
+                localStorage.setItem('empToken', payload)
             } else {
                 this.token = ''
-                localStorage.removeItem('userToken')
+                localStorage.removeItem('empToken')
             }
         },
         updateUserData(val) {
             this.userData = val
-            const userDataStr = JSON.stringify(this.userData)
-            localStorage.setItem('userDataStr', userDataStr)
+            const empDataStr = JSON.stringify(this.userData)
+            localStorage.setItem('empDataStr', empDataStr)
         },
         checkLogin() {
-            const storageToken = localStorage.getItem('userToken')
+            const storageToken = localStorage.getItem('empToken')
             if (this.token) {
                 return this.token
             } else if (storageToken) {
