@@ -23,7 +23,7 @@
             <div class="title">
               <label for="prodName"><span>商品名稱</span></label>
               <input
-                v-model="formData.news_title"
+                v-model="formData.prod_name"
                 type="text"
                 name="prod_name"
                 id="prodName"
@@ -34,7 +34,7 @@
             <div class="brief">
               <label for="prodBrief"><span>商品簡介</span></label>
               <textarea
-                v-model="formData.prod_breif"
+                v-model="formData.prod_brief"
                 name="prod_brief"
                 id="prodBrief"
                 cols="10"
@@ -57,20 +57,20 @@
               <div class="category">
                 <span>種類</span>
                 <input type="radio" name="category" id="easy" />
-                <label for="easy">簡單</label>
+                <label for="easy">策略</label>
                 <input type="radio" name="category" id="mid" />
-                <label for="mid">中等</label>
+                <label for="mid">紙牌</label>
                 <input type="radio" name="category" id="hard" />
-                <label for="hard">困難</label>
+                <label for="hard">經營</label>
               </div>
               <div class="diff">
                 <span>難度</span>
                 <input type="radio" name="diff" id="strategy" />
-                <label for="strategy">策略</label>
+                <label for="strategy">簡單</label>
                 <input type="radio" name="diff" id="paperGame" />
-                <label for="paperGame">紙牌</label>
+                <label for="paperGame">中等</label>
                 <input type="radio" name="diff" id="business" />
-                <label for="business">經營</label>
+                <label for="business">困難</label>
               </div>
             </div>
             <div class="content">
@@ -130,12 +130,11 @@
                 name="prod_img1"
                 id="prodImg1"
                 accept="image/png, image/jpeg, image/webp"
-                @change="selectImage1" multiple
+                @change="selectImage1" multiple 
               />
             </div>
             <div class="small_image">
               <div class="image2">
-                <label for="prodImg2">
                   <img
                     v-if="!show"
                     class="selectImg"
@@ -148,30 +147,20 @@
                     src="../assets/images/default_img/logo_white.svg"
                     alt="original-image"
                   />
-                </label>
-                <input
-                  type="file"
-                  name="prod_img2"
-                  id="prodImg2"
-                  accept="image/png, image/jpeg"
-                  @change="selectImage2"
-                />
               </div>
               <div class="image3">
-                  <img
-                    v-if="imgSrc"
+                <img
+                    v-if="!show"
                     class="selectImg"
-                    :src="imgSrc"
+                    :src="imgSrc3"
                     alt="upload-image"
                   />
-              
-                <input
-                  type="file"
-                  name="prod_img3"
-                  id="prodImg3"
-                  accept="image/png, image/jpeg"
-                  @change="selectImage3"
-                />
+                  <img
+                    v-if="show"
+                    class="originalImg"
+                    src="../assets/images/default_img/logo_white.svg"
+                    alt="original-image"
+                  />
               </div>
             </div>
             <div class="priceArea">
@@ -222,9 +211,9 @@ import axios from "axios";
 export default {
   data() {
     return {
-      imgSrc: [],
-      imgSrc2: "",
-      imgSrc3: "",
+      imgSrc: '',
+      imgSrc2: '',
+      imgSrc3: '',
       imgText: "新增商品圖片",
       show: true,
       formData: {
@@ -259,57 +248,37 @@ export default {
     },
     selectImage1(e) {
       const files = e.target.files;
+      const maxFiles = 3;
 
-    files.forEach((file, index) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        // 將圖片資料加入 imgSrc 陣列
-        this.$set(this.imgSrc, index, e.target.result);
-      };
-      reader.readAsDataURL(file);
-    });
+      if ( files.length > maxFiles) {
+        alert(`最多只能選擇${maxFiles}個圖檔`);
+        e.target.value = null;
+      } else {
+        console.log("已選擇的圖檔：", files);
+      }
 
-      if (file) {
-        // 使用 FileReader 將圖片轉換成 data URL
+      for (let i = 0; i < files.length; i++) {
         const reader = new FileReader();
+
         reader.onload = (e) => {
-        };
-        reader.readAsDataURL(file);
-        this.file = file; // 將檔案存儲在 this.file 中
-      } else {
-        this.imgSrc = "src/assets/images/default_img/logo_white.svg";
+          if (i === 0) {
+              this.imgSrc = e.target.result;
+              this.file1 = files[i];
+            } else if (i === 1) {
+              this.imgSrc2 = e.target.result;
+              this.file2 = files[i];
+            } else if (i === 2) {
+              this.imgSrc3 = e.target.result;
+              this.file3 = files[i];
+            }
+        }
+        reader.readAsDataURL(files[i]);
       }
-      this.show = false;
-    },
-    selectImage2(e) {
-      const file = e.target.files[0];
-      if (file) {
-        // 使用 FileReader 將圖片轉換成 data URL
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.imgSrc2 = e.target.result;
-        };
-        reader.readAsDataURL(file);
-        this.file = file; // 將檔案存儲在 this.file 中
-      } else {
-        this.imgSrc = "src/assets/images/default_img/logo_white.svg";
-      }
-      this.show = false;
-    },
-    selectImage3(e) {
-      const file = e.target.files[0];
-      if (file) {
-        // 使用 FileReader 將圖片轉換成 data URL
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.imgSrc3 = e.target.result;
-        };
-        reader.readAsDataURL(file);
-        this.file = file; // 將檔案存儲在 this.file 中
-      } else {
-        this.imgSrc = "src/assets/images/default_img/logo_white.svg";
-      }
-      this.show = false;
+      this.file1 = files[0]; // 將檔案存儲在 this.file 中
+      this.file2 = files[1]; // 將檔案存儲在 this.file 中
+      this.file3 = files[2]; // 將檔案存儲在 this.file 中
+      console.log(this.file1, this.file2, this.file3);
+      this.show = false;  
     },
     submitForm() {
       const formData = new FormData();
