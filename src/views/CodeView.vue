@@ -84,7 +84,11 @@
               <span v-else>未啟用</span>
             </td>
             <td>
-              <button type="button" class="btn btn-info">
+              <button
+                type="button"
+                @click="openEditor(item)"
+                class="btn btn-info"
+              >
                 <i class="fa-solid fa-pen-to-square"></i>編輯
               </button>
             </td>
@@ -93,17 +97,21 @@
       </table>
     </div>
     <CouponPage v-if="showAdd" @closeTab="handleClose" />
+    <EditCoupon v-if="showEdit" :data="selectedPromo" @closeTab="handleClose" />
   </main>
 </template>
 <script>
 import axios from "axios";
 import CouponPage from "../components/CouponPage.vue";
+import EditCoupon from "../components/EditCouponPage.vue";
 export default {
   data() {
     return {
       promoData: [],
       promoDisData: [],
+      selectedPromo: [],
       showAdd: false,
+      showEdit: false,
       searchFilter: "promoId",
       searchBar: "",
       sortIdMethod: "asc",
@@ -111,7 +119,7 @@ export default {
       sortEndTimeMethod: "",
     };
   },
-  components: { CouponPage },
+  components: { CouponPage, EditCoupon },
   created() {
     this.fetchCode();
   },
@@ -222,6 +230,14 @@ export default {
     },
     handleClose() {
       this.showAdd = false;
+      this.showEdit = false;
+    },
+    openEditor(item) {
+      if (item) {
+        this.selectedPromo = item;
+        console.log(this.selectedPromo);
+        this.showEdit = true;
+      }
     },
   },
   mounted() {},
