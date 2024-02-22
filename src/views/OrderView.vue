@@ -110,6 +110,7 @@
                   <i class="fa-solid fa-pen-to-square"></i><span>儲存</span>
                 </button>
               </td>
+              <td class="pointer"><i class="fa-solid fa-chevron-down"></i></td>
             </tr>
             <tr
               :id="'orderRow' + index"
@@ -130,9 +131,9 @@
                       class="border-bottom text-center"
                     >
                       <td>{{ prod.prod_name }}</td>
-                      <td>{{ prod.ord_item_price }}</td>
+                      <td>$ {{ prod.ord_item_price }}</td>
                       <td>{{ prod.ord_item_qty }}</td>
-                      <td>{{ prod.ord_item_price * prod.ord_item_qty }}</td>
+                      <td>$ {{ prod.ord_item_price * prod.ord_item_qty }}</td>
                     </tr>
                   </tbody>
                 </table>

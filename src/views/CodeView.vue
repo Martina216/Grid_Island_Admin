@@ -29,7 +29,7 @@
         />
       </div>
     </div>
-    <div class="addProductBtn">
+    <div class="addProductBtn" @click="add">
       <button type="button" class="btn btn-info">
         <i class="fa-solid fa-plus"></i>新增優惠碼
       </button>
@@ -92,15 +92,18 @@
         </tbody>
       </table>
     </div>
+    <CouponPage v-if="showAdd" @closeTab="handleClose" />
   </main>
 </template>
 <script>
 import axios from "axios";
+import CouponPage from "../components/CouponPage.vue";
 export default {
   data() {
     return {
       promoData: [],
       promoDisData: [],
+      showAdd: false,
       searchFilter: "promoId",
       searchBar: "",
       sortIdMethod: "asc",
@@ -108,7 +111,7 @@ export default {
       sortEndTimeMethod: "",
     };
   },
-  components: {},
+  components: { CouponPage },
   created() {
     this.fetchCode();
   },
@@ -213,6 +216,12 @@ export default {
         this.sortIdMethod = "";
         this.sortEndTimeMethod = "";
       }
+    },
+    add() {
+      this.showAdd = true;
+    },
+    handleClose() {
+      this.showAdd = false;
     },
   },
   mounted() {},
