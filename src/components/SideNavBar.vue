@@ -92,7 +92,7 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item mt-5">
+          <li class="nav-item mt-5" v-show="userPermisson">
             <RouterLink to="/permission" class="nav-link align-middle px-0">
               <span class="ms-1 text-dark fs-5">權限管理</span>
             </RouterLink>
@@ -105,8 +105,19 @@
 <script>
 import { RouterLink } from "vue-router";
 export default {
+  data(){
+    return{
+      userPermisson: null
+    }
+  },
   components: {
     RouterLink,
   },
+  mounted(){
+    if(localStorage.getItem("userDataStr")){
+      const userData = JSON.parse(localStorage.getItem("userDataStr"))
+      this.userPermisson = userData.emp_permission == 'S'
+    }
+  }
 };
 </script>

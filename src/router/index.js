@@ -10,6 +10,7 @@ const router = createRouter({
       component: HomeView,
       meta: {
         title: "首頁",
+        requiresAuth: true,
       },
     },
     {
@@ -17,6 +18,7 @@ const router = createRouter({
       name: "member",
       meta: {
         title: "會員管理",
+        requiresAuth: true,
       },
       component: () => import("../views/MemberView.vue"),
     },
@@ -35,6 +37,7 @@ const router = createRouter({
       name: "product",
       meta: {
         title: "商品管理",
+        requiresAuth: true,
       },
 
       component: () => import("../views/ProductView.vue"),
@@ -44,6 +47,7 @@ const router = createRouter({
       name: "bookclander",
       meta: {
         title: "預訂行事曆",
+        requiresAuth: true,
       },
       component: () => import("../views/BookClanderView.vue"),
     },
@@ -52,6 +56,7 @@ const router = createRouter({
       name: "book",
       meta: {
         title: "預約訂單",
+        requiresAuth: true,
       },
       component: () => import("../views/BookView.vue"),
     },
@@ -60,6 +65,7 @@ const router = createRouter({
       name: "table",
       meta: {
         title: "桌次管理",
+        requiresAuth: true,
       },
       component: () => import("../views/TableView.vue"),
     },
@@ -68,6 +74,7 @@ const router = createRouter({
       name: "order",
       meta: {
         title: "訂單管理",
+        requiresAuth: true,
       },
       component: () => import("../views/OrderView.vue"),
     },
@@ -76,6 +83,7 @@ const router = createRouter({
       name: "new",
       meta: {
         title: "最新消息管理",
+        requiresAuth: true,
       },
       component: () => import("../views/NewsView.vue"),
     },
@@ -84,6 +92,7 @@ const router = createRouter({
       name: "code",
       meta: {
         title: "優惠碼管理",
+        requiresAuth: true,
       },
       component: () => import("../views/CodeView.vue"),
     },
@@ -92,6 +101,7 @@ const router = createRouter({
       name: "report",
       meta: {
         title: "檢舉管理",
+        requiresAuth: true,
       },
       component: () => import("../views/ReportView.vue"),
     },
@@ -100,6 +110,7 @@ const router = createRouter({
       name: "team",
       meta: {
         title: "報隊管理",
+        requiresAuth: true,
       },
       component: () => import("../views/TeamView.vue"),
     },
@@ -108,6 +119,7 @@ const router = createRouter({
       name: "permission",
       meta: {
         title: "權限管理",
+        requiresAuth: true,
       },
       component: () => import("../views/PermissionView.vue"),
     },
@@ -117,36 +129,33 @@ const router = createRouter({
       name: "NotFound",
       meta: {
         title: "404NotFound",
+        requiresAuth: true,
       },
       component: () => import("../views/NotFoundView.vue"),
     },
   ],
 });
-// 登入最基本判斷，也是最不安全的做法
-// 未來可以再深入研究，關鍵字Authentication
-// 並加入動態路由https://router.vuejs.org/zh/guide/advanced/dynamic-routing.html
-// const isAuthenticated = () => {
-//   const userToken = localStorage.getItem("userToken")
-//   return userToken? true: false
-// }
 
-// router.beforeEach((to) => {
-//   // 加入頁籤標題
-//   if (to.meta && to.meta.title) {
-//     document.title = to.meta.title
-//   }
+const isAuthenticated = () => {
+  const userToken = localStorage.getItem("userToken")
+  return userToken? true: false
+}
 
-//   // 參考文件
-//   // https://router.vuejs.org/zh/guide/advanced/navigation-guards.html
-//   if(to.name == 'register' ){
-//     return
 
-//   }else if ( !isAuthenticated() && to.name !== 'login') {
-//     // 检查用户是否已登录 && 避免无限重定向
-//     // 将用户重定向到登录页面
-//     console.log(1);
-//     return { name: 'login' }
-//   }
-// })
+router.beforeEach(async (to) => {
+  if (to.meta && to.meta.title) {
+    document.title = to.meta.title;
+  }
+  if (to.meta.requiresAuth && !isAuthenticated()) {
+    return { name: "login" };
+  }
+  if (isAuthenticated() && to.name == "login") {
+    return { name: "home" };
+  }
+  const userData = JSON.parse(localStorage.getItem("userDataStr"))
+  if (isAuthenticated() && to.name == "permission" && userData.emp_permission !== 'S'){
+    return { name: "NotFound" };
+  }
+});
 
 export default router;

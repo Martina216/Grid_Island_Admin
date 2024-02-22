@@ -24,6 +24,7 @@ export default {
   methods: {
     logout(){
       localStorage.removeItem('userToken')
+      localStorage.removeItem('userDataStr')
       this.$router.push('/')
     }
   },
