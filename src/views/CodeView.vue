@@ -29,7 +29,7 @@
         />
       </div>
     </div>
-    <div class="addProductBtn">
+    <div class="addProductBtn" @click="add">
       <button type="button" class="btn btn-info">
         <i class="fa-solid fa-plus"></i>新增優惠碼
       </button>
@@ -84,7 +84,11 @@
               <span v-else>未啟用</span>
             </td>
             <td>
-              <button type="button" class="btn btn-info">
+              <button
+                type="button"
+                @click="openEditor(item)"
+                class="btn btn-info"
+              >
                 <i class="fa-solid fa-pen-to-square"></i>編輯
               </button>
             </td>
@@ -92,15 +96,22 @@
         </tbody>
       </table>
     </div>
+    <CouponPage v-if="showAdd" @closeTab="handleClose" />
+    <EditCoupon v-if="showEdit" :data="selectedPromo" @closeTab="handleClose" />
   </main>
 </template>
 <script>
 import axios from "axios";
+import CouponPage from "../components/CouponPage.vue";
+import EditCoupon from "../components/EditCouponPage.vue";
 export default {
   data() {
     return {
       promoData: [],
       promoDisData: [],
+      selectedPromo: [],
+      showAdd: false,
+      showEdit: false,
       searchFilter: "promoId",
       searchBar: "",
       sortIdMethod: "asc",
@@ -108,7 +119,7 @@ export default {
       sortEndTimeMethod: "",
     };
   },
-  components: {},
+  components: { CouponPage, EditCoupon },
   created() {
     this.fetchCode();
   },
@@ -212,6 +223,20 @@ export default {
         this.sortEndTimeMethod = "asc";
         this.sortIdMethod = "";
         this.sortEndTimeMethod = "";
+      }
+    },
+    add() {
+      this.showAdd = true;
+    },
+    handleClose() {
+      this.showAdd = false;
+      this.showEdit = false;
+    },
+    openEditor(item) {
+      if (item) {
+        this.selectedPromo = item;
+        console.log(this.selectedPromo);
+        this.showEdit = true;
       }
     },
   },

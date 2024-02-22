@@ -130,12 +130,12 @@ export default {
     //同步更新switch後update資料庫
     updateReport(report_id) {
       // 1. 找到與被點擊的報告相關聯的 msg_id
-      const clickedReport = this.reData.find(report => report.report_id === report_id);
+      const clickedReport = this.reData.find(report => report.report_id == report_id);
       const msg_id = clickedReport.msg_id;
       // 2. 遍歷 this.reData 陣列，找到所有 msg_id 等於被點擊報告的 msg_id 的報告
-      const reportsToUpdate = this.reData.filter(report => report.msg_id === msg_id);
+      const reportsToUpdate = this.reData.filter(report => report.msg_id == msg_id);
       // 3. 將所有找到的報告的 report_state 更新為點擊報告的狀態
-      const newReportState = clickedReport.report_state === 0 ? 1 : 0;
+      const newReportState = clickedReport.report_state == 0 ? 1 : 0;
       reportsToUpdate.forEach(report => report.report_state = newReportState);
       // 4. 向後端發送更新請求
       let url = `${import.meta.env.VITE_API_URL}/update_report.php`;

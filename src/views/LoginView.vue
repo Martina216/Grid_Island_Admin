@@ -24,57 +24,40 @@ import apiInstance from '@/plugins/auth'
 export default {
   data() {
     return {
-      account: 'charmy101@gmail.com',
-      au4a83: 'charmy101'
+      account: 'griddy123',
+      au4a83: 'griddy123'
     };
-  },
-  computed: {
-  },
-  created() {
-    // 判斷有沒有登入過，如果沒有token等同於沒有登入
-    const user = this.checkLogin()
-    if(user){
-      //有登入資訊轉到首頁
-      this.$router.push('/')
-    }
   },
   methods: {
     ...mapActions(userStore, ['updateToken', 'updateName', 'checkLogin', 'updateUserData']),
 
-    login(){
-        const bodyFormData = new FormData();
-        bodyFormData.append('mem_account', this.account);
-        bodyFormData.append('mem_psw', this.au4a83);
+    login() {
+      const bodyFormData = new FormData();
+      bodyFormData.append('emp_account', this.account);
+      bodyFormData.append('emp_psw', this.au4a83);
 
-    // 請記得將php埋入跨域
+      // 請記得將php埋入跨域
       apiInstance({
           method: 'post',
-          url: '/getConfirmMember.php',
+          url: `${import.meta.env.VITE_API_URL}/loginCheck.php`,
           headers: { "Content-Type": "multipart/form-data" },
           data: bodyFormData
-        }).then(res=>{
-          // console.log(res);
-          if(res && res.data){
-            if(res.data.code == 1){
-                this.updateToken(res.data.session_id)
-                this.updateUserData(res.data.memInfo)
-                this.$router.push('/home')
-
-            }else{
-                alert('註冊失敗')
-            }
+      }).then(res => {
+          if (res && res.data) {
+              if (res.data.code == 1) {
+                  console.log(res.data)
+                  this.updateToken(res.data.session_id)
+                  this.updateUserData(res.data.empInfo)
+                  this.$router.push('/home')
+              } else {
+                  alert('登入失敗，請檢查帳號密碼是否正確。')
+              }
           }
-        }).catch(error=>{
+      }).catch(error => {
           console.log(error);
-        })
-      },
-    // register(){
-    //     this.$router.push({ 
-    //         name: 'register'
-    //     }) 
-    // }
+      })
+    },
   },
-  mounted() {},
 };
 </script>
 
