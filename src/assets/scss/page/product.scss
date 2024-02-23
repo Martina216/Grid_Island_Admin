@@ -15,10 +15,17 @@
     justify-content: end;
     padding: $M-spacing $XXL-spacing $XL-spacing $XXL-spacing;
     column-gap: $S-spacing;
+    color: $black-1;
+    i {
+      font-size: 13px;
+      color: $black-1;
+    }
     .pageBtncursor {
+      color: $black-1;
       cursor: pointer;
     }
     .pageBtn {
+      color: $black-1;
       font-size: $M-text;
       background-color: transparent;
       border: none;

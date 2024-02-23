@@ -124,7 +124,7 @@
             @click="nextPrevPage('prev')"
             v-if="currentPage != 1"
           >
-            ＜
+          <i class="fa-solid fa-chevron-left"></i>
           </button>
           <button
             class="pageBtn"
@@ -143,7 +143,7 @@
             @click="nextPrevPage('next')"
             v-if="currentPage != totalPages"
           >
-            ＞
+          <i class="fa-solid fa-chevron-right"></i>
           </button>
         </div>
     <div class="nodata" v-if="nodata">
