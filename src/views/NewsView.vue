@@ -84,7 +84,7 @@
                   :name="item.newsId"
                   :id="item.newsId"
                   v-model="item.newsState"
-                  :checked="item.news_state === 1"
+                  :checked="item.news_state == 1"
                   @change="updateNewsState(item)"
                 />
                 <label class="form-check-label" :for="item.newsId"></label>
