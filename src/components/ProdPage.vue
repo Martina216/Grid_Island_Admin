@@ -100,7 +100,7 @@
             <div class="date">
               <label for="prodDate"><span>發佈時間</span></label>
               <input
-                v-model="formData.news_date"
+                v-model="formData.prod_date"
                 type="datetime-local"
                 name="prod_date"
                 id="prodDate"
@@ -173,6 +173,7 @@
                   min="300"
                   class="form-check-input rounded border border-1 border-gray"
                   placeholder="輸入價格"
+                  v-model="formData.prod_price"
                 />
               </div>
               <div class="DisPrice">
@@ -184,6 +185,7 @@
                   min="300"
                   class="form-check-input rounded border border-1 border-gray"
                   placeholder="選填"
+                  v-model="formData.prod_discount_price"
                 />
               </div>
             </div>
@@ -217,11 +219,14 @@ export default {
       imgText: "新增商品圖片",
       show: true,
       formData: {
-        news_title: "",
-        news_date: "",
-        news_content: "",
-        news_category: "",
-        news_state: "",
+        prod_name: "",
+        prod_intro: "",
+        prod_price: "",
+        prod_discount_price: "",
+        prod_date: "",
+        prod_desc: "",
+        prod_brief: "",
+        prod_state: "",
       },
       file: null,
     };
@@ -235,15 +240,17 @@ export default {
     cancelAdd() {
       this.clearForm();
       this.$emit("closeTab");
-      this.clearForm();
     },
     clearForm() {
       this.formData = {
-        news_title: "",
-        news_date: "",
-        news_content: "",
-        news_category: "",
-        news_state: "",
+        prod_name: "",
+        prod_intro: "",
+        prod_price: "",
+        prod_discount_price: "",
+        prod_date: "",
+        prod_desc: "",
+        prod_brief: "",
+        prod_state: "",
       };
     },
     selectImage1(e) {
@@ -282,18 +289,22 @@ export default {
     },
     submitForm() {
       const formData = new FormData();
-      formData.append("news_title", this.formData.news_title);
+      formData.append("prod_name", this.formData.prod_name);
       formData.append(
-        "news_date",
-        new Date(this.formData.news_date).toISOString()
+        "prod_date",
+        new Date(this.formData.prod_date).toISOString()
       ); //將日期轉換為ISO格式
-      formData.append("news_content", this.formData.news_content);
-      formData.append("news_image", this.file);
-      formData.append("news_category", this.formData.news_category);
-      formData.append("news_state", this.formData.news_state);
-
+      formData.append("prod_intro", this.formData.prod_intro);
+      formData.append("prod_brief", this.formData.prod_brief);
+      formData.append("prod_discount_price", this.formData.prod_discount_price);
+      formData.append("prod_price", this.formData.prod_price);
+      formData.append("prod_img1", this.file1);
+      formData.append("prod_img2", this.file2);
+      formData.append("prod_img3", this.file3);
+      formData.append("prod_desc", this.formData.prod_desc);
+      formData.append("prod_state", this.formData.prod_state);
       axios
-        .post(this.getPhpUrl("insertNews.php"), formData, {
+        .post(this.getPhpUrl("insertProd.php"), formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -316,7 +327,7 @@ export default {
   },
   created() {
     //檢查php路徑正確與否使用
-    this.action = this.getPhpUrl("insertNews.php");
+    this.action = this.getPhpUrl("insertProd.php");
     console.log(this.action);
   },
 };

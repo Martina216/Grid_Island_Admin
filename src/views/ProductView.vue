@@ -75,7 +75,7 @@
             </th>
             <td>
               <img
-                :src="`https://tibamef2e.com/chd104/g5/image/prod/${item.prod_img1}`"
+                :src="`http://localhost/image/prod/${item.prod_img1}`" 
                 :alt="item.prod_name"
                 class="rounded img"
               />
