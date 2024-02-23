@@ -96,6 +96,9 @@
         </tbody>
       </table>
     </div>
+    <div class="nodata" v-if="nodata">
+      <span>查無資料</span>
+    </div>
     <CouponPage v-if="showAdd" @closeTab="handleClose" />
     <EditCoupon v-if="showEdit" :data="selectedPromo" @closeTab="handleClose" />
   </main>
@@ -122,6 +125,11 @@ export default {
   components: { CouponPage, EditCoupon },
   created() {
     this.fetchCode();
+  },
+  computed: {
+    nodata() {
+      return this.promoDisData.length == 0;
+    },
   },
   methods: {
     fetchCode() {

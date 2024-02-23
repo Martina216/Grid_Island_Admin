@@ -75,7 +75,7 @@
             </th>
             <td>
               <img
-                :src="`http://localhost/image/prod/${item.prod_img1}`" 
+                :src="`http://localhost/image/prod/${item.prod_img1}`"
                 :alt="item.prod_name"
                 class="rounded img"
               />
@@ -117,6 +117,9 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="nodata" v-if="nodata">
+      <span>查無資料</span>
     </div>
     <!-- 新增商品燈箱 -->
     <prodPage v-if="showAdd" @closeTab="handleEditorClosed" />
@@ -322,6 +325,11 @@ export default {
       } else {
         console.error(`找不到 id 為 ${prodId} 的商品`);
       }
+    },
+  },
+  computed: {
+    nodata() {
+      return this.productDisData.length == 0;
     },
   },
 };

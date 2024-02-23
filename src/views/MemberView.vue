@@ -11,7 +11,12 @@
     <div class="titleGroup">
       <h1>會員管理</h1>
       <div class="searchGroup">
-        <select id="searchFilter" class="rounded border border-1 border-dark" v-model="searchSelect" @change="handleSearch">
+        <select
+          id="searchFilter"
+          class="rounded border border-1 border-dark"
+          v-model="searchSelect"
+          @change="handleSearch"
+        >
           <option value="memId">會員編號</option>
           <option value="memName">會員姓名</option>
           <option value="memTel">連絡電話</option>
@@ -70,6 +75,7 @@
         </tbody>
       </table>
     </div>
+    <div class="nodata" v-if="nodata"><span>查無資料</span></div>
   </main>
 </template>
 <script>
@@ -78,11 +84,9 @@ export default {
   data() {
     return {
       memData: [],
-      displaymemdata:[], //複製會員資料展示用
-      searchBar:"",//輸入框
-      searchSelect:"memId", //預設搜尋選擇的是會員編號
-
-
+      displaymemdata: [], //複製會員資料展示用
+      searchBar: "", //輸入框
+      searchSelect: "memId", //預設搜尋選擇的是會員編號
     };
   },
   created() {
@@ -95,68 +99,73 @@ export default {
         .then((res) => {
           // console.log(res.data.mem); //這可以在f12看到自己的陣列，好用！
           this.memData = res.data.mem;
-          this.displaymemdata=res.data.mem
+          this.displaymemdata = res.data.mem;
         })
         .catch((error) => console.error("發生錯誤:", error));
     },
-    updateMemState(item){//會員停權
+    updateMemState(item) {
+      //會員停權
       const switch_change = item.mem_state == 0 ? 1 : 0;
       //會員狀態=0時，會回傳TRUE，所以switch_change就是true->所以switch_change=1，反之會員狀態=1的時候救回傳false->switch_change=0
       axios({
-        method:'post',
+        method: "post",
         url: `${import.meta.env.VITE_API_URL}/updateMemberState.php`,
         headers: { "Content-Type": "multipart/form-data" },
         data: {
-          mem_id:item.mem_id,
-          switch_change
-        }
+          mem_id: item.mem_id,
+          switch_change,
+        },
       })
-      .then((res)=>{
-        item.ord_state = switch_change;
-        // this.fetchOrder();
-        location.reload();
-        alert("此會員已成功停權")
-      })
-      .catch((error) => {
+        .then((res) => {
+          item.ord_state = switch_change;
+          // this.fetchOrder();
+          location.reload();
+          alert("此會員已成功停權");
+        })
+        .catch((error) => {
           console.log(error);
-      });
-
-
+        });
     },
-    handleSearch(){//搜尋欄
-      if(this.searchSelect=="memId"){
+    handleSearch() {
+      //搜尋欄
+      if (this.searchSelect == "memId") {
         if (this.searchBar) {
-          this.displaymemdata=this.memData.filter(data=>{
-            return data.mem_id.toString().includes(this.searchBar.trim())
-          })
-        }else{
-          this.displaymemdata=this.memData
+          this.displaymemdata = this.memData.filter((data) => {
+            return data.mem_id.toString().includes(this.searchBar.trim());
+          });
+        } else {
+          this.displaymemdata = this.memData;
         }
-      }else if (this.searchSelect=="memName") {
+      } else if (this.searchSelect == "memName") {
         if (this.searchBar) {
-          this.displaymemdata=this.memData.filter(data=>{
-            return data.mem_name.toString().includes(this.searchBar.trim())
-          })
-        }else{
-          this.displaymemdata=this.memData
+          this.displaymemdata = this.memData.filter((data) => {
+            return data.mem_name.toString().includes(this.searchBar.trim());
+          });
+        } else {
+          this.displaymemdata = this.memData;
         }
-      }else if (this.searchSelect=="memTel") {
+      } else if (this.searchSelect == "memTel") {
         if (this.searchBar) {
-          this.displaymemdata=this.memData.filter(data=>{
-            return data.mem_tel.toString().includes(this.searchBar.trim())
-          })
-        }else{
-          this.displaymemdata=this.memData
+          this.displaymemdata = this.memData.filter((data) => {
+            return data.mem_tel.toString().includes(this.searchBar.trim());
+          });
+        } else {
+          this.displaymemdata = this.memData;
         }
-      }else if (this.searchSelect=="memEmail") {
+      } else if (this.searchSelect == "memEmail") {
         if (this.searchBar) {
-          this.displaymemdata=this.memData.filter(data=>{
-            return data.mem_email.toString().includes(this.searchBar.trim())
-          })
-        }else{
-          this.displaymemdata=this.memData
+          this.displaymemdata = this.memData.filter((data) => {
+            return data.mem_email.toString().includes(this.searchBar.trim());
+          });
+        } else {
+          this.displaymemdata = this.memData;
         }
       }
+    },
+  },
+  computed: {
+    nodata() {
+      return this.displaymemdata.length == 0;
     },
   },
 };

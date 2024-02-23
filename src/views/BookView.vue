@@ -12,9 +12,12 @@
     <div class="titleGroup">
       <h1>預約訂單</h1>
       <div class="searchGroup">
-        <select id="searchFilter" class="rounded border border-1 border-dark"
-        v-model="searchSelect"
-          @change="searching">
+        <select
+          id="searchFilter"
+          class="rounded border border-1 border-dark"
+          v-model="searchSelect"
+          @change="searching"
+        >
           <option value="bookId">預訂編號</option>
           <option value="memId">會員編號</option>
         </select>
@@ -27,7 +30,7 @@
           class="rounded border border-1 border-dark"
         />
       </div>
-    </div>    
+    </div>
     <div class="bookTable">
       <table class="table table-hover">
         <thead>
@@ -43,16 +46,26 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(book, id) in displayBookdata" class="border-bottom text-center">
+          <tr
+            v-for="(book, id) in displayBookdata"
+            class="border-bottom text-center"
+          >
             <th class="pb-3 pt-3">{{ book.book_id }}</th>
             <td>{{ book.mem_id }}</td>
             <td>{{ book.mem_name }}</td>
-            <td>{{ book.book_date}}</td>
+            <td>{{ book.book_date }}</td>
             <td>{{ book.book_time }}</td>
             <td>{{ book.book_people }}</td>
             <td>{{ book.table_type_name }}</td>
             <td>
-              <select name="" id="" class="form-select form-select-sm" aria-label="Small select example" v-model="book.book_state" @change="deliverBook(id)">
+              <select
+                name=""
+                id=""
+                class="form-select form-select-sm"
+                aria-label="Small select example"
+                v-model="book.book_state"
+                @change="deliverBook(id)"
+              >
                 <option value="0">已取消</option>
                 <option value="1">未到場</option>
                 <option value="2">已到場</option>
@@ -62,6 +75,7 @@
         </tbody>
       </table>
     </div>
+    <div class="nodata" v-if="nodata"><span>查無資料</span></div>
   </div>
 </template>
 <script>
@@ -69,84 +83,83 @@ import axios from "axios";
 export default {
   data() {
     return {
-      booksData: [],//預訂資料
-      displayBookdata:[], //複製預訂資料展示用
-      searchBar:"",//輸入框
-      searchSelect:"bookId", //預設搜尋選擇的是訂單編號
-
-      
+      booksData: [], //預訂資料
+      displayBookdata: [], //複製預訂資料展示用
+      searchBar: "", //輸入框
+      searchSelect: "bookId", //預設搜尋選擇的是訂單編號
     };
   },
   components: {},
-  created(){
+  created() {
     this.fetchbooks();
   },
   mounted() {},
   methods: {
     fetchbooks() {
       axios
-      .post(`${import.meta.env.VITE_API_URL}/getbook.php`, {})
-      .then(res => {
-        this.booksData = res.data.books;
-        this.displayBookdata = res.data.books;
-        // console.log(this.displayBookdata);
-      })
-      .catch(error => console.error('發生錯誤:',error))
+        .post(`${import.meta.env.VITE_API_URL}/getbook.php`, {})
+        .then((res) => {
+          this.booksData = res.data.books;
+          this.displayBookdata = res.data.books;
+          // console.log(this.displayBookdata);
+        })
+        .catch((error) => console.error("發生錯誤:", error));
     },
-    searching(){
+    searching() {
       //預約的訂單
       //filter可用來遍歷booksData裡的所有東西
-        if(this.searchSelect=="bookId"){
-          if(this.searchBar){
-            this.displayBookdata = this.booksData.filter(book => {
-          // 根據輸入的預約編號進行搜尋
-          return book.book_id.toString().includes(this.searchBar.trim());
-          //toString將預訂編號轉換為字串，因為 includes() 方法只能用於字串。
-          //includes檢查預訂編號是否包含在搜尋欄 (searchBar) 中。
-          });
-        }else{
-          this.displayBookdata = this.booksData;
-        }
-
-      }else if(this.searchSelect=="memId"){
+      if (this.searchSelect == "bookId") {
         if (this.searchBar) {
-          this.displayBookdata = this.booksData.filter(book => {
-          // 根據輸入的預約編號進行搜尋
-          return book.mem_id.toString().includes(this.searchBar.trim());
-          //toString將預訂編號轉換為字串，因為 includes() 方法只能用於字串。
-          //includes檢查預訂編號是否包含在搜尋欄 (searchBar) 中。
+          this.displayBookdata = this.booksData.filter((book) => {
+            // 根據輸入的預約編號進行搜尋
+            return book.book_id.toString().includes(this.searchBar.trim());
+            //toString將預訂編號轉換為字串，因為 includes() 方法只能用於字串。
+            //includes檢查預訂編號是否包含在搜尋欄 (searchBar) 中。
           });
-        }else{
+        } else {
           this.displayBookdata = this.booksData;
         }
-
+      } else if (this.searchSelect == "memId") {
+        if (this.searchBar) {
+          this.displayBookdata = this.booksData.filter((book) => {
+            // 根據輸入的預約編號進行搜尋
+            return book.mem_id.toString().includes(this.searchBar.trim());
+            //toString將預訂編號轉換為字串，因為 includes() 方法只能用於字串。
+            //includes檢查預訂編號是否包含在搜尋欄 (searchBar) 中。
+          });
+        } else {
+          this.displayBookdata = this.booksData;
+        }
       }
-
-      },
-    deliverBook(id){//修改預訂狀態
-      console.log(this.booksData[id].book_state)
-      console.log(this.booksData[id].book_id)
+    },
+    deliverBook(id) {
+      //修改預訂狀態
+      console.log(this.booksData[id].book_state);
+      console.log(this.booksData[id].book_id);
       axios({
-        method: 'post',
+        method: "post",
         url: `${import.meta.env.VITE_API_URL}/updateBookState.php`,
         headers: { "Content-Type": "multipart/form-data" },
-        data:{
-            book_id: this.booksData[id].book_id,
-            book_state:this.booksData[id].book_state
-        }
-    })
-    .then((res) => {
-            console.log(res.data);
-            alert("已修改完成");
-            location.reload()
+        data: {
+          book_id: this.booksData[id].book_id,
+          book_state: this.booksData[id].book_state,
+        },
+      })
+        .then((res) => {
+          console.log(res.data);
+          alert("已修改完成");
+          location.reload();
         })
         .catch((error) => {
-            console.log(error);
+          console.log(error);
         });
-
     },
-
-  }
+  },
+  computed: {
+    nodata() {
+      return this.displayBookdata.length == 0;
+    },
+  },
 };
 </script>
 <style lang="scss">

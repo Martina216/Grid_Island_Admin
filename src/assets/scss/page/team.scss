@@ -1,52 +1,50 @@
-.team{
-    padding: 30px 30px 30px 250px;
-    nav {
-        a {
-            color: $black-1;
-            text-decoration: none;
-            &:hover {
-            text-decoration: underline;
-            }
-        }
-        }
-        .titleGroup {
-        display: flex;
-        flex-direction: column;
-        gap: $S-spacing;
-        margin-bottom: $L-spacing;
-        h1 {
-            font-size: $PC-h3;
-            padding-left: $S-spacing;
-        }
-        .searchGroup {
-            padding-left: $S-spacing;
-            display: flex;
-            gap: $S-spacing;
-            select {
-                height: 30px;
-            }
-            input {
-            width: 250px;
-            height: 30px;
-            background-image: url("@/assets/images/general/magnifying-glass-solid.svg");
-            background-size: 20px 20px;
-            background-position: 4px 4px;
-            background-repeat: no-repeat;
-            padding-left: 30px;
-            }
-        }
-
+.team {
+  padding: 30px 30px 30px 250px;
+  nav {
+    a {
+      color: $black-1;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
     }
-    .team_article{
-        width: 400px;
-        line-height: 20px;
+  }
+  .titleGroup {
+    display: flex;
+    flex-direction: column;
+    gap: $S-spacing;
+    margin-bottom: $L-spacing;
+    h1 {
+      font-size: $PC-h3;
+      padding-left: $S-spacing;
     }
-    td{
-        .form-switch{
-            input{
-                margin: auto;                
-            }
-        }
+    .searchGroup {
+      padding-left: $S-spacing;
+      display: flex;
+      gap: $S-spacing;
+      select {
+        height: 30px;
+      }
+      input {
+        width: 250px;
+        height: 30px;
+        background-image: url("@/assets/images/general/magnifying-glass-solid.svg");
+        background-size: 20px 20px;
+        background-position: 4px 4px;
+        background-repeat: no-repeat;
+        padding-left: 30px;
+      }
     }
-
+  }
+  .team_article {
+    width: 400px;
+    line-height: 20px;
+  }
+  td {
+    .form-switch {
+      input {
+        margin: auto;
+      }
+    }
+  }
 }
