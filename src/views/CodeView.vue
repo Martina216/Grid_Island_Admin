@@ -218,7 +218,7 @@ export default {
         });
         this.sortEndTimeMethod = "desc";
         this.sortIdMethod = "";
-        this.sortEndTimeMethod = "";
+        this.sortStartTimeMethod = "";
       } else if (
         this.sortEndTimeMethod == "desc" ||
         this.sortEndTimeMethod == ""
@@ -230,7 +230,7 @@ export default {
         });
         this.sortEndTimeMethod = "asc";
         this.sortIdMethod = "";
-        this.sortEndTimeMethod = "";
+        this.sortStartTimeMethod = "";
       }
     },
     add() {
