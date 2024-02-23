@@ -110,58 +110,67 @@
           </div>
           <div class="imgContent">
             <div class="img">
-              <label for="prodImg1">
-                <img
-                  v-if="show"
-                  class="originalImg"
-                  src="../assets/images/default_img/logo_white.svg"
-                  alt="original-image"
-                />
-                <img
-                  v-else="show"
-                  class="selectImg"
-                  :src="imgSrc"
-                  alt="upload-image"
-                />
-              </label>
-              <span v-show="!imgSrc" class="upload">{{ imgText }} </span>
+                <label for="prodImg1">
+                  <img
+                    v-if="showMain"
+                    class="originalImg"
+                    src="../assets/images/default_img/logo_white.svg"
+                    alt="original-image"
+                  />
+                  <img
+                    v-else="showMain"
+                    class="selectImg"
+                    :src="imgSrcMain"
+                    alt="upload-image"
+                  />
+                </label>
+              <span v-show="!imgSrcMain" class="upload">{{ imgTextMain }} </span>
               <input
                 type="file"
                 name="prod_img1"
                 id="prodImg1"
                 accept="image/png, image/jpeg, image/webp"
-                @change="selectImage1" multiple 
-              />
+                @change="selectImageMain" />
             </div>
-            <div class="small_image">
-              <div class="image2">
-                  <img
-                    v-if="!show"
-                    class="selectImg"
-                    :src="imgSrc2"
-                    alt="upload-image"
-                  />
-                  <img
-                    v-if="show"
-                    class="originalImg"
-                    src="../assets/images/default_img/logo_white.svg"
-                    alt="original-image"
-                  />
-              </div>
-              <div class="image3">
-                <img
-                    v-if="!show"
-                    class="selectImg"
-                    :src="imgSrc3"
-                    alt="upload-image"
-                  />
-                  <img
-                    v-if="show"
-                    class="originalImg"
-                    src="../assets/images/default_img/logo_white.svg"
-                    alt="original-image"
-                  />
-              </div>
+            <div class="small_image" title="請選擇 2 張商品細節圖">
+                <label for="prodImg2">
+                  <input
+                  type="file"
+                  name="prod_img2"
+                  id="prodImg2"
+                  accept="image/png, image/jpeg, image/webp"
+                  @change="selectImages" multiple
+                />
+                  <div class="image2">
+                      <img
+                        v-if="!show"
+                        class="selectImg"
+                        :src="imgSrc"
+                        alt="upload-image"
+                      />
+                      <img
+                        v-if="show"
+                        class="originalImg"
+                        src="../assets/images/default_img/logo_white.svg"
+                        alt="original-image"
+                      />
+                  </div>
+                  <div class="image3">
+                    <img
+                        v-if="!show"
+                        class="selectImg"
+                        :src="imgSrc2"
+                        alt="upload-image"
+                      />
+                      <img
+                        v-if="show"
+                        class="originalImg"
+                        src="../assets/images/default_img/logo_white.svg"
+                        alt="original-image"
+                      />
+                  </div>
+                </label>
+              <div class="text"><span v-show="!imgSrc2" class="upload">{{ imgText }} </span></div>
             </div>
             <div class="priceArea">
               <div class="price">
@@ -213,11 +222,13 @@ import axios from "axios";
 export default {
   data() {
     return {
+      imgSrcMain:'',
       imgSrc: '',
       imgSrc2: '',
-      imgSrc3: '',
-      imgText: "新增商品圖片",
+      imgTextMain: "點擊新增商品首圖",
+      imgText: "點擊新增商品細節圖",
       show: true,
+      showMain:true,
       formData: {
         prod_name: "",
         prod_intro: "",
@@ -233,6 +244,7 @@ export default {
           category:0,
         },
       },
+      fileMain: null,
       file: null,
     };
   },
@@ -263,9 +275,24 @@ export default {
         },
       };
     },
-    selectImage1(e) {
+    selectImageMain(e) {
+      const fileMain = e.target.files[0];
+      if (fileMain) {
+        // 使用 FileReader 將圖片轉換成 data URL
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imgSrcMain = e.target.result;
+        };
+        reader.readAsDataURL(fileMain);
+        this.fileMain = fileMain; // 將檔案存儲在 this.file 中
+      } else {
+        this.imgSrcMain = "src/assets/images/default_img/logo_white.svg";
+      }
+      this.showMain = false;
+    },
+    selectImages(e) {
       const files = e.target.files;
-      const maxFiles = 3;
+      const maxFiles = 2;
 
       if ( files.length > maxFiles) {
         alert(`最多只能選擇${maxFiles}個圖檔`);
@@ -276,7 +303,6 @@ export default {
 
       for (let i = 0; i < files.length; i++) {
         const reader = new FileReader();
-
         reader.onload = (e) => {
           if (i === 0) {
               this.imgSrc = e.target.result;
@@ -284,17 +310,13 @@ export default {
             } else if (i === 1) {
               this.imgSrc2 = e.target.result;
               this.file2 = files[i];
-            } else if (i === 2) {
-              this.imgSrc3 = e.target.result;
-              this.file3 = files[i];
             }
         }
         reader.readAsDataURL(files[i]);
       }
-      this.file1 = files[0]; // 將檔案存儲在 this.file 中
-      this.file2 = files[1]; // 將檔案存儲在 this.file 中
-      this.file3 = files[2]; // 將檔案存儲在 this.file 中
-      console.log(this.file1, this.file2, this.file3);
+      this.file1 = files[0];
+      this.file2 = files[1]; 
+      console.log(this.file1, this.file2);
       this.show = false;  
     },
     submitForm() {
@@ -308,9 +330,9 @@ export default {
       formData.append("prod_brief", this.formData.prod_brief);
       formData.append("prod_discount_price", this.formData.prod_discount_price);
       formData.append("prod_price", this.formData.prod_price);
+      formData.append("prod_img3", this.fileMain);
       formData.append("prod_img1", this.file1);
       formData.append("prod_img2", this.file2);
-      formData.append("prod_img3", this.file3);
       formData.append("prod_desc", this.formData.prod_desc);
       formData.append("prod_state", this.formData.prod_state);
       formData.append("ppl", this.formData.tags.ppl);    

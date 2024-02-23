@@ -130,7 +130,30 @@
           }
           .small_image {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
+            position: relative;
+            cursor: pointer;
+            input {
+              width: 250px;
+              display: none;
+              padding: 20px 8px 0 8px;
+            }
+            label {
+              display: flex;
+              justify-content: space-between;
+              width: 100%;
+            }
+            .text {
+              width: 100%;
+              position: absolute;
+              top: 0;
+              left: 0;
+              transform: translate(0%,350%);
+              pointer-events: none;
+              .upload {
+                text-align: center;
+              }
+            }
           }
           .image2,
           .image3 {
