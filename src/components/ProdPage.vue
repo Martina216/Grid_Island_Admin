@@ -47,29 +47,29 @@
               <span>商品標籤</span>
               <div class="ppl">
                 <span>人數</span>
-                <input type="radio" name="gamePpl" id="underFour" />
+                <input type="radio" name="gamePpl" id="underFour" v-model="formData.tags.ppl" value="7" />
                 <label for="underFour">2-4人</label>
-                <input type="radio" name="gamePpl" id="underEig" />
+                <input type="radio" name="gamePpl" id="underEig" v-model="formData.tags.ppl" value="8" />
                 <label for="underEig">5-8人</label>
-                <input type="radio" name="gamePpl" id="overEig" />
+                <input type="radio" name="gamePpl" id="overEig" v-model="formData.tags.ppl" value="9" />
                 <label for="overEig">8人以上</label>
               </div>
               <div class="category">
                 <span>種類</span>
-                <input type="radio" name="category" id="easy" />
+                <input type="radio" name="category" id="easy" v-model="formData.tags.category" value="1"/>
                 <label for="easy">策略</label>
-                <input type="radio" name="category" id="mid" />
+                <input type="radio" name="category" id="mid" v-model="formData.tags.category" value="2"/>
                 <label for="mid">紙牌</label>
-                <input type="radio" name="category" id="hard" />
+                <input type="radio" name="category" id="hard" v-model="formData.tags.category" value="3"/>
                 <label for="hard">經營</label>
               </div>
               <div class="diff">
                 <span>難度</span>
-                <input type="radio" name="diff" id="strategy" />
+                <input type="radio" name="diff" id="strategy" v-model="formData.tags.diff" value="4"/>
                 <label for="strategy">簡單</label>
-                <input type="radio" name="diff" id="paperGame" />
+                <input type="radio" name="diff" id="paperGame" v-model="formData.tags.diff" value="5"/>
                 <label for="paperGame">中等</label>
-                <input type="radio" name="diff" id="business" />
+                <input type="radio" name="diff" id="business" v-model="formData.tags.diff" value="6"/>
                 <label for="business">困難</label>
               </div>
             </div>
@@ -227,6 +227,11 @@ export default {
         prod_desc: "",
         prod_brief: "",
         prod_state: "",
+        tags:{
+          ppl:0,
+          diff:0,
+          category:0,
+        },
       },
       file: null,
     };
@@ -251,6 +256,11 @@ export default {
         prod_desc: "",
         prod_brief: "",
         prod_state: "",
+        tags:{
+          ppl:0,
+          diff:0,
+          category:0,
+        },
       };
     },
     selectImage1(e) {
@@ -303,6 +313,10 @@ export default {
       formData.append("prod_img3", this.file3);
       formData.append("prod_desc", this.formData.prod_desc);
       formData.append("prod_state", this.formData.prod_state);
+      formData.append("ppl", this.formData.tags.ppl);    
+      formData.append("diff", this.formData.tags.diff);    
+      formData.append("category", this.formData.tags.category);    
+
       axios
         .post(this.getPhpUrl("insertProd.php"), formData, {
           headers: {
