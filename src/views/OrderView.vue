@@ -57,11 +57,7 @@
         </thead>
         <tbody>
           <template v-for="(item, index) in ordDisplayData" :key="index">
-            <tr
-              :href="'#orderRow' + index"
-              data-bs-toggle="collapse"
-              class="border-bottom text-center align-middle"
-            >
+            <tr class="border-bottom text-center align-middle">
               <th class="pb-3 pt-3 align-middle">{{ item.ord_id }}</th>
               <td>{{ item.ord_date }}</td>
               <td>
@@ -110,7 +106,13 @@
                   <i class="fa-solid fa-pen-to-square"></i><span>儲存</span>
                 </button>
               </td>
-              <td class="pointer"><i class="fa-solid fa-chevron-down"></i></td>
+              <td
+                class="pointer"
+                :href="'#orderRow' + index"
+                data-bs-toggle="collapse"
+              >
+                <i class="fa-solid fa-chevron-down"></i>
+              </td>
             </tr>
             <tr
               :id="'orderRow' + index"

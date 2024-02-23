@@ -83,7 +83,7 @@
               <label for="marquee"><span>是否顯示於跑馬燈</span></label>
             </div>
             <div class="startPubDate" v-if="editData.marquee_state">
-              <label for="startPubDate"><span>優惠碼使用開始日期</span></label>
+              <label for="startPubDate"><span>優惠碼開放開始日期</span></label>
               <input
                 v-model="editData.promo_pub_start"
                 type="date"
@@ -93,7 +93,7 @@
               />
             </div>
             <div class="endPubDate" v-if="editData.marquee_state">
-              <label for="endPubDate"><span>優惠碼使用結束日期</span></label>
+              <label for="endPubDate"><span>優惠碼開放結束日期</span></label>
               <input
                 v-model="editData.promo_pub_end"
                 type="date"
@@ -126,16 +126,6 @@ import axios from "axios";
 export default {
   data() {
     return {
-      formData: {
-        coupon_code: "",
-        coupon_detail: "",
-        coupon_amount: "",
-        coupon_start_date: "",
-        coupon_end_date: "",
-        coupon_marquee: false,
-        coupon_pub_start_date: "",
-        coupon_pub_end_date: "",
-      },
       editData: { ...this.data },
     };
   },
@@ -146,26 +136,12 @@ export default {
     cancelEdit() {
       this.$emit("closeTab");
     },
-    clearForm() {
-      this.formData = {
-        coupon_code: "",
-        coupon_detail: "",
-        coupon_amount: "",
-        coupon_start_date: "",
-        coupon_end_date: "",
-        coupon_marquee: false,
-        coupon_pub_start_date: "",
-        coupon_pub_end_date: "",
-      };
-    },
     updatePromo() {
-      console.log(this.editData.marquee_state);
-      console.log(this.editData.promo_start_date);
       const formData = new FormData();
-      formData.append("promo_id", this.editData.coupon_id);
-      formData.append("promo_code", this.editData.coupon_code);
-      formData.append("promo_detail", this.editData.coupon_detail);
-      formData.append("promo_amount", this.editData.coupon_amount);
+      formData.append("promo_id", this.editData.promo_id);
+      formData.append("promo_code", this.editData.promo_code);
+      formData.append("promo_detail", this.editData.promo_detail);
+      formData.append("promo_amount", this.editData.promo_amount);
       formData.append(
         "promo_start_date",
         new Date(this.editData.promo_start_date).toISOString()
@@ -174,17 +150,17 @@ export default {
         "promo_end_date",
         new Date(this.editData.promo_end_date).toISOString()
       );
-      formData.append("marquee_state", this.editData.coupon_marquee ? 1 : 0);
+      formData.append("marquee_state", this.editData.promo_marquee ? 1 : 0);
       formData.append(
         "promo_pub_start_date",
-        this.editData.coupon_pub_start_date
-          ? new Date(this.editData.coupon_pub_start_date).toISOString()
+        this.editData.promo_pub_start_date
+          ? new Date(this.editData.promo_pub_start_date).toISOString()
           : null
       );
       formData.append(
         "promo_pub_end_date",
-        this.editData.coupon_pub_end_date
-          ? new Date(this.editData.coupon_pub_end_date).toISOString()
+        this.editData.promo_pub_end_date
+          ? new Date(this.editData.promo_pub_end_date).toISOString()
           : null
       );
 
