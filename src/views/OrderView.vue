@@ -145,6 +145,9 @@
         </tbody>
       </table>
     </div>
+    <div class="nodata" v-if="nodata">
+      <span>查無資料</span>
+    </div>
   </main>
 </template>
 <script>
@@ -166,6 +169,11 @@ export default {
   components: {},
   created() {
     this.fetchOrder();
+  },
+  computed: {
+    nodata() {
+      return this.ordDisplayData.length == 0;
+    },
   },
   methods: {
     changeOrd(item) {

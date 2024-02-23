@@ -103,6 +103,9 @@
         </tbody>
       </table>
     </div>
+    <div class="nodata" v-if="nodata">
+      <span>查無資料</span>
+    </div>
 
     <!-- 新增文章燈箱 -->
     <NewsPage v-if="showAdd" @closeTab="handleEditorClosed" />
@@ -141,6 +144,11 @@ export default {
     editNews,
   },
   mounted() {},
+  computed: {
+    nodata() {
+      return this.disData.length == 0;
+    },
+  },
   methods: {
     add() {
       this.showAdd = true;
