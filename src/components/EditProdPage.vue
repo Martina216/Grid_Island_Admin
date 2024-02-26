@@ -16,7 +16,7 @@
       <form
         method="post"
         enctype="multipart/form-data"
-        @submit.prevent="updateNews"
+        @submit.prevent="updateProd"
       >
         <div class="wrapper">
           <div class="text">
@@ -25,8 +25,8 @@
               <input
                 v-model="editedData.prod_name"
                 type="text"
-                name="news_title"
-                id="newsTitle"
+                name="prod_name"
+                id="prodName"
                 class="form-check-input rounded border border-1 border-gray"
                 placeholder="請輸入商品名稱"
               />
@@ -72,33 +72,6 @@
                 />
                 <label for="overEig">8人以上</label>
               </div>
-              <div class="diff">
-                <span>難度</span>
-                <input
-                  type="radio"
-                  name="diff"
-                  value="簡單"
-                  id="easy"
-                  v-model="editedData.tags.難度"
-                />
-                <label for="easy">簡單</label>
-                <input
-                  type="radio"
-                  name="diff"
-                  id="mid"
-                  value="中等"
-                  v-model="editedData.tags.難度"
-                />
-                <label for="mid">中等</label>
-                <input
-                  type="radio"
-                  name="diff"
-                  id="hard"
-                  value="困難"
-                  v-model="editedData.tags.難度"
-                />
-                <label for="hard">困難</label>
-              </div>
               <div class="category">
                 <span>種類</span>
                 <input
@@ -125,6 +98,33 @@
                   v-model="editedData.tags.種類"
                 />
                 <label for="business">經營</label>
+              </div>
+              <div class="diff">
+                <span>難度</span>
+                <input
+                  type="radio"
+                  name="diff"
+                  value="簡單"
+                  id="easy"
+                  v-model="editedData.tags.難度"
+                />
+                <label for="easy">簡單</label>
+                <input
+                  type="radio"
+                  name="diff"
+                  id="mid"
+                  value="中等"
+                  v-model="editedData.tags.難度"
+                />
+                <label for="mid">中等</label>
+                <input
+                  type="radio"
+                  name="diff"
+                  id="hard"
+                  value="困難"
+                  v-model="editedData.tags.難度"
+                />
+                <label for="hard">困難</label>
               </div>
             </div>
             <div class="content">
@@ -166,34 +166,56 @@
             <div class="img">
               <label for="prodImg1">
                 <img
-                  v-if="show"
+                  v-if="showMain"
+                  class="selectImg"
+                  :src="`http://localhost/image/prod/${editedData.prod_img1}`"
+                  alt="upload-image"
+                  />
+                  <img
+                  v-if="!showMain"
+                  :src="imgSrcMain"
                   class="originalImg"
-                  :src="`https://tibamef2e.com/chd104/g5/image/prod/${editedData.prod_img1}`"
                   alt="original-image"
                 />
-                <img
-                  v-else="show"
-                  class="selectImg"
-                  :src="imgSrc"
-                  alt="upload-image"
-                />
               </label>
-              <span v-show="!imgSrc" class="upload">{{ imgText }} </span>
+              <span v-show="!imgSrcMain" class="upload">{{ imgText }} </span>
               <input
                 type="file"
                 name="prod_img1"
                 id="prodImg1"
                 accept="image/png, image/jpeg, image/webp"
-                @change="selectImage1"
+                @change="selectImageMain"
               />
             </div>
-            <div class="small_image">
-              <div class="image2">
-                <label for="prodImg2">
+            <div class="small_image" title="點擊更改 2 張商品細節圖">
+              <label for="prodImg2">
+                <input
+                  type="file"
+                  name="prod_img2"
+                  id="prodImg2"
+                  accept="image/png, image/jpeg, image/webp"
+                  @change="selectImages" multiple
+                  />
+                <div class="image2">
                   <img
                     v-if="show"
                     class="originalImg"
-                    :src="`https://tibamef2e.com/chd104/g5/image/prod/${editedData.prod_img2}`"
+                    :src="`http://localhost/image/prod/${editedData.prod_img2}`"
+                    alt="original-image"
+                  />
+                  <img
+                    v-else="show"
+                    class="selectImg"
+                    :src="imgSrc"
+                    alt="upload-image"
+                  />
+                 
+                </div>
+              <div class="image3">
+                  <img
+                    v-if="show"
+                    class="originalImg"
+                    :src="`http://localhost/image/prod/${editedData.prod_img3}`"
                     alt="original-image"
                   />
                   <img
@@ -202,30 +224,6 @@
                     :src="imgSrc2"
                     alt="upload-image"
                   />
-                </label>
-                <input
-                  type="file"
-                  name="prod_img2"
-                  id="prodImg2"
-                  accept="image/png, image/jpeg, image/webp"
-                  @change="selectImage2"
-                />
-              </div>
-              <div class="image3">
-                <label for="prodImg3">
-                  <img
-                    v-if="show"
-                    class="originalImg"
-                    :src="`https://tibamef2e.com/chd104/g5/image/prod/${editedData.prod_img3}`"
-                    alt="original-image"
-                  />
-                  <img
-                    v-else="show"
-                    class="selectImg"
-                    :src="imgSrc3"
-                    alt="upload-image"
-                  />
-                </label>
                 <input
                   type="file"
                   name="prod_img3"
@@ -234,6 +232,8 @@
                   @change="selectImage3"
                 />
               </div>
+            </label>
+
             </div>
             <div class="priceArea">
               <div class="price">
@@ -285,12 +285,15 @@ import axios from "axios";
 export default {
   data() {
     return {
-      imgSrc: "",
+      imgSrcMain:'',
+      imgSrc2: '',
+      imgSrc:'',
       imgText: "點擊更改圖片",
+      showMain:true,
       show: true,
-      file: null,
       editedData: { ...this.data },
       requestData: [],
+      fileMain: null,
       file: null,
     };
   },
@@ -305,94 +308,123 @@ export default {
     },
     cancelEdit() {
       this.$emit("closeTab");
-      this.clearForm();
     },
-    clearForm() {
-      this.formData = {
-        news_title: "",
-        news_date: "",
-        news_content: "",
-        news_category: "",
-        news_state: "",
-      };
-    },
-    selectImage1(e) {
-      const file = e.target.files[0];
-      if (file) {
+    selectImageMain(e) {
+      const fileMain = e.target.files[0];
+      if (fileMain) {
+        // 使用 FileReader 將圖片轉換成 data URL
         const reader = new FileReader();
         reader.onload = (e) => {
-          this.imgSrc = e.target.result;
+          this.imgSrcMain = e.target.result;
         };
-        reader.readAsDataURL(file);
-        this.file = file;
+        reader.readAsDataURL(fileMain);
+        this.fileMain = fileMain; // 將檔案存儲在 this.file 中
       } else {
-        this.imgSrc = "src/assets/images/default_img/logo_white.svg";
+        this.imgSrcMain = "src/assets/images/default_img/logo_white.svg";
       }
-      this.show = false;
+      this.showMain = false;
     },
-    selectImage2(e) {
-      const file = e.target.files[0];
-      if (file) {
+    selectImages(e) {
+      const files = e.target.files;
+      const maxFiles = 2;
+
+      if ( files.length > maxFiles) {
+        alert(`最多只能選擇${maxFiles}個圖檔`);
+        e.target.value = null;
+      } else {
+        console.log("已選擇的圖檔：", files);
+      }
+
+      for (let i = 0; i < files.length; i++) {
         const reader = new FileReader();
         reader.onload = (e) => {
-          this.imgSrc2 = e.target.result;
-        };
-        reader.readAsDataURL(file);
-        this.file = file;
-      } else {
-        this.imgSrc = "src/assets/images/default_img/logo_white.svg";
+          if (i === 0) {
+              this.imgSrc = e.target.result;
+              this.file1 = files[i];
+            } else if (i === 1) {
+              this.imgSrc2 = e.target.result;
+              this.file2 = files[i];
+            }
+        }
+        reader.readAsDataURL(files[i]);
       }
-      this.show = false;
+      this.file1 = files[0];
+      this.file2 = files[1]; 
+      console.log(this.file1, this.file2);
+      this.show = false;  
     },
-    selectImage3(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.imgSrc3 = e.target.result;
-        };
-        reader.readAsDataURL(file);
-        this.file = file;
-      } else {
-        this.imgSrc = "src/assets/images/default_img/logo_white.svg";
-      }
-      this.show = false;
-    },
-    async updateNews() {
+    async updateProd() {
       try {
         const formData = new FormData();
-
-        formData.append("news_id", this.editedData.news_id);
-        formData.append("news_title", this.editedData.news_title);
+        formData.append("prod_id", this.editedData.prod_id);
+        formData.append("prod_name", this.editedData.prod_name);
         formData.append(
-          "news_date",
-          new Date(this.editedData.news_date).toISOString()
+          "prod_date",
+          new Date(this.editedData.prod_date).toISOString()
         );
-        formData.append("news_content", this.editedData.news_content);
-        formData.append("news_image", this.file);
-        formData.append("news_category", this.editedData.news_category);
+        formData.append("prod_intro", this.editedData.prod_intro);
+        formData.append("prod_brief", this.editedData.prod_brief);
+        formData.append("prod_discount_price", this.editedData.prod_discount_price);
+        formData.append("prod_price", this.editedData.prod_price);
+        formData.append("prod_desc", this.editedData.prod_desc);
+        // formData.append("prod_img3", this.fileMain);
+        // formData.append("prod_img2", this.file2);
+        // formData.append("prod_img1", this.file1);
+        // formData.append("ppl", switchTag(this.formData.tags.人數));    
+        // formData.append("diff", switchTag(this.formData.tags.難度));    
+        // formData.append("category", switchTag(this.formData.tags.種類));    
 
-        console.log(formData.get("news_image"));
+        console.log(formData.get("prod_img1"));
 
         const res = await axios.post(
-          this.getPhpUrl("updateNews.php"),
+          this.getPhpUrl("updateProd.php"),
           formData
         );
-
         console.log(res.data);
         alert("成功修改商品內容");
       } catch (error) {
         console.error("發生錯誤:", error);
       }
-      this.reloadPage();
+      // this.reloadPage();
     },
     reloadPage() {
       location.reload();
     },
+    switchTag(tag) {
+      switch (tag) {
+        case "策略":
+          return 1;
+          break;
+        case "紙牌":
+          return 2;
+          break;
+        case "經營":
+          return 3;
+          break;
+        case "簡單":
+          return 4;
+          break;
+        case "中等":
+          return 5;
+          break;
+        case "困難":
+          return 6;
+          break;
+        case "2~4人":
+          return 7;
+          break;
+        case "5~8人":
+          return 8;
+          break;
+        case ">8人":
+          return 9;
+          break;
+      }
+    },
   },
   created() {
     // 檢查php路徑正確與否使用
-    console.log(this.getPhpUrl("updateNews.php"));
+    // console.log(this.getPhpUrl("updateProd.php"));
   },
   watch: {
     data(newValue) {

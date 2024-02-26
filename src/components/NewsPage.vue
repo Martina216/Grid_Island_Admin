@@ -134,7 +134,6 @@ export default {
       const url = `${import.meta.env.VITE_API_URL}/${path}`;
       console.log("Generated URL:", url);
       return url; //本機端
-      // return `https://tibamef2e.com/chd104/g5/php/admin/${path}`; //上線端
     },
     cancelAdd() {
       this.clearForm();

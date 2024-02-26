@@ -75,7 +75,7 @@
                 type="file"
                 name="news_image"
                 id="newsImg"
-                accept="image/png, image/jpeg,  image/webp"
+                accept="image/png, image/jpeg, image/webp"
                 @change="selectImage"
               />
             </div>
@@ -168,7 +168,7 @@ export default {
         formData.append("news_image", this.file);
         formData.append("news_category", this.editedData.news_category);
 
-        console.log(formData.get("news_image"));
+        // console.log(formData.get("news_image"));
 
         const res = await axios.post(
           this.getPhpUrl("updateNews.php"),
@@ -189,7 +189,7 @@ export default {
   },
   created() {
     // 檢查php路徑正確與否使用
-    console.log(this.getPhpUrl("updateNews.php"));
+    // console.log(this.getPhpUrl("updateNews.php"));
   },
   watch: {
     data(newValue) {

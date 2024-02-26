@@ -363,8 +363,8 @@ export default {
   },
   created() {
     //檢查php路徑正確與否使用
-    this.action = this.getPhpUrl("insertProd.php");
-    console.log(this.action);
+    // this.action = this.getPhpUrl("insertProd.php");
+    // console.log(this.action);
   },
 };
 </script>
