@@ -181,7 +181,7 @@ export default {
         console.error("發生錯誤:", error);
       }
 
-      this.reloadPage();
+      // this.reloadPage();
     },
     reloadPage() {
       location.reload();
