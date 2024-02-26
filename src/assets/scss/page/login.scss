@@ -39,16 +39,25 @@
     flex-direction: column;
     align-items: center;
   }
-
   input {
     margin: 10px 0;
     width: 320px;
+    height: 10px;
   }
   .user {
-    margin-top: 40px;
+    margin: 40px auto 0 90px;
+    display: block;
+    width: 100%;
+  }
+  .word {
+    width: 100%;
+    display: block;
+    margin:0 auto 0 90px;
   }
   button {
     margin-top: 30px;
+    margin: 30px auto 0;
     width: 100px;
+    display: block;
   }
 }

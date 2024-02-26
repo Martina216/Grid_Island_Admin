@@ -8,9 +8,17 @@
       </div>
       <span class="pc-h3">後台登入</span>
       <!-- <form method="post"> -->
-      <input type="text" class="form-control user"  placeholder="請輸入使用者帳號" v-model="account">
-      <input type="password" class="form-control"  placeholder="請輸入使用者密碼" v-model="au4a83">
-      <button class="btn btn-light rounded-pill padding" @click="login">登入</button>
+      <div class="form-floating mb-3 user">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"  v-model="account">
+        <label for="floatingInput">使用者帳號</label>
+      </div>
+      <div class="form-floating word">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="au4a83">
+        <label for="floatingPassword">使用者密碼</label>
+      </div>
+      <!-- <input type="text" class="form-control user"  placeholder="請輸入使用者帳號"> -->
+      <!-- <input type="password" class="form-control"  placeholder="請輸入使用者密碼" > -->
+      <button class="btn btn-light rounded-pill padding loginBtn" @click="login">登入</button>
       <!-- </form> -->
     </div>
   </main>

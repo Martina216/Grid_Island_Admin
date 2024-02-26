@@ -39,7 +39,7 @@
                 id="prodBrief"
                 cols="10"
                 rows="5"
-                class="rounded border border-1 border-gray"
+                class="form-check-input rounded border border-1 border-gray"
                 placeholder="請輸入商品短語簡介"
               ></textarea>
             </div>
@@ -135,7 +135,7 @@
                 id="prodIntro"
                 cols="10"
                 rows="12"
-                class="rounded border border-1 border-gray"
+                class="form-check-input rounded border border-1 border-gray"
                 placeholder="請輸入商品介紹與遊玩方法"
               ></textarea>
             </div>
@@ -147,7 +147,7 @@
                 id="prodDesc"
                 cols="10"
                 rows="10"
-                class="rounded border border-1 border-gray"
+                class="form-check-input rounded border border-1 border-gray"
                 placeholder="請輸入產品說明"
               ></textarea>
             </div>

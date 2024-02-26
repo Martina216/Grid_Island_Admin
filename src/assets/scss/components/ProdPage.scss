@@ -37,6 +37,8 @@
         line-height: 120%;
         resize: none;
         overflow-y: auto;
+        height: 100px;
+        width: 400px;
       }
       .wrapper {
         margin-top: 20px;
@@ -65,6 +67,11 @@
           .device {
             display: flex;
             flex-direction: column;
+          }
+          .content{
+            textarea {
+              height: 250px;
+            }
           }
 
           // -------------------------------------------標籤
