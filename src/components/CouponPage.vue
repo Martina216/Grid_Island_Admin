@@ -171,13 +171,17 @@ export default {
       formData.append("marquee_state", this.formData.coupon_marquee ? 1 : 0);
       formData.append(
         "promo_pub_start_date",
-        this.formData.coupon_pub_start_date
+        this.formData.coupon_pub_start_date != "1970-01-01" &&
+          this.formData.coupon_pub_start_date &&
+          this.formData.coupon_pub_start_date != "0000-00-00"
           ? new Date(this.formData.coupon_pub_start_date).toISOString()
           : null
       );
       formData.append(
         "promo_pub_end_date",
-        this.formData.coupon_pub_end_date
+        this.formData.coupon_pub_end_date != "1970-01-01" &&
+          this.formData.coupon_pub_end_date &&
+          this.formData.coupon_pub_end_date != "0000-00-00"
           ? new Date(this.formData.coupon_pub_end_date).toISOString()
           : null
       );

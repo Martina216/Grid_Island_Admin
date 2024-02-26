@@ -137,6 +137,8 @@ export default {
       this.$emit("closeTab");
     },
     updatePromo() {
+      console.log(this.editData.promo_pub_start);
+      console.log(this.editData.promo_pub_end);
       const formData = new FormData();
       formData.append("promo_id", this.editData.promo_id);
       formData.append("promo_code", this.editData.promo_code);
@@ -150,17 +152,21 @@ export default {
         "promo_end_date",
         new Date(this.editData.promo_end_date).toISOString()
       );
-      formData.append("marquee_state", this.editData.promo_marquee ? 1 : 0);
+      formData.append("marquee_state", this.editData.marquee_state);
       formData.append(
         "promo_pub_start_date",
-        this.editData.promo_pub_start_date
-          ? new Date(this.editData.promo_pub_start_date).toISOString()
+        this.editData.promo_pub_start != "1970-01-01" &&
+          this.editData.promo_pub_start &&
+          this.editData.promo_pub_start != "0000-00-00"
+          ? new Date(this.editData.promo_pub_start).toISOString()
           : null
       );
       formData.append(
         "promo_pub_end_date",
-        this.editData.promo_pub_end_date
-          ? new Date(this.editData.promo_pub_end_date).toISOString()
+        this.editData.promo_pub_end != "1970-01-01" &&
+          this.editData.promo_pub_end &&
+          this.editData.promo_pub_end != "0000-00-00"
+          ? new Date(this.editData.promo_pub_end).toISOString()
           : null
       );
 
@@ -171,6 +177,7 @@ export default {
           },
         })
         .then((res) => {
+          console.log(res.data);
           alert(res.data.msg);
         })
         .then((result) => {
@@ -186,6 +193,7 @@ export default {
     },
     isChecked() {
       this.editData.marquee_state = !this.editData.marquee_state ? 1 : 0;
+      console.log(this.editData.marquee_state);
     },
   },
   created() {},
