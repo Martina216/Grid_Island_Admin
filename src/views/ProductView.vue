@@ -119,33 +119,33 @@
       </table>
     </div>
     <div class="pageBtnList" v-if="!nodata">
-          <button
-            class="pageBtn pageBtncursor"
-            @click="nextPrevPage('prev')"
-            v-if="currentPage != 1"
-          >
-          <i class="fa-solid fa-chevron-left"></i>
-          </button>
-          <button
-            class="pageBtn"
-            v-for="page in totalPages"
-            :key="page"
-            @click="currentPage !== page ? changePage(page) : null"
-            :class="{
-              pageBtncursor: currentPage != page,
-              currPageBtn: currentPage == page,
-            }"
-          >
-            {{ page }}
-          </button>
-          <button
-            class="pageBtn pageBtncursor"
-            @click="nextPrevPage('next')"
-            v-if="currentPage != totalPages"
-          >
-          <i class="fa-solid fa-chevron-right"></i>
-          </button>
-        </div>
+      <button
+        class="pageBtn pageBtncursor"
+        @click="nextPrevPage('prev')"
+        v-if="currentPage != 1"
+      >
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button
+        class="pageBtn"
+        v-for="page in totalPages"
+        :key="page"
+        @click="currentPage !== page ? changePage(page) : null"
+        :class="{
+          pageBtncursor: currentPage != page,
+          currPageBtn: currentPage == page,
+        }"
+      >
+        {{ page }}
+      </button>
+      <button
+        class="pageBtn pageBtncursor"
+        @click="nextPrevPage('next')"
+        v-if="currentPage != totalPages"
+      >
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
     <div class="nodata" v-if="nodata">
       <span>查無資料</span>
     </div>
@@ -181,8 +181,8 @@ export default {
       showAdd: false,
       showEdit: false,
       selectedProd: null,
-      currentPage:1,
-      itemsPerPage:10,
+      currentPage: 1,
+      itemsPerPage: 10,
     };
   },
   components: {
@@ -296,15 +296,15 @@ export default {
       if (this.sortDisPriceMethod == "asc") {
         this.productDisData = this.productDisData.sort((a, b) => {
           if (
-            a.prod_discount_price === null &&
-            b.prod_discount_price === null
+            (a.prod_discount_price == null || a.prod_discount_price == 0) &&
+            (b.prod_discount_price == null || b.prod_discount_price == 0)
           ) {
             return 0; // 兩者都是 null，視為相等
           }
-          if (a.prod_discount_price === null) {
+          if (a.prod_discount_price == null || a.prod_discount_price == 0) {
             return 1; // a 為 null，排在 b 之後
           }
-          if (b.prod_discount_price === null) {
+          if (b.prod_discount_price == null || b.prod_discount_price == 0) {
             return -1; // b 為 null，排在 a 之後
           }
           return b.prod_discount_price - a.prod_discount_price;
@@ -316,15 +316,15 @@ export default {
       ) {
         this.productDisData = this.productDisData.sort((a, b) => {
           if (
-            a.prod_discount_price === null &&
-            b.prod_discount_price === null
+            (a.prod_discount_price == null || a.prod_discount_price == 0) &&
+            (b.prod_discount_price == null || b.prod_discount_price == 0)
           ) {
             return 0; // 兩者都是 null，視為相等
           }
-          if (a.prod_discount_price === null) {
+          if (a.prod_discount_price == null || a.prod_discount_price == 0) {
             return 1; // a 為 null，排在 b 之後
           }
-          if (b.prod_discount_price === null) {
+          if (b.prod_discount_price == null || b.prod_discount_price == 0) {
             return -1; // b 為 null，排在 a 之後
           }
           return a.prod_discount_price - b.prod_discount_price;
