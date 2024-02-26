@@ -21,7 +21,7 @@
         <div class="wrapper">
           <div class="text">
             <div class="title">
-              <label for="newsTitle"><span>商品名稱</span></label>
+              <label for="prodName"><span>商品名稱</span></label>
               <input
                 v-model="editedData.prod_name"
                 type="text"
@@ -152,12 +152,12 @@
               ></textarea>
             </div>
             <div class="date">
-              <label for="newsDate"><span>發佈時間</span></label>
+              <label for="prodDate"><span>發佈時間</span></label>
               <input
                 v-model="editedData.prod_date"
                 type="datetime-local"
-                name="news_date"
-                id="newsDate"
+                name="prod_date"
+                id="prodDate"
                 class="form-check-input rounded border border-1 border-gray"
               />
             </div>
@@ -340,7 +340,9 @@ export default {
         reader.onload = (e) => {
           if (i === 0) {
               this.imgSrc = e.target.result;
+              console.log(files[i]);
               this.file1 = files[i];
+              // console.log(this.file1);
             } else if (i === 1) {
               this.imgSrc2 = e.target.result;
               this.file2 = files[i];
@@ -350,11 +352,13 @@ export default {
       }
       this.file1 = files[0];
       this.file2 = files[1]; 
-      console.log(this.file1, this.file2);
+      // console.log(this.file1, this.file2);
       this.show = false;  
+    console.log(this.switchTag(this.editedData.tags.種類));
     },
     async updateProd() {
       try {
+        console.log(this.file1);
         const formData = new FormData();
         formData.append("prod_id", this.editedData.prod_id);
         formData.append("prod_name", this.editedData.prod_name);
@@ -367,21 +371,23 @@ export default {
         formData.append("prod_discount_price", this.editedData.prod_discount_price);
         formData.append("prod_price", this.editedData.prod_price);
         formData.append("prod_desc", this.editedData.prod_desc);
-        // formData.append("prod_img3", this.fileMain);
-        // formData.append("prod_img2", this.file2);
-        // formData.append("prod_img1", this.file1);
-        // formData.append("ppl", switchTag(this.formData.tags.人數));    
-        // formData.append("diff", switchTag(this.formData.tags.難度));    
-        // formData.append("category", switchTag(this.formData.tags.種類));    
+        formData.append("prod_img3", this.fileMain);
+        formData.append("prod_img2", this.file2);
+        formData.append("prod_img1", this.file1);
+        formData.append("ppl", this.switchTag(this.editedData.tags.人數));    
+        formData.append("diff", this.switchTag(this.editedData.tags.難度));    
+        formData.append("category", this.switchTag(this.editedData.tags.種類));    
 
-        console.log(formData.get("prod_img1"));
+        // console.log(formData.get("prod_img1"));
 
         const res = await axios.post(
           this.getPhpUrl("updateProd.php"),
           formData
         );
-        console.log(res.data);
-        alert("成功修改商品內容");
+        console.log(res.data.test);
+        // console.log(res.data);
+        // alert("成功修改商品內容");
+        alert(res.data.test);
       } catch (error) {
         console.error("發生錯誤:", error);
       }
@@ -394,31 +400,22 @@ export default {
       switch (tag) {
         case "策略":
           return 1;
-          break;
         case "紙牌":
           return 2;
-          break;
         case "經營":
           return 3;
-          break;
         case "簡單":
           return 4;
-          break;
         case "中等":
           return 5;
-          break;
         case "困難":
           return 6;
-          break;
         case "2~4人":
           return 7;
-          break;
         case "5~8人":
           return 8;
-          break;
         case ">8人":
           return 9;
-          break;
       }
     },
   },
