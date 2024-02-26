@@ -53,16 +53,17 @@ export default {
       }).then(res => {
           if (res && res.data) {
               if (res.data.code == 1) {
-                  console.log(res.data)
+                  // console.log(res.data)
                   this.updateToken(res.data.session_id)
                   this.updateUserData(res.data.empInfo)
                   this.$router.push('/home')
               } else {
                   alert('登入失敗，請檢查帳號密碼是否正確。')
+                }
               }
-          }
-      }).catch(error => {
-          console.log(error);
+            }).catch(error => {
+              // console.log(error);
+              alert('請聯繫系統管理員或維護單位')
       })
     },
   },

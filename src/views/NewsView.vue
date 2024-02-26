@@ -222,7 +222,7 @@ export default {
         this.boardGameCount = response.data.boardGameCount;
       } catch (error) {
         // console.error("發生錯誤:", error);
-        alert(`請聯繫系統管理員或單位`);
+        alert(`請聯繫系統管理員或維護單位`);
       }
     },
     getPhpUrl(path) {
