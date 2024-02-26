@@ -410,9 +410,9 @@ export default {
           return 5;
         case "困難":
           return 6;
-        case "2~4人":
+        case "2-4人":
           return 7;
-        case "5~8人":
+        case "5-8人":
           return 8;
         case ">8人":
           return 9;
@@ -422,6 +422,8 @@ export default {
   created() {
     // 檢查php路徑正確與否使用
     // console.log(this.getPhpUrl("updateProd.php"));
+    console.log(this.data.test);
+
   },
   watch: {
     data(newValue) {
