@@ -2,13 +2,10 @@
   height: 100vh;
   background-image: url("@/assets/images/login/cryGriddy.png");
   background-repeat:no-repeat;
-  background-size: 60%;
-  // background-size: contain;
-  background-position: bottom 0 right 75px;
-  background-position: bottom 0 right 10px;
+  background-size: 220%;
+  background-position: bottom -430px right -100px;
   background-color: #F7F7F7;
   z-index: -2;
-  position: relative;
   @include PC() {
     position: unset;
     background-image: url("@/assets/images/login/bk_login.png");
@@ -31,22 +28,14 @@
     width: 75%;
     margin: auto;
   }
-  .talk {
-    font-size: 16px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    transform: translate(130px,500px);
-  }
   .warning {
     margin: auto;
-    width: 100%;
+    // width: 100%;
+    position: relative;
     @include PC() {
       display: none;
     }
   }
-
-
   .logo {
     display: flex;
     align-items: center;
