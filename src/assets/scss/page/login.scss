@@ -1,8 +1,52 @@
 .login {
-  padding: 100px 0  0 300px;
   height: 100vh;
-  background-image: url("@/assets/images/login/bk_login.png");
-  background-repeat: no-repeat;
+  background-image: url("@/assets/images/login/cryGriddy.png");
+  background-repeat:no-repeat;
+  background-size: 60%;
+  // background-size: contain;
+  background-position: bottom 0 right 75px;
+  background-position: bottom 0 right 10px;
+  background-color: #F7F7F7;
+  z-index: -2;
+  position: relative;
+  @include PC() {
+    position: unset;
+    background-image: url("@/assets/images/login/bk_login.png");
+    padding: 100px 0  0 300px;
+    background-size: unset;
+    background-repeat: no-repeat;
+    background-position: unset;
+    background-color: unset;
+  }
+  span {
+    font-size: 20px;
+    letter-spacing: .5px;
+    line-height: 120%;
+    font-family: 'Noto Sans TC', sans-serif;
+    color: $black-1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(18%,120%);
+    width: 75%;
+    margin: auto;
+  }
+  .talk {
+    font-size: 16px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translate(130px,500px);
+  }
+  .warning {
+    margin: auto;
+    width: 100%;
+    @include PC() {
+      display: none;
+    }
+  }
+
+
   .logo {
     display: flex;
     align-items: center;
@@ -31,6 +75,10 @@
     width: 500px;
     border-radius: 20px;
     padding: 20px 0 40px;
+    display: none;
+    @include PC() {
+      display: block;
+    }
   }
   form {
     margin: auto;

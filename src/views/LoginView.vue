@@ -2,6 +2,10 @@
 
 <template>
   <main class="login">
+    <div class="warning">
+      <span>想一覽Griddy的機密嗎？使用 1024 * 768 以上之螢幕解析度的瀏覽器！</span>
+      <span class="talk">Griddy等你</span>
+    </div>
     <div class="wrrap">
       <div class="logo">
         <img src="@/assets/images/login/Grid Island.svg">
