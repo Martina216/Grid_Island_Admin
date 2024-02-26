@@ -49,7 +49,7 @@
                 id="newsContent"
                 cols="10"
                 rows="20"
-                class="rounded border border-1 border-gray"
+                class="form-check-input rounded border border-1 border-gray"
                 placeholder="請輸入最新消息內容"
               ></textarea>
             </div>
@@ -57,10 +57,11 @@
           <div class="imgContent">
             <div class="img">
               <label for="newsImg">
+                <!-- :src="`https://tibamef2e.com/chd104/g5/image/news/${editedData.news_image}`" -->
                 <img
                   v-if="show"
                   class="originalImg"
-                  :src="`https://tibamef2e.com/chd104/g5/image/news/${editedData.news_image}`"
+                  :src="`http://localhost/image/news/${editedData.news_image}`"
                   alt="original-image"
                 />
                 <img
@@ -83,12 +84,11 @@
               <select
                 v-model="editedData.news_category"
                 id="newsCategory"
-                class="rounded border border-1 border-gray"
+                class="form-select rounded border border-1 border-gray"
               >
-                <option value="0"><span>-- 請選擇消息分類 --</span></option>
+                <option value="分類"><span>-- 請選擇消息分類 --</span></option>
                 <option value="桌遊">桌遊</option>
                 <option value="活動">活動</option>
-                <option value="限時">限時</option>
                 <option value="優惠">優惠</option>
               </select>
             </div>
@@ -131,7 +131,7 @@ export default {
   methods: {
     getPhpUrl(path) {
       const url = `${import.meta.env.VITE_API_URL}/${path}`;
-      console.log("Generated URL:", url);
+      // console.log("Generated URL:", url);
       return url;
     },
     cancelEdit() {
@@ -147,7 +147,7 @@ export default {
         };
         reader.readAsDataURL(file);
         this.file = file;
-        console.log(this.file); // 將檔案存儲在 this.file 中
+        // console.log(this.file); // 將檔案存儲在 this.file 中
         // ----------------------------------
       } else {
         this.imgSrc = "src/assets/images/default_img/logo_white.svg";
@@ -156,6 +156,24 @@ export default {
     },
     async updateNews() {
       try {
+
+        if (this.editedData.news_title == 0 || this.editedData.news_content == 0) {
+        alert("請確認消息內容是否填寫完整");
+        return;
+      } 
+      if (this.editedData.news_category === "分類") {
+        alert("請選擇消息分類");
+        return;
+      } 
+      if (this.editedData.news_date == 0) {
+        alert("請選擇發佈時間");
+        return;
+      } 
+      if (this.editedData.news_category === "分類") {
+        alert("請選擇消息分類");
+        return;
+      }
+       
         const formData = new FormData();
 
         formData.append("news_id", this.editedData.news_id);
@@ -175,12 +193,12 @@ export default {
           formData
         );
 
-        console.log(res.data);
+        // console.log(res.data);
         alert("成功修改最新消息");
       } catch (error) {
-        console.error("發生錯誤:", error);
+        // console.error("發生錯誤:", error);
+        alert("請聯繫系統管理員或維護單位");
       }
-
       this.reloadPage();
     },
     reloadPage() {

@@ -68,8 +68,9 @@
           >
             <th class="pb-3 pt-3 text-center number">{{ item.news_id }}</th>
             <td>
+              <!-- :src="`https://tibamef2e.com/chd104/g5/image/news/${item.news_image}`" -->
               <img
-                :src="`https://tibamef2e.com/chd104/g5/image/news/${item.news_image}`"
+                :src="`http://localhost/image/news/${item.news_image}`"
                 class="rounded img"
               />
             </td>
@@ -200,31 +201,33 @@ export default {
         this.selectedNews = selectedNews;
         this.showEdit = true;
       } else {
-        console.error(`找不到 id 為 ${newsId} 的新聞`);
+        // console.error(`找不到 id 為 ${newsId} 的新聞`);
+        alert(`找不到 id 為 ${newsId} 的新聞`);
       }
     },
     async fetchNews() {
       try {
         let url = `${import.meta.env.VITE_API_URL}/getNews.php`;
-        console.log(url);
+        // console.log(url);
         const response = await axios.get(url, {});
 
         // 確保 response.data.news 是一個陣列
         this.newsData = Array.isArray(response.data.news)
-          ? response.data.news
-          : [];
+        ? response.data.news
+        : [];
         this.disData = response.data.news;
         this.allCount = response.data.allNewsCount;
         this.promotionCount = response.data.promotionCount;
         this.activityCount = response.data.activityCount;
         this.boardGameCount = response.data.boardGameCount;
       } catch (error) {
-        console.error("發生錯誤:", error);
+        // console.error("發生錯誤:", error);
+        alert(`請聯繫系統管理員或單位`);
       }
     },
     getPhpUrl(path) {
       const url = `${import.meta.env.VITE_API_URL}/${path}`;
-      console.log("Generated URL:", url);
+      // console.log("Generated URL:", url);
       return url;
     },
     updateNewsState(item) {
@@ -242,11 +245,11 @@ export default {
         )
         .then((res) => {
           // 更新成功
-          console.log(res.data);
+          // console.log(res.data);
           item.news_state = isChecked;
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
           // 恢復狀態，避免更新失敗
           item.isChecked = !item.isChecked;
         });

@@ -49,7 +49,7 @@
                 id="newsContent"
                 cols="10"
                 rows="20"
-                class="rounded border border-1 border-gray"
+                class="form-check-input rounded border border-1 border-gray"
                 placeholder="請輸入最新消息內容"
               ></textarea>
             </div>
@@ -75,7 +75,7 @@
                 type="file"
                 name="news_image"
                 id="newsImg"
-                accept="image/png, image/jpeg"
+                accept="image/png, image/jpeg, image/webp"
                 @change="selectImage"
               />
             </div>
@@ -83,12 +83,11 @@
               <select
                 v-model="formData.news_category"
                 id="newsCategory"
-                class="rounded border border-1 border-gray"
+                class="form-select rounded border border-1 border-gray"
               >
-                <option value="0"><span>-- 請選擇消息分類 --</span></option>
+                <option value="分類"><span>-- 請選擇消息分類 --</span></option>
                 <option value="桌遊">桌遊</option>
                 <option value="活動">活動</option>
-                <option value="限時">限時</option>
                 <option value="優惠">優惠</option>
               </select>
             </div>
@@ -123,7 +122,7 @@ export default {
         news_title: "",
         news_date: "",
         news_content: "",
-        news_category: "",
+        news_category: "分類",
         news_state: "",
       },
       file: null,
@@ -132,8 +131,8 @@ export default {
   methods: {
     getPhpUrl(path) {
       const url = `${import.meta.env.VITE_API_URL}/${path}`;
-      console.log("Generated URL:", url);
-      return url; //本機端
+      // console.log("Generated URL:", url);
+      return url;
     },
     cancelAdd() {
       this.clearForm();
@@ -164,6 +163,22 @@ export default {
       this.show = false;
     },
     submitForm() {
+      if (this.formData.news_title == 0 || this.formData.news_content == 0) {
+        alert("請確認消息內容是否填寫完整");
+        return;
+      } 
+      if (this.formData.news_category === "分類") {
+        alert("請選擇消息分類");
+        return;
+      } 
+      if (!this.file) {
+        alert("請新增消息圖片");
+        return;
+      } 
+      if (this.formData.news_date == 0) {
+        alert("請選擇發佈時間");
+        return;
+      } 
       const formData = new FormData();
       formData.append("news_title", this.formData.news_title);
       formData.append(
@@ -182,7 +197,7 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           alert(res.data.msg);
         })
         .then((result) => {
@@ -190,7 +205,7 @@ export default {
           this.reloadPage();
         })
         .catch((error) => {
-          console.error("Error:", error);
+          // console.error("Error:", error);
         });
     },
     reloadPage() {
@@ -199,8 +214,8 @@ export default {
   },
   created() {
     //檢查php路徑正確與否使用
-    this.action = this.getPhpUrl("insertNews.php");
-    console.log(this.action);
+    // this.action = this.getPhpUrl("insertNews.php");
+    // console.log(this.action);
   },
 };
 </script>
