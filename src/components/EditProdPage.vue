@@ -165,10 +165,11 @@
           <div class="imgContent">
             <div class="img">
               <label for="prodImg1">
+                <!-- :src="`http://localhost/image/prod/${editedData.prod_img1}`" -->
                 <img
                   v-if="showMain"
                   class="selectImg"
-                  :src="`http://localhost/image/prod/${editedData.prod_img1}`"
+                  :src="`https://tibamef2e.com/chd104/g5/image/prod/${editedData.prod_img1}`"
                   alt="upload-image"
                   />
                   <img
@@ -197,10 +198,11 @@
                   @change="selectImages" multiple
                   />
                 <div class="image2">
+                  <!-- :src="`http://localhost/image/prod/${editedData.prod_img2}`" -->
                   <img
                     v-if="show"
                     class="originalImg"
-                    :src="`http://localhost/image/prod/${editedData.prod_img2}`"
+                    :src="`https://tibamef2e.com/chd104/g5/image/prod/${editedData.prod_img2}`"
                     alt="original-image"
                   />
                   <img
@@ -212,10 +214,11 @@
                  
                 </div>
               <div class="image3">
+                <!-- :src="`http://localhost/image/prod/${editedData.prod_img3}`" -->
                   <img
                     v-if="show"
                     class="originalImg"
-                    :src="`http://localhost/image/prod/${editedData.prod_img3}`"
+                    :src="`https://tibamef2e.com/chd104/g5/image/prod/${editedData.prod_img3}`"
                     alt="original-image"
                   />
                   <img

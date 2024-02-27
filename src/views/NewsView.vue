@@ -68,9 +68,9 @@
           >
             <th class="pb-3 pt-3 text-center number">{{ item.news_id }}</th>
             <td>
-              <!-- :src="`https://tibamef2e.com/chd104/g5/image/news/${item.news_image}`" -->
+              <!-- :src="`http://localhost/image/news/${item.news_image}`" -->
               <img
-                :src="`http://localhost/image/news/${item.news_image}`"
+                :src="`https://tibamef2e.com/chd104/g5/image/news/${item.news_image}`"
                 class="rounded img"
               />
             </td>
