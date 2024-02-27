@@ -57,11 +57,12 @@
           <div class="imgContent">
             <div class="img">
               <label for="newsImg">
-                <!-- :src="`https://tibamef2e.com/chd104/g5/image/news/${editedData.news_image}`" -->
+                
+                <!-- :src="`http://localhost/image/news/${editedData.news_image}`" -->
                 <img
                   v-if="show"
                   class="originalImg"
-                  :src="`http://localhost/image/news/${editedData.news_image}`"
+                  :src="`https://tibamef2e.com/chd104/g5/image/news/${editedData.news_image}`"
                   alt="original-image"
                 />
                 <img

@@ -35,8 +35,8 @@ import apiInstance from '@/plugins/auth'
 export default {
   data() {
     return {
-      account: 'griddy123',
-      au4a83: 'griddy123'
+      account: '',
+      au4a83: ''
     };
   },
   methods: {
