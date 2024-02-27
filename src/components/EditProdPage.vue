@@ -394,7 +394,7 @@ export default {
       } catch (error) {
         console.error("發生錯誤:", error);
       }
-      // this.reloadPage();
+      this.reloadPage();
     },
     reloadPage() {
       location.reload();
@@ -425,7 +425,7 @@ export default {
   created() {
     // 檢查php路徑正確與否使用
     // console.log(this.getPhpUrl("updateProd.php"));
-    console.log(this.data.test);
+    // console.log(this.data.msg);
 
   },
   watch: {
