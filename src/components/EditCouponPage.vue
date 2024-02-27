@@ -82,7 +82,7 @@
               />
               <label for="marquee"><span>是否顯示於跑馬燈</span></label>
             </div>
-            <div class="startPubDate" v-if="editData.marquee_state">
+            <div class="startPubDate" v-if="editData.marquee_state == 1">
               <label for="startPubDate"><span>優惠碼開放開始日期</span></label>
               <input
                 v-model="editData.promo_pub_start"
