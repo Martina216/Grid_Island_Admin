@@ -16,7 +16,6 @@
           v-model="searchFilter"
           class="rounded border border-1 border-dark"
         >
-          <!-- <option value="reportId">檢舉編號</option> -->
           <option value="msgId">文章編號</option>
           <option value="reReason">檢舉原因</option>
         </select>
@@ -34,9 +33,6 @@
       <table class="table table-hover">
         <thead>
           <tr class="border-bottom text-center">
-            <!-- <th scope="col" @click="sortId" class="pointer">
-              檢舉編號<i class="fa-solid fa-sort ms-1"></i>
-            </th> -->
             <th scope="col" @click="sortIdMsg" class="pointer">
               文章編號<i class="fa-solid fa-sort ms-1"></i>
             </th>
@@ -48,9 +44,7 @@
         </thead>
         <tbody>
           <tr v-for="item in reData" class="border-bottom text-center">
-            <!-- <th class="pb-3 pt-3">{{ item.report_id }}</th> -->
             <th class="pb-3 pt-3">{{ item.msg_id }}</th>
-            <!-- <td>{{ item.msg_id }}</td> -->
             <td>{{ item.report_reason }}</td>
             <td class="report_article">{{ item.msg_content }}</td>
             <td>
@@ -93,42 +87,12 @@ import axios from "axios";
 export default {
   data() {
     return {
-      reData: [
-        // {
-        //   reId: 1,
-        //   reReason: '廣告',
-        //   msg: "趕快來買生髮水吧！",
-        //   isOn: false,
-        //   reCheck: false,
-        // },
-        // {
-        //   reId: 2,
-        //   reReason: '帶有攻擊性言論',
-        //   msg: "乾書長的好像狐狸",
-        //   isOn: true,
-        //   reCheck: true,
-        // },
-        // {
-        //   reId: 3,
-        //   reReason: '我就是不喜歡',
-        //   msg: "大傑好帥><",
-        //   isOn: false,
-        //   reCheck: false,
-        // },
-        // {
-        //   reId: 4,
-        //   reReason: '不實資訊',
-        //   msg: "第二大道有人在發小天使的氣息",
-        //   // isOn: false,
-        //   // reCheck: false,
-        // },
-      ],
+      reData: [],
       chdata: [],
       resData: [],
       index: 0,
       reportData: {},
       checkData: [],
-      // sortIdMethod: "asc",
       sortIdMsgMethod: "asc",
       searchFilter: "msgId",
       searchBar: "",
@@ -143,7 +107,6 @@ export default {
       axios
         .post(`${import.meta.env.VITE_API_URL}/report.php`, {})
         .then((res) => {
-          // console.log(res.data);
           this.reData = res.data.Report;
           this.resData = res.data.Report;
         })
@@ -228,20 +191,6 @@ export default {
         })
         .catch((error) => console.log(error));
     },
-    //檢舉排序
-    // sortId() {
-    //   if (this.sortIdMethod == "asc") {
-    //     this.reData = this.reData.sort((a, b) => {
-    //       return b.report_id - a.report_id;
-    //     });
-    //     this.sortIdMethod = "desc";
-    //   } else if (this.sortIdMethod == "desc") {
-    //     this.reData = this.reData.sort((a, b) => {
-    //       return a.report_id - b.report_id;
-    //     });
-    //     this.sortIdMethod = "asc";
-    //   }
-    // },
     //文章排序
     sortIdMsg() {
       if (this.sortIdMsgMethod == "asc") {
@@ -260,7 +209,6 @@ export default {
     handleSearch() {
       if (this.searchFilter === "msgId") {
         if (this.searchBar) {
-          console.log(this.chdata);
           this.reData = this.resData.filter((item) => {
             return item.msg_id == this.searchBar;
           });
