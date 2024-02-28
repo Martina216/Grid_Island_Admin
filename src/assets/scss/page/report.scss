@@ -22,7 +22,7 @@
   .titleGroup {
     display: flex;
     flex-direction: column;
-    gap: $S-spacing;
+    gap: $M-spacing;
     margin-bottom: $L-spacing;
     h1 {
       font-size: $PC-h3;
@@ -55,9 +55,20 @@
           line-height: 20px;
         }
         td {
+          vertical-align: middle;
           input {
             cursor: pointer;
             margin: auto;
+          }
+          .form-switch{
+            display: flex;
+            justify-content: center;
+            padding: 0;
+          }
+        }
+        .reportState{
+          span{
+            font-size: 12px;
           }
         }
       }

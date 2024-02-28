@@ -82,7 +82,7 @@
               />
               <label for="marquee"><span>是否顯示於跑馬燈</span></label>
             </div>
-            <div class="startPubDate" v-if="editData.marquee_state">
+            <div class="startPubDate" v-if="editData.marquee_state == 1">
               <label for="startPubDate"><span>優惠碼開放開始日期</span></label>
               <input
                 v-model="editData.promo_pub_start"
@@ -92,7 +92,7 @@
                 class="form-check-input rounded border border-1 border-gray"
               />
             </div>
-            <div class="endPubDate" v-if="editData.marquee_state">
+            <div class="endPubDate" v-if="editData.marquee_state == 1">
               <label for="endPubDate"><span>優惠碼開放結束日期</span></label>
               <input
                 v-model="editData.promo_pub_end"
@@ -192,8 +192,7 @@ export default {
       location.reload();
     },
     isChecked() {
-      this.editData.marquee_state = !this.editData.marquee_state ? 1 : 0;
-      console.log(this.editData.marquee_state);
+      this.editData.marquee_state = this.editData.marquee_state == 0 ? 1 : 0;
     },
   },
   created() {},
