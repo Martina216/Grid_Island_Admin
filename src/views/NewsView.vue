@@ -63,7 +63,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="item in disData"
+            v-for="item in currentProducts"
             class="border-bottom text-left align-middle"
           >
             <th class="pb-3 pt-3 text-center number">{{ item.news_id }}</th>
@@ -166,6 +166,8 @@ export default {
       searchFilter: "newsId",
       searchBar: "",
       sortIdMethod: "asc",
+      itemsPerPage:10,
+      currentPage:1,
     };
   },
   components: {
@@ -176,6 +178,14 @@ export default {
   computed: {
     nodata() {
       return this.disData.length == 0;
+    },
+    totalPages() {
+      return Math.ceil(this.disData.length / this.itemsPerPage);
+    },
+    currentProducts() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.disData.slice(start, end);
     },
   },
   methods: {

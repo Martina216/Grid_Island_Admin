@@ -389,8 +389,8 @@ export default {
         );
         console.log(res.data.test);
         // console.log(res.data);
-        // alert("成功修改商品內容");
-        alert(res.data.test);
+        alert("成功修改商品內容");
+        // alert(res.data.test);
       } catch (error) {
         console.error("發生錯誤:", error);
       }
