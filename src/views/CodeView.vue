@@ -132,13 +132,13 @@ export default {
     },
   },
   methods: {
-    fetchCode() {
+    fetchCode() {//抓資料
       axios.post(`${import.meta.env.VITE_API_URL}/getCode.php`).then((res) => {
         this.promoData = res.data.promos;
         this.promoDisData = res.data.promos;
       });
     },
-    updatePromoState(item) {
+    updatePromoState(item) {//啟用或不啟用優惠碼
       const isChecked = item.promo_state == 1 ? 0 : 1;
       axios
         .post(
@@ -153,7 +153,7 @@ export default {
           item.promo_state = isChecked;
         });
     },
-    handleSearch() {
+    handleSearch() {//搜尋優惠碼
       if (this.searchFilter == "promoId") {
         if (this.searchBar) {
           this.promoDisData = this.promoData.filter((item) => {
@@ -168,7 +168,7 @@ export default {
         });
       }
     },
-    sortId() {
+    sortId() {//搜尋ID
       if (this.sortIdMethod == "asc") {
         this.promoDisData = this.promoDisData.sort((a, b) => {
           return b.promo_id - a.promo_id;
@@ -185,7 +185,7 @@ export default {
         this.sortEndTimeMethod = "";
       }
     },
-    sortStartTime() {
+    sortStartTime() {//排序開始時間
       if (this.sortStartTimeMethod == "asc") {
         this.promoDisData = this.promoDisData.sort((a, b) => {
           const aDate = new Date(a.promo_start_date);
@@ -209,7 +209,7 @@ export default {
         this.sortIdMethod = "";
       }
     },
-    sortEndTime() {
+    sortEndTime() {//排序結束時間
       if (this.sortEndTimeMethod == "asc") {
         this.promoDisData = this.promoDisData.sort((a, b) => {
           const aDate = new Date(a.promo_end_date);
@@ -233,14 +233,14 @@ export default {
         this.sortStartTimeMethod = "";
       }
     },
-    add() {
+    add() {//新增優惠碼的視窗
       this.showAdd = true;
     },
-    handleClose() {
+    handleClose() {//關閉優惠碼的視窗
       this.showAdd = false;
       this.showEdit = false;
     },
-    openEditor(item) {
+    openEditor(item) {//編輯優惠碼視窗
       if (item) {
         this.selectedPromo = item;
         console.log(this.selectedPromo);
