@@ -192,8 +192,7 @@ export default {
       location.reload();
     },
     isChecked() {
-      this.editData.marquee_state = !this.editData.marquee_state ? 1 : 0;
-      console.log(this.editData.marquee_state);
+      this.editData.marquee_state = this.editData.marquee_state == 0 ? 1 : 0;
     },
   },
   created() {},

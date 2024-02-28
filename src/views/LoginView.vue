@@ -9,7 +9,6 @@
       <div class="logo">
         <img src="@/assets/images/login/Grid Island.svg">
       </div>
-      <span class="pc-h3">後台登入</span>
       <!-- <form method="post"> -->
       <div class="form-floating mb-3 user">
         <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"  v-model="account" @keyup.enter="login">
@@ -19,8 +18,6 @@
         <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="au4a83" @keyup.enter="login">
         <label for="floatingPassword">使用者密碼</label>
       </div>
-      <!-- <input type="text" class="form-control user"  placeholder="請輸入使用者帳號"> -->
-      <!-- <input type="password" class="form-control"  placeholder="請輸入使用者密碼" > -->
       <button class="btn btn-light rounded-pill padding loginBtn" @click="login" @keyup.enter="login">登入</button>
       <!-- </form> -->
     </div>

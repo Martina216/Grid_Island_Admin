@@ -21,7 +21,6 @@
             <th scope="col">員工姓名</th>
             <th scope="col">電子信箱</th>
             <th scope="col">權限等級</th>
-            <th scope="col">是否停權</th>
           </tr>
         </thead>
         <tbody>
@@ -47,24 +46,6 @@
                 <option value="A">所有權限</option>
                 <option value="B">部分權限</option>
               </select>
-            </td>
-            <td>
-              <div class="form-check form-switch">
-                <input
-                  class="form-check-input"
-                  role="switch"
-                  type="checkbox"
-                  :name="item.emp_id"
-                  :id="item.emp_id"
-                  :checked="item.emp_state == 1"
-                  @change="updateEmpState(item)"
-                />
-                <label class="form-check-label" :for="item.emp_id"></label>
-              </div>
-              <div class="empState">
-                <span v-if="item.emp_state == 1">未停權</span>
-                <span v-else>停權</span>
-              </div>
             </td>
           </tr>
         </tbody>
