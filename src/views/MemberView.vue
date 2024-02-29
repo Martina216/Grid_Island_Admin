@@ -120,7 +120,7 @@ export default {
           item.ord_state = switch_change;
           // this.fetchOrder();
           location.reload();
-          alert("此會員已成功停權");
+          alert("已成功修改此會員權限狀態");
         })
         .catch((error) => {
           console.log(error);
