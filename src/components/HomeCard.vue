@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="cardLink">
+  <router-link :to="cardLink" v-show="cardShow">
     <div class="homeCard">
       <i :class="cardIcon"></i>
       <h3>{{ cardCount }}</h3>
@@ -12,7 +12,7 @@ export default {
   data() {
     return {};
   },
-  props: ["cardIcon", "cardCount", "cardName", "cardLink"],
+  props: ["cardIcon", "cardCount", "cardName", "cardLink", "cardShow"],
   methods: {},
   mounted() {},
 };

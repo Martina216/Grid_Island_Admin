@@ -13,12 +13,12 @@
           />
         </RouterLink>
         <ul class="gap nav nav-pills flex-column" id="menu">
-          <li class="nav-item">
+          <li class="nav-item" v-show="userPermissonA || userPermissonS">
             <RouterLink to="/member" class="nav-link align-middle px-0">
               <span class="ms-1 text-dark fs-5">會員管理</span>
             </RouterLink>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-show="userPermissonA || userPermissonS">
             <RouterLink to="/product" class="nav-link align-middle px-0">
               <span class="ms-1 text-dark fs-5">商品管理</span>
             </RouterLink>
@@ -44,7 +44,7 @@
                     <span class="text-dark fs-6">預約訂單</span>
                   </RouterLink>
                 </li>
-                <li>
+                <li v-show="userPermissonA || userPermissonS">
                   <RouterLink to="/table" class="nav-link px-0">
                     <span class="text-dark fs-6">桌次管理</span>
                   </RouterLink>
@@ -62,7 +62,7 @@
               <span class="ms-1 text-dark fs-5">最新消息管理</span>
             </RouterLink>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-show="userPermissonA || userPermissonS">
             <RouterLink to="/code" class="nav-link align-middle px-0">
               <span class="ms-1 text-dark fs-5">優惠碼管理</span>
             </RouterLink>
@@ -84,7 +84,7 @@
                     <span class="text-dark fs-6">留言檢舉管理</span>
                   </RouterLink>
                 </li>
-                <li>
+                <li >
                   <RouterLink to="/team" class="nav-link px-0">
                     <span class="text-dark fs-6">報隊管理</span>
                   </RouterLink>
@@ -92,7 +92,7 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item mt-5" v-show="userPermisson">
+          <li class="nav-item mt-5" v-show="userPermissonS">
             <RouterLink to="/permission" class="nav-link align-middle px-0">
               <span class="ms-1 text-dark fs-5">權限管理</span>
             </RouterLink>
@@ -107,7 +107,8 @@ import { RouterLink } from "vue-router";
 export default {
   data(){
     return{
-      userPermisson: null
+      userPermissonS: null,
+      userPermissonA: null,
     }
   },
   components: {
@@ -116,7 +117,11 @@ export default {
   mounted(){
     if(localStorage.getItem("empDataStr")){
       const userData = JSON.parse(localStorage.getItem("empDataStr"))
-      this.userPermisson = userData.emp_permission == 'S'
+      this.userPermissonS = userData.emp_permission == 'S'
+    }
+    if(localStorage.getItem("empDataStr")){
+      const userData = JSON.parse(localStorage.getItem("empDataStr"))
+      this.userPermissonA = userData.emp_permission == 'A'
     }
   }
 };

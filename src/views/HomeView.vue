@@ -7,6 +7,7 @@
         :cardCount="item.pageCount"
         :cardIcon="item.pageIcon"
         :cardLink="item.pageLink"
+        :cardShow="item.isShowed"
       />
     </div>
   </main>
@@ -23,36 +24,42 @@ export default {
           pageCount: 110,
           pageName: "未出貨訂單",
           pageLink: "/order",
+          isShowed: true
         },
         {
           pageIcon: "fa-solid fa-cart-shopping",
           pageCount: 110,
           pageName: "商品數量",
           pageLink: "/product",
+          isShowed: true,
         },
         {
           pageIcon: "fa-regular fa-rectangle-list",
           pageCount: 54,
           pageName: "預約訂單",
           pageLink: "/book",
+          isShowed: true,
         },
         {
           pageIcon: "fa-regular fa-newspaper",
           pageCount: 14,
           pageName: "最新消息",
           pageLink: "/news",
+          isShowed: true,
         },
         {
           pageIcon: "fa-regular fa-comment-dots",
           pageCount: 7,
           pageName: "留言板檢舉",
           pageLink: "/report",
+          isShowed: true,
         },
         {
           pageIcon: "fa-solid fa-users",
           pageCount: 265,
           pageName: "會員",
           pageLink: "/member",
+          isShowed: true,
         },
       ],
     };
@@ -63,7 +70,15 @@ export default {
   created() {
     this.fetchData();
   },
-  mounted() {},
+  mounted() {
+    if(localStorage.getItem("empDataStr")){
+      const userData = JSON.parse(localStorage.getItem("empDataStr"))
+      if(userData.emp_permission == 'B'){
+        this.homeData[1].isShowed = false
+        this.homeData[5].isShowed = false
+      }
+    }
+  },
   methods: {
     fetchData() {
       axios
