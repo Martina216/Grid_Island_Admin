@@ -45,32 +45,30 @@
             </div>
             <div class="productTag">
               <span>商品標籤</span>
+              <span class="role">*請選擇人數、種類、難度</span>
               <div class="ppl">
-                <span>人數</span>
                 <input type="radio" name="gamePpl" id="underFour" v-model="formData.tags.ppl" value="7" />
-                <label for="underFour">2-4人</label>
+                <label for="underFour"><p>2-4人</p></label>
                 <input type="radio" name="gamePpl" id="underEig" v-model="formData.tags.ppl" value="8" />
-                <label for="underEig">5-8人</label>
+                <label for="underEig"><p>5-8人</p></label>
                 <input type="radio" name="gamePpl" id="overEig" v-model="formData.tags.ppl" value="9" />
-                <label for="overEig">8人以上</label>
+                <label for="overEig"><p>8人以上</p></label>
               </div>
               <div class="category">
-                <span>種類</span>
                 <input type="radio" name="category" id="easy" v-model="formData.tags.category" value="1"/>
-                <label for="easy">策略</label>
+                <label for="easy"><p>策略</p></label>
                 <input type="radio" name="category" id="mid" v-model="formData.tags.category" value="2"/>
-                <label for="mid">紙牌</label>
+                <label for="mid"><p>紙牌</p></label>
                 <input type="radio" name="category" id="hard" v-model="formData.tags.category" value="3"/>
-                <label for="hard">經營</label>
+                <label for="hard"><p>經營</p></label>
               </div>
               <div class="diff">
-                <span>難度</span>
                 <input type="radio" name="diff" id="strategy" v-model="formData.tags.diff" value="4"/>
-                <label for="strategy">簡單</label>
+                <label for="strategy"><p>簡單</p></label>
                 <input type="radio" name="diff" id="paperGame" v-model="formData.tags.diff" value="5"/>
-                <label for="paperGame">中等</label>
+                <label for="paperGame"><p>中等</p></label>
                 <input type="radio" name="diff" id="business" v-model="formData.tags.diff" value="6"/>
-                <label for="business">困難</label>
+                <label for="business"><p>困難</p></label>
               </div>
             </div>
             <div class="content">

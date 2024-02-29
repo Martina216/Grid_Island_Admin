@@ -45,8 +45,8 @@
             </div>
             <div class="productTag">
               <span>商品標籤</span>
+              <span class="role">*請選擇人數、種類、難度</span>
               <div class="ppl">
-                <span>人數</span>
                 <input
                   type="radio"
                   name="gamePpl"
@@ -54,7 +54,7 @@
                   value="2-4人"
                   v-model="editedData.tags.人數"
                 />
-                <label for="underFour">2-4人</label>
+                <label for="underFour"><p>2-4人</p></label>
                 <input
                   type="radio"
                   name="gamePpl"
@@ -62,7 +62,7 @@
                   value="5-8人"
                   v-model="editedData.tags.人數"
                 />
-                <label for="underEig">5-8人</label>
+                <label for="underEig"><p>5-8人</p></label>
                 <input
                   type="radio"
                   name="gamePpl"
@@ -70,10 +70,9 @@
                   value=">8人"
                   v-model="editedData.tags.人數"
                 />
-                <label for="overEig">8人以上</label>
+                <label for="overEig"><p>8人以上</p></label>
               </div>
               <div class="category">
-                <span>種類</span>
                 <input
                   type="radio"
                   name="category"
@@ -81,7 +80,7 @@
                   value="策略"
                   v-model="editedData.tags.種類"
                 />
-                <label for="strategy">策略</label>
+                <label for="strategy"><p>策略</p></label>
                 <input
                   type="radio"
                   name="category"
@@ -89,7 +88,7 @@
                   value="紙牌"
                   v-model="editedData.tags.種類"
                 />
-                <label for="paperGame">紙牌</label>
+                <label for="paperGame"><p>紙牌</p></label>
                 <input
                   type="radio"
                   name="category"
@@ -97,10 +96,9 @@
                   value="經營"
                   v-model="editedData.tags.種類"
                 />
-                <label for="business">經營</label>
+                <label for="business"><p>經營</p></label>
               </div>
               <div class="diff">
-                <span>難度</span>
                 <input
                   type="radio"
                   name="diff"
@@ -108,7 +106,7 @@
                   id="easy"
                   v-model="editedData.tags.難度"
                 />
-                <label for="easy">簡單</label>
+                <label for="easy"><p>簡單</p></label>
                 <input
                   type="radio"
                   name="diff"
@@ -116,7 +114,7 @@
                   value="中等"
                   v-model="editedData.tags.難度"
                 />
-                <label for="mid">中等</label>
+                <label for="mid"><p>中等</p></label>
                 <input
                   type="radio"
                   name="diff"
@@ -124,7 +122,7 @@
                   value="困難"
                   v-model="editedData.tags.難度"
                 />
-                <label for="hard">困難</label>
+                <label for="hard"><p>困難</p></label>
               </div>
             </div>
             <div class="content">
@@ -189,6 +187,7 @@
               />
             </div>
             <div class="small_image" title="點擊更改 2 張商品細節圖">
+              <span v-show="!imgSrc2" class="upload">{{ imgTexts }} </span>
               <label for="prodImg2">
                 <input
                   type="file"
@@ -236,7 +235,6 @@
                 />
               </div>
             </label>
-
             </div>
             <div class="priceArea">
               <div class="price">
@@ -291,7 +289,8 @@ export default {
       imgSrcMain:'',
       imgSrc2: '',
       imgSrc:'',
-      imgText: "點擊更改圖片",
+      imgText: "點擊更改商品圖片",
+      imgTexts: "點擊更改商品細節圖",
       showMain:true,
       show: true,
       editedData: { ...this.data },

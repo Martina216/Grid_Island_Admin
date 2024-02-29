@@ -76,13 +76,45 @@
 
           // -------------------------------------------標籤
           .productTag {
-            .ppl,
-            .category,
-            .diff {
+            .role {
+              font-size: 15px;
+              font-weight: unset;
+              padding-left: 10px;
+            }
+            p {
+              letter-spacing: .5px;
+            }
+            input[type=radio] {
+              display: none;
+            }
+            input[type=radio] + label {
+              display: inline-block;
+              padding: 8px 16px;
+              margin: 5px 8px;
+              font-size: 16px;
+              cursor: pointer;
+              border: 1.5px solid $gray-3;
+              border-radius: 4px;
+              background-color: $gray-3;
+              transition: all .1s ease-in;
+              &:hover {
+                border: 1.5px solid $gray-4;
+              }
+            }
+            input[type="radio"]:checked + label {
+              border: 1.5px solid $blue-5;
+              background-color: $blue-5;
+              color: white;
+              font-weight: 700;
+            }
+            .ppl, .category, .diff{
               span {
                 font-size: 16px;
                 font-weight: unset;
               }
+            }
+            .ppl {
+              margin-top: 10px;
             }
           }
         }

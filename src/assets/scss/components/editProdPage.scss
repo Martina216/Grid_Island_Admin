@@ -70,12 +70,45 @@
   
           // -------------------------------------------標籤
           .productTag {
-
+            .role {
+              font-size: 15px;
+              font-weight: unset;
+              padding-left: 10px;
+            }
+            p {
+              letter-spacing: .5px;
+            }
+            input[type=radio] {
+              display: none;
+            }
+            input[type=radio] + label {
+              display: inline-block;
+              padding: 8px 16px;
+              margin: 5px 8px;
+              font-size: 16px;
+              cursor: pointer;
+              border: 1.5px solid $gray-3;
+              border-radius: 4px;
+              background-color: $gray-3;
+              transition: all .1s ease-in;
+              &:hover {
+                border: 1.5px solid $gray-4;
+              }
+            }
+            input[type="radio"]:checked + label {
+              border: 1.5px solid $blue-5;
+              background-color: $blue-5;
+              color: white;
+              font-weight: 700;
+            }
             .ppl, .category, .diff{
               span {
                 font-size: 16px;
                 font-weight: unset;
               }
+            }
+            .ppl {
+              margin-top: 10px;
             }
           }
          
@@ -93,7 +126,6 @@
             margin-top: 20px;
             width: 260px;
             height: 248px;
-
             .upload {
               width: 100%;
               position: absolute;
@@ -106,7 +138,6 @@
               opacity: 0;
               transition: all .2s ease-in;
             }
-            
             &:hover .upload {
               opacity: 1;
             }
@@ -119,6 +150,12 @@
               overflow: hidden;
               object-fit: contain;
               background-color: $gray-3;
+              transition: all .1s ease-in;
+              &:hover {
+                filter: blur(5px);
+                filter: opacity(40%);
+                cursor: pointer;
+              }
             }
             .originalImg {
               width: 260px;
@@ -130,6 +167,7 @@
               object-fit: contain;
               transition: all .1s ease-in;
               background-color: $gray-3;
+              transition: all .1s ease-in;
               &:hover {
                 filter: blur(5px);
                 filter: opacity(40%);
@@ -142,12 +180,41 @@
               display: none;
               padding: 20px 8px 0 8px;
             }
-            
           }
           .small_image {
-            display: flex;
-            justify-content: space-between;
-          }
+            position: relative;
+            label {
+              justify-content: space-between;
+              display: flex;
+              width: 100%;
+              transition: all .1s ease-in;
+              &:hover {
+                filter: blur(5px);
+                filter: opacity(40%);
+                cursor: pointer;
+              }
+            }
+            .upload {
+              width: 100%;
+              position: absolute;
+              top: 0;
+              left: 0;
+              transform: translate(0px,60px);
+              text-align: center;
+              pointer-events: none;
+              font-size: 22px;
+              opacity: 0;
+              transition: all .2s ease-in;
+              z-index: 1;
+            }
+            &:hover .upload {
+              z-index: 1;
+              opacity: 1;
+            }
+            input {
+              display: none;
+            }
+          }         
           .image2, .image3 {
             display: flex;
             flex-direction: column;
@@ -172,11 +239,6 @@
               object-fit: contain;
               width: 125px;
               transition: all .1s ease-in;
-              &:hover {
-                filter: blur(5px);
-                filter: opacity(40%);
-                cursor: pointer;
-              }
             }
             input {
               width: 250px;
@@ -219,10 +281,10 @@
           order: -1;
         }
       }
+
     }
     
   }
-
 }
 .bg-blue {
   background-color: $blue-1;
