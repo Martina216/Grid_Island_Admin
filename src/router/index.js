@@ -156,6 +156,9 @@ router.beforeEach(async (to) => {
   if (isAuthenticated() && to.name == "permission" && userData.emp_permission !== 'S'){
     return { name: "NotFound" };
   }
+  if (isAuthenticated() && (to.name == "code" || to.name == "member" || to.name == "product" || to.name == "table") && (userData.emp_permission !== 'S' && userData.emp_permission !== 'A')){
+    return { name: "NotFound" };
+  }
 });
 
 export default router;
