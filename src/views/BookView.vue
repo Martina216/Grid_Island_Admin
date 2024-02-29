@@ -47,7 +47,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="(book, id) in displayBookdata"
+            v-for="(book, id) in currentBook"
             class="border-bottom text-center"
           >
             <th class="pb-3 pt-3">{{ book.book_id }}</th>
@@ -75,6 +75,34 @@
         </tbody>
       </table>
     </div>
+    <div class="pageBtnList" v-if="!nodata">
+      <button
+        class="pageBtn pageBtncursor"
+        @click="nextPrevPage('prev')"
+        v-if="currentPage != 1"
+      >
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button
+        class="pageBtn"
+        v-for="page in totalPages"
+        :key="page"
+        @click="currentPage !== page ? changePage(page) : null"
+        :class="{
+          pageBtncursor: currentPage != page,
+          currPageBtn: currentPage == page,
+        }"
+      >
+        {{ page }}
+      </button>
+      <button
+        class="pageBtn pageBtncursor"
+        @click="nextPrevPage('next')"
+        v-if="currentPage != totalPages"
+      >
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
     <div class="nodata" v-if="nodata"><span>查無資料</span></div>
   </div>
 </template>
@@ -87,9 +115,10 @@ export default {
       displayBookdata: [], //複製預訂資料展示用
       searchBar: "", //輸入框
       searchSelect: "bookId", //預設搜尋選擇的是訂單編號
+      currentPage: 1,
+      itemsPerPage: 10,
     };
   },
-  components: {},
   created() {
     this.fetchbooks();
   },
@@ -154,10 +183,40 @@ export default {
           console.log(error);
         });
     },
+    changePage(page) {
+      this.currentPage = page;
+      this.scrollToTop();
+    },
+    nextPrevPage(method) {
+      if (method == "prev") {
+        this.currentPage -= 1;
+      } else {
+        this.currentPage += 1;
+      }
+      this.scrollToTop();
+    },
+    scrollToTop() {
+      const productListContainer = this.$refs.productListContainer;
+      // 確保 productListContainer 不為空
+      if (productListContainer) {
+        // 使用 scrollIntoView 方法將商品列表的頂部滾動到最上面
+        productListContainer.scrollIntoView({
+          behavior: "smooth", // 讓滾動具有平滑效果
+        });
+      }
+    },
   },
   computed: {
     nodata() {
       return this.displayBookdata.length == 0;
+    },
+    totalPages() {
+      return Math.ceil(this.displayBookdata.length / this.itemsPerPage);
+    },
+    currentBook() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.displayBookdata.slice(start, end);
     },
   },
 };

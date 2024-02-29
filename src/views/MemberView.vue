@@ -45,7 +45,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="(item, index) in displaymemdata"
+            v-for="(item, index) in currentMember"
             class="border-bottom text-center"
             :key="index"
           >
@@ -75,6 +75,34 @@
         </tbody>
       </table>
     </div>
+    <div class="pageBtnList" v-if="!nodata">
+      <button
+        class="pageBtn pageBtncursor"
+        @click="nextPrevPage('prev')"
+        v-if="currentPage != 1"
+      >
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button
+        class="pageBtn"
+        v-for="page in totalPages"
+        :key="page"
+        @click="currentPage !== page ? changePage(page) : null"
+        :class="{
+          pageBtncursor: currentPage != page,
+          currPageBtn: currentPage == page,
+        }"
+      >
+        {{ page }}
+      </button>
+      <button
+        class="pageBtn pageBtncursor"
+        @click="nextPrevPage('next')"
+        v-if="currentPage != totalPages"
+      >
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
     <div class="nodata" v-if="nodata"><span>查無資料</span></div>
   </main>
 </template>
@@ -87,6 +115,8 @@ export default {
       displaymemdata: [], //複製會員資料展示用
       searchBar: "", //輸入框
       searchSelect: "memId", //預設搜尋選擇的是會員編號
+      currentPage: 1,
+      itemsPerPage: 10,
     };
   },
   created() {
@@ -162,10 +192,41 @@ export default {
         }
       }
     },
+    changePage(page) {
+      this.currentPage = page;
+      this.scrollToTop();
+    },
+    nextPrevPage(method) {
+      if (method == "prev") {
+        this.currentPage -= 1;
+      } else {
+        this.currentPage += 1;
+      }
+      this.scrollToTop();
+    },
+    scrollToTop() {
+      const productListContainer = this.$refs.productListContainer;
+      // 確保 productListContainer 不為空
+      if (productListContainer) {
+        // 使用 scrollIntoView 方法將商品列表的頂部滾動到最上面
+        productListContainer.scrollIntoView({
+          behavior: "smooth", // 讓滾動具有平滑效果
+        });
+      }
+    },
+
   },
   computed: {
     nodata() {
       return this.displaymemdata.length == 0;
+    },
+    totalPages() {
+      return Math.ceil(this.displaymemdata.length / this.itemsPerPage);
+    },
+    currentMember() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.displaymemdata.slice(start, end);
     },
   },
 };

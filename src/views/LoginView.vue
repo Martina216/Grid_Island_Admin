@@ -58,7 +58,7 @@ export default {
                   this.updateUserData(res.data.empInfo)
                   this.$router.push('/home')
               } else {
-                  alert('登入失敗，請檢查帳號密碼是否正確。')
+                alert('登入失敗，請檢查帳號密碼是否正確。')
                 }
               }
             }).catch(error => {
