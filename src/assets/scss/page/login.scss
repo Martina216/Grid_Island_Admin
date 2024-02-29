@@ -19,6 +19,7 @@
     margin: auto;
     // width: 100%;
     position: relative;
+    padding: 200px 0;
     @include PC() {
       display: none;
     }
@@ -85,3 +86,6 @@
     display: block;
   }
 }
+// .sideNavBar {
+//   display: none;
+// }
