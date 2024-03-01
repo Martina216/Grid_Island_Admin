@@ -3,7 +3,8 @@
 <template>
   <main class="login">
     <div class="warning">
-      <span>想一覽Griddy的機密嗎？使用 1024 * 768 以上之螢幕解析度的瀏覽器！</span>
+      <span>想一覽Griddy的機密嗎？</span>
+      <span>請使用 1024 * 768 以上之螢幕解析度的瀏覽器！</span>
     </div>
     <div class="wrrap">
       <div class="logo">

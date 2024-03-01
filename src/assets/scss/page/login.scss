@@ -1,5 +1,6 @@
 .login {
-  height: 100vh;
+  height: 90vh;
+  overflow-y: hidden;
   background-image: url("@/assets/images/login/cryGriddy.png");
   background-repeat:no-repeat;
   background-size: 220%;
@@ -7,6 +8,8 @@
   background-color: #F7F7F7;
   z-index: -2;
   @include PC() {
+    height: 100vh;
+    overflow-y: unset;
     position: unset;
     background-image: url("@/assets/images/login/bk_login.png");
     padding: 100px 0  0 300px;
@@ -19,7 +22,9 @@
     margin: auto;
     // width: 100%;
     position: relative;
-    padding: 200px 0;
+    padding: 200px 10px;
+    display: flex;
+    flex-direction: column;
     @include PC() {
       display: none;
     }
