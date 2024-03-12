@@ -1,28 +1,37 @@
-# Grid_Island_Admin
+# Grid_Island_Admin 
 
-This template should help get you started developing with Vue 3 in Vite.
+What's for?
+---
+Grid_Island_Admin is a content management system for GridIsland.<br>
+Used for uploading news, products, promotions, and managing orders and bookings. <br><br>
+Grid_Island_Admin has started developing with Vue 3 in Vite, incorporating axios, bootstrap, and pinia. Use Axios to make REST API requests.
 
-## Recommended IDE Setup
+Where's the website?
+---
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Here are the online link:<br>
+- [**GridIsland_Admin**](https://tibamef2e.com/chd104/g5/admin/)  <br>
+user: griddy789, password: griddy123<br> 
+- [**GridIsland**](https://tibamef2e.com/chd104/g5/front/)  <br>
+A board game store website, which is GridIsland_Admin's forestage. <br>
+- [**GridIsland_api_GitHub**](https://github.com/smallguo0925/gridislandPHP)  <br>
+write with PHP <br>
+- [**GridIsland_SA_Document(zh)**](https://drive.google.com/file/d/1CJvmd2ms2eeIKqAhdRknZQGQnFuykj3a/view?usp=sharing)<br>
+System analysis document of GridIsland. <br>
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+## Setup
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Development Server
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+### Production
 
 ```sh
 npm run build
